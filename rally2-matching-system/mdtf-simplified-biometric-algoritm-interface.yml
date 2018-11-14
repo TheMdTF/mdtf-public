@@ -121,8 +121,8 @@ definitions:
 #                                   Parameters                                 #
 ################################################################################
 parameters:
-  Image:
-    name: Image
+  image:
+    name: image
     in: body
     description: |
       Image that will be used for extraction. This object contains a base64 encoded PNG and a BiometricImageType.
@@ -130,8 +130,8 @@ parameters:
     schema:
       $ref: "#/definitions/Image"
 
-  CompareListRequest:
-    name: CompareListRequest
+  compare_list_request:
+    name: compare_list_request
     in: body
     description: A single template object and a list of templates that it will be compared to.
     required: true
@@ -142,7 +142,7 @@ parameters:
 #                                   Paths                                      #
 ################################################################################
 paths:
-  /v1/create_template/:
+  /v1/create-template/:
     post:
       summary: Generates a template from a biometric image.
       description: |
@@ -151,7 +151,7 @@ paths:
         - extraction
       operationId: create_template
       parameters:
-        - $ref: "#/parameters/Image"
+        - $ref: "#/parameters/image"
       responses:
         # Response code
         200:
@@ -165,7 +165,7 @@ paths:
         500:
           description: Internal server error
 
-  /v1/compare_list/:
+  /v1/compare-list/:
     post:
       summary: Compares a template to a list of templates.
       description: |
@@ -175,7 +175,7 @@ paths:
         - comparison
       operationId: compare_list
       parameters:
-        - $ref: "#/parameters/CompareListRequest"
+        - $ref: "#/parameters/compare_list_request"
       responses:
         # Response code
         200:
