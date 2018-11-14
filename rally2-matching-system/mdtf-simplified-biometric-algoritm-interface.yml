@@ -207,24 +207,3 @@ paths:
           description: Status not acceptable
         500:
           description: Internal server error
-          
-  /v1/name/:
-    get:
-      summary: Returns the name of the algorithm.
-      description: |
-        Returns the name of the algorithm.
-      tags:
-        - information
-      operationId: name
-      responses:
-        # Response code
-        200:
-          description: Successful response
-          schema:
-            title: AlgorithmName
-            type: string
-            example: TrueAlgorithm
-        406:
-          description: Status not acceptable
-        500:
-          description: Internal server error
