@@ -1,52 +1,59 @@
 swagger: '2.0'
 
 info:
-  title: The Maryland Test Facility Simplified Biometric Algorithm Interface
-  version: "0.0.1"
-  description: |
-    Documentation for the Maryland Test Facility Simplified Biometric Algorithm Interface
-
-host: api.mdtf.org #URL of the True Algorithm Service in the Services path of Marathon
+  title: The Maryland Test Facility Matching System Interface
+  description: DRAFT Applicaton Programming Interface for receiving matching system requests from the MdTF Backend.
+  version: "1.0.0"
+  contact:
+    name: John Howard
+    url: https://mdtf.org
+    email: john@mdtf.org
+# the domain of the service
+host: api.mdtf.org
+# array of all schemes that your API supports
+schemes:
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
 
 ################################################################################
 #                                   Tags                                       #
 ################################################################################
+
 tags:
-  - name: extraction
+  - name: Extraction
     description: |
       Endpoints related to functionality that extracts a biometric template from a biometric sample.
-  - name: comparison
+  - name: Comparison
     description: |
       Endpoints related to functionality that compares one or more biometric templates
-  - name: information
+  - name: Information
     description: |
       Endpoints related to functionality that provides information on biometric algorithms
       
 ################################################################################
 #                                   Definitions                                #
 ################################################################################
+
 definitions:
 
 ############
 ## REQUESTS
 ############
-  BiometricImageType:
-    type: integer
-    description: Integer that delinates a biometric image type (face, four right, thumb, right index, ect.)
-
   Image:
     type: object
     description: |
-      Object that contains image data and a biometric image type.
+      Object that contains image data.
     properties:
       ImageData:
-        type: array
-        items:
-          type: string
-          format: byte
-        description: Base64 encoded textual representation of a PNG image
-      BiometricImageType:
-        $ref: "#/definitions/BiometricImageType"
+        type: string
+        description: The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+        x-nullable: false
 
   Template:
     type: object
@@ -56,6 +63,7 @@ definitions:
       Template:
         description: A byte array that contains template data.
         type: array
+        x-nullable: false
         items:
           type: string
           format: byte
@@ -68,14 +76,17 @@ definitions:
       AlgorithmName:
         type: string
         description: Name of the algorithm used to create this comparison
+        x-nullable: false
       NormalizedScore:
         type: number
         format: float
         description: Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce
+        x-nullable: false
       Score:
         type: number
         format: float
-        description: Un-normalized, raw score as produced by the algorithm
+        description: Un-normalized similarity score, raw score as produced by the algorithm
+        x-nullable: false
 
   CompareListRequest:
     description: A single template object and a list of templates that it will be compared to.
@@ -83,15 +94,17 @@ definitions:
     properties:
       SingleTemplate:
         $ref: "#/definitions/Template"
+        x-nullable: false
       TemplateList:
         type: array
         items:
           $ref: "#/definitions/Template"
-
+        x-nullable: false
 
 #############
 ## RESPONSES
 #############
+  
   Info:
     type: object
     description: Basic information of the algorithm.
@@ -113,13 +126,17 @@ definitions:
         description: Array of integer indexes of valid biometric types for this algorithm
         items:
           type: integer
+          
 #########
 ## ENUMS
 #########
 
+# None
+
 ################################################################################
 #                                   Parameters                                 #
 ################################################################################
+
 parameters:
   image:
     name: image
@@ -141,6 +158,7 @@ parameters:
 ################################################################################
 #                                   Paths                                      #
 ################################################################################
+
 paths:
   /v1/create-template/:
     post:
@@ -148,7 +166,7 @@ paths:
       description: |
         This endpoint takes a base64 encoded PNG and performs a `feature extraction` operation resulting in a single template being produced
       tags:
-        - extraction
+        - Extraction
       operationId: create_template
       parameters:
         - $ref: "#/parameters/image"
@@ -157,9 +175,7 @@ paths:
         200:
           description: Successful response
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/Template"
+            $ref: "#/definitions/Template"
         406:
           description: Status not acceptable
         500:
@@ -172,7 +188,7 @@ paths:
         This endpoint takes a template and a list of templates.  It compares the single template to every other template in the list.
         The result is a list of Comparison objects that holds a similarity score for each comparison.
       tags:
-        - comparison
+        - Comparison
       operationId: compare_list
       parameters:
         - $ref: "#/parameters/compare_list_request"
@@ -195,7 +211,7 @@ paths:
       description: |
         Returns information about the algorithm. This can include Name, SdkManufacturer, SdkModel, SdkVersion, Version, and ValidTypes.
       tags:
-        - information
+        - Information
       operationId: info
       responses:
         # Response code
