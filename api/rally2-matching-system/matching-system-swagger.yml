@@ -1,9 +1,10 @@
+
 swagger: '2.0'
 
 info:
   title: The Maryland Test Facility Matching System Interface
-  description: DRAFT Applicaton Programming Interface for receiving matching system requests from the MdTF Backend.
-  version: "1.0.0"
+  description: DRAFT Application Programming Interface for receiving matching system requests from the MdTF Backend.
+  version: "1.0.1"
   contact:
     name: John Howard
     url: https://mdtf.org
@@ -25,15 +26,8 @@ produces:
 ################################################################################
 
 tags:
-  - name: Extraction
-    description: |
-      Endpoints related to functionality that extracts a biometric template from a biometric sample.
-  - name: Comparison
-    description: |
-      Endpoints related to functionality that compares one or more biometric templates
-  - name: Information
-    description: |
-      Endpoints related to functionality that provides information on biometric algorithms
+  - name: Biometric Operations
+  - name: Algorithm Information
       
 ################################################################################
 #                                   Definitions                                #
@@ -47,7 +41,7 @@ definitions:
   Image:
     type: object
     description: |
-      Object that contains image data.
+      Data transfer object for an image.
     properties:
       ImageData:
         type: string
@@ -58,34 +52,31 @@ definitions:
   Template:
     type: object
     description: |
-      Object that contains a byte array of template data.
+      Data transfer object for a template.
     properties:
       Template:
-        description: A byte array that contains template data.
-        type: array
+        description: A base64 encoded string that contains template data.
+        type: string
+        format: byte
+        example: dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K
         x-nullable: false
-        items:
-          type: string
-          format: byte
 
   Comparison:
     type: object
     description: |
-      Comparison contains a similarity score for a single templare comparison operation.
+      A similarity score for a single (1:1) template comparison operation.
     properties:
-      AlgorithmName:
-        type: string
-        description: Name of the algorithm used to create this comparison
+      Score:
+        type: number
+        format: float
+        description: An un-normalized similarity score, as produced by the algorithm
+        example: 8734
         x-nullable: false
       NormalizedScore:
         type: number
         format: float
         description: Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce
-        x-nullable: false
-      Score:
-        type: number
-        format: float
-        description: Un-normalized similarity score, raw score as produced by the algorithm
+        example: 0.8734
         x-nullable: false
 
   CompareListRequest:
@@ -94,7 +85,6 @@ definitions:
     properties:
       SingleTemplate:
         $ref: "#/definitions/Template"
-        x-nullable: false
       TemplateList:
         type: array
         items:
@@ -107,32 +97,50 @@ definitions:
   
   Info:
     type: object
-    description: Basic information of the algorithm.
+    description: Basic information describing the algorithm.
     properties:
-      Name:
+      AlgorithmName:
         type: string
         description: Name of algorithm
-      SdkManufacturer:
-        type: string
-        description: Name of the manufacturer of the SDK
-      SdkModel:
-        type: string
-        description: Identifier of the model SDK
-      Version:
+        example: AlwaysTrue
+      AlgorithmVersion:
         type: string
         description: Algorithm version identifier
-      ValidTypes:
-        type: array
-        description: Array of integer indexes of valid biometric types for this algorithm
-        items:
-          type: integer
-          
-#########
-## ENUMS
-#########
+        example: "1.0.1"
+      AlgorithmType:
+        type: string
+        enum: [Face, Finger, Iris]
+        description: A string enum describing the type of biometric images the algorithm is meant to process 
+      CompanyName:
+        type: string
+        description: Name of the Company which produces the algorithm
+        example: MdTF
+      TechnicalContactEmail:
+        type: string
+        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
+        example: john@mdtf.org
+      RecommendedCPUs:
+        type: number
+        format: integer
+        description: The recommended allocation of CPUs for the deployed docker container.
+        example: 4
+      RecommendedMem:
+        type: number
+        format: integer
+        description: The recommended allocation of memory (MB) for the deployed docker container.
+        example: 2048
 
-# None
-
+  RequestError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).
+    example: Unable to decode image data as a PNG.
+    
+  ServerError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
+    example: The internal license has expired.
 ################################################################################
 #                                   Parameters                                 #
 ################################################################################
@@ -142,7 +150,7 @@ parameters:
     name: image
     in: body
     description: |
-      Image that will be used for extraction. This object contains a base64 encoded PNG and a BiometricImageType.
+      The biometric image that is being submitted for feature extraction.
     required: true
     schema:
       $ref: "#/definitions/Image"
@@ -160,66 +168,74 @@ parameters:
 ################################################################################
 
 paths:
-  /v1/create-template/:
+  /v1/create-template:
     post:
-      summary: Generates a template from a biometric image.
+      summary: Generate a template from the provided biometric image
       description: |
-        This endpoint takes a base64 encoded PNG and performs a `feature extraction` operation resulting in a single template being produced
+        This endpoint accepts a base64 encoded PNG and attempts to perform a 'feature extraction' operation producing a single template.
       tags:
-        - Extraction
+        - Biometric Operations
       operationId: create_template
       parameters:
         - $ref: "#/parameters/image"
       responses:
         # Response code
         200:
-          description: Successful response
+          description: Successful Response
           schema:
             $ref: "#/definitions/Template"
-        406:
-          description: Status not acceptable
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/RequestError"
         500:
-          description: Internal server error
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/ServerError"
 
-  /v1/compare-list/:
+  /v1/compare-list:
     post:
-      summary: Compares a template to a list of templates.
+      summary: Compare a single template to a list of templates
       description: |
-        This endpoint takes a template and a list of templates.  It compares the single template to every other template in the list.
-        The result is a list of Comparison objects that holds a similarity score for each comparison.
+        This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br> The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.
       tags:
-        - Comparison
+        - Biometric Operations
       operationId: compare_list
       parameters:
         - $ref: "#/parameters/compare_list_request"
       responses:
         # Response code
         200:
-          description: Successful response
+          description: Successful Response
           schema:
             type: array
+            description: An array of comparison results. This list MUST contain the same number of elements AND be in the same order as the provided list of templates.
             items:
               $ref: "#/definitions/Comparison"
-        406:
-          description: Status not acceptable
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/RequestError"
         500:
-          description: Internal server error
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/ServerError"
 
-  /v1/info/:
+  /v1/info:
     get:
-      summary: Returns basic information of the algorithm.
+      summary: Returns basic information for the algorithm.
       description: |
-        Returns information about the algorithm. This can include Name, SdkManufacturer, SdkModel, SdkVersion, Version, and ValidTypes.
+        This endpoint returns some basic information about the algorithm.
       tags:
-        - Information
+        - Algorithm Information
       operationId: info
       responses:
         # Response code
         200:
-          description: Successful response
+          description: Successful Response
           schema:
             $ref: '#/definitions/Info'
-        406:
-          description: Status not acceptable
         500:
-          description: Internal server error
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/ServerError"
