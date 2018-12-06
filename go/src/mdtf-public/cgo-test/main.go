@@ -8,11 +8,15 @@ package main
 import "C"
 import (
 	"fmt"
+	"unsafe"
 )
 
 func main() {
 
-	r := C.cpp_create_template()
+	image := C.CString("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==")
+	defer C.free(unsafe.Pointer(image))
+
+	r := C.cpp_create_template(image)
 
 	fmt.Printf("A random number from a c library: %d\n", r)
 }

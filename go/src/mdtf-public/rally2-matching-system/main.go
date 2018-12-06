@@ -1,9 +1,17 @@
 package main
 
+// #cgo CFLAGS: -g -Wall
+// #cgo LDFLAGS: -L../../../../lib -lsample_matching_algorithm
+// #include <stdlib.h>
+// #include "../../../../c/sample_matching_algorithm.h"
+import "C"
+
 import (
 	"net/http"
 	"encoding/json"
+	"unsafe"
 	"mdtf-public/rally2-matching-system/models"
+	"fmt"
 )
 
 func createTemplate(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +25,19 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Bad Image Data", http.StatusBadRequest)
 		}
 
-		w.Write([]byte("Creating Template " + img.ImageData + "\n"))
+		image := C.CString(img.ImageData)
+		defer C.free(unsafe.Pointer(image))
+
+		r := C.cpp_create_template(image)
+
+		fmt.Sprintf("int: %d", int(r))
+		fmt.Sprintf("string: " + string(int(r)))
+
+		template := models.Template{
+			Template: []byte(string(int(r))),
+		}
+
+		json.NewEncoder(w).Encode(template)
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
