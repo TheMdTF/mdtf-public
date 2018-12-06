@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-int cpp_extract_template()
+int cpp_create_template()
 {
    srand(time(NULL));
    int r = rand();
