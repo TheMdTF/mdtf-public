@@ -11,7 +11,8 @@ import (
 	"encoding/json"
 	"unsafe"
 	"mdtf-public/rally2-matching-system/models"
-	"fmt"
+	b64 "encoding/base64"
+	"strconv"
 )
 
 func createTemplate(w http.ResponseWriter, r *http.Request) {
@@ -30,11 +31,10 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 
 		r := C.cpp_create_template(image)
 
-		fmt.Sprintf("int: %d", int(r))
-		fmt.Sprintf("string: " + string(int(r)))
+		b := strconv.FormatInt(int64(r), 2)
 
 		template := models.Template{
-			Template: []byte(string(int(r))),
+			Template: b64.StdEncoding.EncodeToString([]byte(b)),
 		}
 
 		json.NewEncoder(w).Encode(template)
