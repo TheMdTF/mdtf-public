@@ -54,8 +54,7 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Bad Comparison Request Data", http.StatusBadRequest)
 		}
 
-		cList := make([]models.Comparison, len(compRequest.TemplateList))
-
+		var cList [] models.Comparison
 		template1 := C.CString(compRequest.SingleTemplate.Template)
 		defer C.free(unsafe.Pointer(template1))
 		for i := 0; i < len(compRequest.TemplateList); i++ {
@@ -63,6 +62,7 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			defer C.free(unsafe.Pointer(template2))
 
 			s := C.cpp_compare_template(template1, template2)
+
 			cList = append(cList, models.Comparison{
 				Score: float32(s),
 				NormalizedScore: float32(s),
@@ -75,13 +75,31 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func info(w http.ResponseWriter, r *http.Request) {
+	switch r.Method{
+	case http.MethodGet:
+		i := models.Info{
+			AlgorithmName: "Example MdTF Matching Algorithm",
+			AlgorithmVersion: "1.0.0",
+			AlgorithmType: "Iris",
+			CompanyName: "MdTF",
+			TechnicalContactEmail: "john@mdtf.org",
+			RecommendedCpus: 4,
+			RecommendedMem: 2048,
+		}
+
+		json.NewEncoder(w).Encode(i)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
 func main() {
 	http.HandleFunc("/v1/create-template", createTemplate)
 	http.HandleFunc("/v1/compare-list", compareList)
+	http.HandleFunc("/v1/info", info)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
 }
-
-
