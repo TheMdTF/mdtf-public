@@ -5,7 +5,6 @@ package models
 // swagger:model Template
 type Template struct {
 
-	// A base64 encoded string that contains template data.
-	// Format: byte
+	// The template data, encoded as a base64 string.  The data string shall not exceed 1 MB.
 	Template string `json:"Template,omitempty"`
 }

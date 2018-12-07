@@ -55,9 +55,8 @@ definitions:
       Data transfer object for a template.
     properties:
       Template:
-        description: A base64 encoded string that contains template data.
+        description: The template data, encoded as a base64 string.  The data string shall not exceed 1 MB.
         type: string
-        format: byte
         example: dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K
         x-nullable: false
 
