@@ -11,32 +11,61 @@ import (
 	"encoding/json"
 	"unsafe"
 	"mdtf-public/rally2-matching-system/models"
-	b64 "encoding/base64"
+	"encoding/base64"
 	"strconv"
+	"github.com/disintegration/imaging"
+	"bytes"
+	"strings"
+	"fmt"
 )
 
 func createTemplate(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method{
 	case http.MethodPost:
-		decoder := json.NewDecoder(r.Body)
-		var img models.Image
-		err := decoder.Decode(&img)
+
+		//parse the json
+		jsonDecoder := json.NewDecoder(r.Body)
+		var imageModel models.Image
+		err := jsonDecoder.Decode(&imageModel)
 		if err != nil {
-			http.Error(w, "Bad Image Data", http.StatusBadRequest)
+			http.Error(w, "Bad Image Model: " + err.Error(), http.StatusBadRequest)
+			return
 		}
 
-		image := C.CString(img.ImageData)
-		defer C.free(unsafe.Pointer(image))
+		//decode the image string
+		imageByteData, err := base64.StdEncoding.DecodeString(imageModel.ImageData)
+		if err != nil {
+			http.Error(w, "Bad Base 64 Encoding: " + err.Error(), http.StatusBadRequest)
+			return
+		}
 
-		r := C.cpp_create_template(image)
+		//check for valid image data
+		reader := bytes.NewReader(imageByteData)
+		_, err = imaging.Decode(reader)
+		if err != nil {
+			http.Error(w, "Bad Image Data: " + err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		//check that the valid image is a png
+		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n"){
+			http.Error(w, "Image Data not a PNG", http.StatusBadRequest)
+			return
+		}
+
+		//pass image to C library
+		imageCData := C.CString(imageModel.ImageData)
+		defer C.free(unsafe.Pointer(imageCData))
+
+		r := C.cpp_create_template(imageCData)
 
 		b := strconv.FormatInt(int64(r), 2)
-
 		template := models.Template{
-			Template: b64.StdEncoding.EncodeToString([]byte(b)),
+			Template: base64.StdEncoding.EncodeToString([]byte(b)),
 		}
 
+		//return response
 		json.NewEncoder(w).Encode(template)
 
 	default:
@@ -47,13 +76,17 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 func compareList(w http.ResponseWriter, r *http.Request) {
 	switch r.Method{
 	case http.MethodPost:
+
+		//parse the json
 		decoder := json.NewDecoder(r.Body)
 		var compRequest models.CompareListRequest
 		err := decoder.Decode(&compRequest)
 		if err != nil {
 			http.Error(w, "Bad Comparison Request Data", http.StatusBadRequest)
+			return
 		}
 
+		//pass each comparison to the C library
 		var cList [] models.Comparison
 		template1 := C.CString(compRequest.SingleTemplate.Template)
 		defer C.free(unsafe.Pointer(template1))
@@ -69,7 +102,9 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			})
 		}
 
+		//return response
 		json.NewEncoder(w).Encode(cList)
+
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
@@ -89,6 +124,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 		}
 
 		json.NewEncoder(w).Encode(i)
+
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}

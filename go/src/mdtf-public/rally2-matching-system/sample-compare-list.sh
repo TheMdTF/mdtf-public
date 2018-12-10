@@ -1,5 +1,16 @@
 #!/bin/bash
 
+host=$1
+port=$2
+
+if [ -z $host ]; then
+  host=localhost
+fi
+
+if [ -z $port ]; then
+  port=8080
+fi
+
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{
@@ -24,4 +35,4 @@ curl --header "Content-Type: application/json" \
     }
   ]
   }' \
-  http://localhost:8080/v1/compare-list
+  http://$host:$port/v1/compare-list
