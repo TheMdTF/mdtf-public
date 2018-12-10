@@ -7,5 +7,5 @@ if [ -z $company ]; then
 fi
 
 cd ../
-docker build -t $company-rally2-matching-system .
+docker build -t $company-rally2-matching-system -f docker/Dockerfile .
 cd docker

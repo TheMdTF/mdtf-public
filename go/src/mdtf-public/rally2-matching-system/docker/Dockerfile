@@ -1,6 +1,7 @@
-FROM scratch
+FROM ubuntu:16.04
 
 ADD rally2-matching-system /
+
 ENTRYPOINT ["/rally2-matching-system"]
 
 EXPOSE 8080
