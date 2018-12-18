@@ -1,7 +1,4 @@
 run:
-	#fetch dependencies
-	go get
-
 	#build the C library
 	make -C ./c
 
