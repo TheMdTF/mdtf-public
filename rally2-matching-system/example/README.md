@@ -12,8 +12,7 @@ The script `./docker/save-docker-image.sh` is an example which outputs the docke
 
 ##Manually Building and Running
 To run the sample application using Go:
- * Set your `GOPATH` to `<mdtf-public>/examples/matching/go`
+ * go get `github.com/mdtf-public/rally2-matching-system/example`
  * Install the [Go Disintegration Imaging](https://godoc.org/github.com/disintegration/imaging) package via `go get github.com/disintegration/imaging`
- * Build the underlying C implementation of the sample algorithm service in `<mdtf-public>/examples/matching/c` with a simple `make` command
-
-The application can then be run via `go run main.go` or compiled via `go build -o ./rally2-matching-system`.
+ * build the underlying c library and run the app with `make`
+ 
