@@ -6,8 +6,8 @@ ADD . /build/
 WORKDIR /build
 
 #move the models onto the GOPATH
-RUN mkdir -p $GOPATH/src/mdtf-public/rally2-matching-system
-RUN mv models $GOPATH/src/mdtf-public/rally2-matching-system/
+RUN mkdir -p $GOPATH/src/github.com/mdtf-public/rally2-matching-system/example
+RUN mv models $GOPATH/src/github.com/mdtf-public/rally2-matching-system/example
 
 #build the c implementation
 RUN make -C /build/c

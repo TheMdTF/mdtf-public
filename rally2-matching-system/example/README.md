@@ -12,7 +12,6 @@ The script `./docker/save-docker-image.sh` is an example which outputs the docke
 
 ##Manually Building and Running
 To run the sample application using Go:
- * go get `github.com/mdtf-public/rally2-matching-system/example`
- * Install the [Go Disintegration Imaging](https://godoc.org/github.com/disintegration/imaging) package via `go get github.com/disintegration/imaging`
- * build the underlying c library and run the app with `make`
+ * `go get github.com/mdtf-public/rally2-matching-system/example`
+ * from the package directory on your GOPATH: `make run`
  
