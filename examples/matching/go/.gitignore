@@ -1,0 +1,6 @@
+#ignore everything
+/*
+/*/
+
+#except mdtf-public
+!src/mdtf-public
