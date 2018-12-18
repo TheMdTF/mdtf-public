@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"unsafe"
-	"mdtf-public/rally2-matching-system/models"
+	"github.com/mdtf-public/rally2-matching-system/example/models"
 	"encoding/base64"
 	"strconv"
 	"github.com/disintegration/imaging"
