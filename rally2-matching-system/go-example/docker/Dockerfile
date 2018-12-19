@@ -28,8 +28,8 @@ RUN go get github.com/golang/dep/cmd/dep
 RUN dep ensure -vendor-only
 
 #move the models onto the GOPATH
-RUN mkdir -p $GOPATH/src/github.com/mdtf-public/rally2-matching-system/go-example
-RUN mv models $GOPATH/src/github.com/mdtf-public/rally2-matching-system/go-example
+RUN mkdir -p $GOPATH/src/github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example
+RUN mv models $GOPATH/src/github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example
 
 #build the go wrapper
 RUN GOOS=linux GOARCH=amd64 go build -o ./rally2-matching-system .
