@@ -1,16 +1,16 @@
 package main
 
 // #cgo CFLAGS: -g -Wall
-// #cgo LDFLAGS: -L../../../../lib -lsample_matching_algorithm
+// #cgo LDFLAGS: -L./lib -lsample_matching_algorithm
 // #include <stdlib.h>
-// #include "../../../../c/sample_matching_algorithm.h"
+// #include "./c/sample_matching_algorithm.h"
 import "C"
 
 import (
 	"net/http"
 	"encoding/json"
 	"unsafe"
-	"mdtf-public/rally2-matching-system/models"
+	"github.com/mdtf-public/rally2-matching-system/go-example/models"
 	"encoding/base64"
 	"strconv"
 	"github.com/disintegration/imaging"
