@@ -25,6 +25,6 @@ The script `./docker/save-docker-image.sh` is an example which outputs the docke
 To run the sample application using Go:
  * `go get -d github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`	
  * `go get github.com/golang/dep/cmd/dep`
- * from the package directory on your GOPATH
-   * dep ensure -vendor-only
+ * from `$GOPATH/src/github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`:
+   * `dep ensure -vendor-only`
    * `make run`
