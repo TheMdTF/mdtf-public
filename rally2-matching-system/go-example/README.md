@@ -23,7 +23,7 @@ The script `./docker/save-docker-image.sh` is an example which outputs the docke
  * gcc, cmake
  
 To run the sample application using Go:
- * `go get github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`	
+ * `go get -d github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`	
  * `go get github.com/golang/dep/cmd/dep`
  * from the package directory on your GOPATH
    * dep ensure -vendor-only
