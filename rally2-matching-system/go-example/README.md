@@ -17,7 +17,7 @@ To run the sample application via docker:
 After the steps above, the server should be accessible at `localhost:8080`. The test scripts in `./tests` should send requests to this address and output the results to the command line.
 The script `./docker/save-docker-image.sh` is an example which outputs the docker image in the format we will expect for delivery to the MdTF.
 
-## Manually Building and Running
+## Manually Building and Running With C/Go
 *PREREQUISITES*:
  * A linux [Golang development environment](https://golang.org/doc/install)
  * gcc, cmake
