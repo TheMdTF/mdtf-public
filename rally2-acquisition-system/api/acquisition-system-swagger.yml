@@ -177,7 +177,7 @@ paths:
     post:
       summary: Associate a face image capture with the ongoing transaction
       description: |
-        Rally Participants will submit face image data through this endpoint. Submitted image captures will be
+        Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
@@ -212,7 +212,7 @@ paths:
     post:
       summary: Associate an iris image capture (or pair of image captures) with the ongoing transaction
       description: |
-        Rally Participants may submit iris image data through this endpoint. Submitted image captures will be
+        Acquisition System Providers may submit iris image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
@@ -247,7 +247,7 @@ paths:
     post:
       summary: Associate up to 10 finger captures with the ongoing transaction
       description: |
-        Rally Participants may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
+        Acquisition System Providers may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
       responses:
