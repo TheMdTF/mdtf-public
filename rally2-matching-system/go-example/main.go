@@ -1,3 +1,5 @@
+// Copyright 2019 The Maryland Test Facility
+
 package main
 
 // #cgo CFLAGS: -g -Wall
