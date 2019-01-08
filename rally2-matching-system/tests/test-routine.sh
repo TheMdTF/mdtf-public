@@ -71,7 +71,7 @@ JSON
 
   scores=( $(echo $tmp | jq -r '.[].Score') )
   nscores=( $(echo $tmp | jq -r '.[].NormalizedScore') )
-  echo "\t Compare list generated" ${#scores[@]} "scores"
+  echo -e "\t Compare list generated" ${#scores[@]} "scores"
   c2=0
   for i in ${scores[@]}; do
     echo -e ${images[c1]}"\t"${images[c2]}"\t"${nscores[c2]}"\t"$i >> scores.dat
