@@ -88,10 +88,12 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 
 		//pass each comparison to the C library
 		var cList [] models.Comparison
-		template1 := C.CString(compRequest.SingleTemplate.Template)
+		decoded1, _ := base64.StdEncoding.DecodeString(compRequest.SingleTemplate.Template)
+		template1 := C.CString(string(decoded1))
 		defer C.free(unsafe.Pointer(template1))
 		for i := 0; i < len(compRequest.TemplateList); i++ {
-			template2 := C.CString(compRequest.TemplateList[i].Template)
+			decoded2, _ := base64.StdEncoding.DecodeString(compRequest.TemplateList[i].Template)
+			template2 := C.CString(string(decoded2))
 			defer C.free(unsafe.Pointer(template2))
 
 			s := C.cpp_compare_template(template1, template2)
