@@ -10,7 +10,7 @@ info:
     email: andrew@mdtf.org   
 # the license of the swagger documentation
 license:
-  name: Copyright (c) 2019 The Maryland Test Facility
+  name: Copyright (c) 2018 The Maryland Test Facility
 # the domain of the service
 host: api.mdtf.org
 # array of all schemes that your API supports

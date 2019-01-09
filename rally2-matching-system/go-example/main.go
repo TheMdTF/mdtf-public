@@ -1,4 +1,4 @@
-// Copyright 2019 The Maryland Test Facility
+// Copyright 2018 The Maryland Test Facility
 
 package main
 
