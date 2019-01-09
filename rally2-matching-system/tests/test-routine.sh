@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo -e "\nRally Matching System Test Routine Started...\n"
+
+# Set the service address and port, if passed
+
 host=$1
 port=$2
 
@@ -11,12 +15,17 @@ if [ -z $port ]; then
   port=8080
 fi
 
+# Get a list of images
+
 cd test-routine-images
 sh ./list-test-routine-images.sh test-routine-images.dat
 cd ..
 
+# Create templates
+
 images=() 
 templates=()
+start=$(date +%s%N | cut -b1-13)
 while read p; do
   images+=($p)
   echo "Creating Template for"$p
@@ -33,8 +42,14 @@ JSON
   echo $template | jq '.Template' >> templates.dat
   templates+=( $(echo $template | jq '.Template') )
 done < ./test-routine-images/test-routine-images.dat
+end=$(date +%s%N | cut -b1-13)
 
-echo "Created" ${#templates[@]} "templates from" ${#images[@]} "images"
+n=${#templates[@]}
+echo "Created" $n "templates from" ${#images[@]} "images"
+avgr=$(bc <<< "scale = 10; ($end-$start) / $n")
+echo -e "Average extraction time" $avgr "ms per extraction\n"
+
+# Create a compare list
 
 templateList="\"TemplateList\": ["
 c=0
@@ -47,12 +62,16 @@ for i in "${templates[@]}"; do
 done
 templateList="$templateList ] }"
 
+# Output the header of a scores file
+
 if [ -f "scores.dat" ] ; then
     rm "scores.dat"
 fi
-
 echo -e "image1\timage2\tnormalized_score\tscore" >> scores.dat
 
+# Execute template comparisons and save the scores
+
+start=$(date +%s%N | cut -b1-13)
 c1=0
 for i in "${templates[@]}"; do
   tmp=$(curl --header "Content-Type: application/json" \
@@ -71,7 +90,7 @@ JSON
 
   scores=( $(echo $tmp | jq -r '.[].Score') )
   nscores=( $(echo $tmp | jq -r '.[].NormalizedScore') )
-  echo -e "\t Compare list generated" ${#scores[@]} "scores"
+  echo "Compare list generated" ${#scores[@]} "scores"
   c2=0
   for i in ${scores[@]}; do
     echo -e ${images[c1]}"\t"${images[c2]}"\t"${nscores[c2]}"\t"$i >> scores.dat
@@ -79,5 +98,10 @@ JSON
   done
   c1=$((c1+1))
 done
+end=$(date +%s%N | cut -b1-13)
 
-echo "Rally Matching System Test Routine Complete"
+echo "Performed" $((c1*c2)) "comparisons"
+avgr=$(bc <<< "scale = 10; ($end-$start) / ($c1*$c2)")
+echo "Average comparison time" $avgr "ms per comparison"
+
+echo -e "\n... Rally Matching System Test Routine Complete\n"
