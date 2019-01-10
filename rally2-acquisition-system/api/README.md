@@ -119,7 +119,7 @@
 <div class="sect4">
 <h5 id="_description">Description</h5>
 <div class="paragraph">
-<p>Rally Participants will submit face image data through this endpoint. Submitted image captures will be
+<p>Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be
 stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.</p>
 </div>
 </div>
@@ -211,7 +211,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>Rally Participants may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.</p>
+<p>Acquisition System Providers may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.</p>
 </div>
 </div>
 <div class="sect4">
@@ -302,7 +302,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <div class="sect4">
 <h5 id="_description_3">Description</h5>
 <div class="paragraph">
-<p>Rally Participants may submit iris image data through this endpoint. Submitted image captures will be
+<p>Acquisition System Providers may submit iris image data through this endpoint. Submitted image captures will be
 stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.</p>
 </div>
 </div>
@@ -578,7 +578,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-11-15 16:28:55 -05:00
+Last updated 2019-01-07 13:38:30 -05:00
 </div>
 </div>
 </body>

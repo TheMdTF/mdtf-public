@@ -5,6 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
+<title>The Maryland Test Facility Matching System Interface</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 </head>
@@ -26,9 +27,8 @@
 </li>
 <li><a href="#_paths">Resources</a>
 <ul class="sectlevel2">
-<li><a href="#_comparison_resource">Comparison</a></li>
-<li><a href="#_extraction_resource">Extraction</a></li>
-<li><a href="#_information_resource">Information</a></li>
+<li><a href="#_algorithm_information_resource">Algorithm Information</a></li>
+<li><a href="#_biometric_operations_resource">Biometric Operations</a></li>
 </ul>
 </li>
 <li><a href="#_definitions">Definitions</a>
@@ -37,6 +37,8 @@
 <li><a href="#_comparison">Comparison</a></li>
 <li><a href="#_image">Image</a></li>
 <li><a href="#_info">Info</a></li>
+<li><a href="#_requesterror">RequestError</a></li>
+<li><a href="#_servererror">ServerError</a></li>
 <li><a href="#_template">Template</a></li>
 </ul>
 </li>
@@ -48,12 +50,12 @@
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DRAFT Applicaton Programming Interface for receiving matching system requests from the MdTF Backend.</p>
+<p>DRAFT Application Programming Interface for receiving matching system requests from the MdTF Backend.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
 <div class="paragraph">
-<p><em>Version</em> : 1.0.0</p>
+<p><em>Version</em> : 1.0.1</p>
 </div>
 </div>
 <div class="sect2">
@@ -75,13 +77,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Comparison : Endpoints related to functionality that compares one or more biometric templates</p>
+<p>Algorithm Information</p>
 </li>
 <li>
-<p>Extraction : Endpoints related to functionality that extracts a biometric template from a biometric sample.</p>
-</li>
-<li>
-<p>Information : Endpoints related to functionality that provides information on biometric algorithms</p>
+<p>Biometric Operations</p>
 </li>
 </ul>
 </div>
@@ -112,22 +111,75 @@
 <h2 id="_paths">Resources</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_comparison_resource">Comparison</h3>
-<div class="paragraph">
-<p>Endpoints related to functionality that compares one or more biometric templates</p>
-</div>
+<h3 id="_algorithm_information_resource">Algorithm Information</h3>
 <div class="sect3">
-<h4 id="_compare_list">Compares a template to a list of templates.</h4>
+<h4 id="_info">Returns basic information for the algorithm.</h4>
 <div class="literalblock">
 <div class="content">
-<pre>POST /v1/compare-list/</pre>
+<pre>GET /v1/info</pre>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_description">Description</h5>
 <div class="paragraph">
-<p>This endpoint takes a template and a list of templates. It compares the single template to every other template in the list.
-The result is a list of Comparison objects that holds a similarity score for each comparison.</p>
+<p>This endpoint returns some basic information about the algorithm.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_responses">Responses</h5>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 70%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">HTTP Code</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful Response</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_info">Info</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>500</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal Server Error</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_servererror">ServerError</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_example_http_response">Example HTTP response</h5>
+<div class="sect5">
+<h6 id="_response_500">Response 500</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"\"The internal license has expired.\""</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_biometric_operations_resource">Biometric Operations</h3>
+<div class="sect3">
+<h4 id="_compare_list">Compare a single template to a list of templates</h4>
+<div class="literalblock">
+<div class="content">
+<pre>POST /v1/compare-list</pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_description_2">Description</h5>
+<div class="paragraph">
+<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. &lt;br&gt;&lt;br&gt; The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
 </div>
 </div>
 <div class="sect4">
@@ -159,7 +211,7 @@ The result is a list of Comparison objects that holds a similarity score for eac
 </table>
 </div>
 <div class="sect4">
-<h5 id="_responses">Responses</h5>
+<h5 id="_responses_2">Responses</h5>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 10%;">
@@ -176,40 +228,53 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful response</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful Response</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_comparison">Comparison</a> &gt; array</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>406</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Status not acceptable</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_requesterror">RequestError</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>500</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal Server Error</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_servererror">ServerError</a></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="sect4">
+<h5 id="_example_http_response_2">Example HTTP response</h5>
+<div class="sect5">
+<h6 id="_response_400">Response 400</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"\"Unable to decode image data as a PNG.\""</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_extraction_resource">Extraction</h3>
-<div class="paragraph">
-<p>Endpoints related to functionality that extracts a biometric template from a biometric sample.</p>
+</div>
+<div class="sect5">
+<h6 id="_response_500_2">Response 500</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"\"The internal license has expired.\""</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_create_template">Generates a template from a biometric image.</h4>
+<h4 id="_create_template">Generate a template from the provided biometric image</h4>
 <div class="literalblock">
 <div class="content">
-<pre>POST /v1/create-template/</pre>
+<pre>POST /v1/create-template</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_description_2">Description</h5>
+<h5 id="_description_3">Description</h5>
 <div class="paragraph">
-<p>This endpoint takes a base64 encoded PNG and performs a <code>feature extraction</code> operation resulting in a single template being produced</p>
+<p>This endpoint accepts a base64 encoded PNG and attempts to perform a 'feature extraction' operation producing a single template.</p>
 </div>
 </div>
 <div class="sect4">
@@ -234,65 +299,11 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>image</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Image that will be used for extraction. This object contains a base64 encoded PNG and a BiometricImageType.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The biometric image that is being submitted for feature extraction.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_image">Image</a></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="sect4">
-<h5 id="_responses_2">Responses</h5>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">HTTP Code</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful response</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_template">Template</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>406</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Status not acceptable</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>500</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_information_resource">Information</h3>
-<div class="paragraph">
-<p>Endpoints related to functionality that provides information on biometric algorithms</p>
-</div>
-<div class="sect3">
-<h4 id="_info">Returns basic information of the algorithm.</h4>
-<div class="literalblock">
-<div class="content">
-<pre>GET /v1/info/</pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_description_3">Description</h5>
-<div class="paragraph">
-<p>Returns information about the algorithm. This can include Name, SdkManufacturer, SdkModel, SdkVersion, Version, and ValidTypes.</p>
-</div>
 </div>
 <div class="sect4">
 <h5 id="_responses_3">Responses</h5>
@@ -312,21 +323,40 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful response</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_info">Info</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Successful Response</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_template">Template</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>406</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Status not acceptable</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Bad Request</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_requesterror">RequestError</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>500</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal server error</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">No Content</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Internal Server Error</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_servererror">ServerError</a></p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect4">
+<h5 id="_example_http_response_3">Example HTTP response</h5>
+<div class="sect5">
+<h6 id="_response_400_2">Response 400</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"\"Unable to decode image data as a PNG.\""</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_response_500_3">Response 500</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">"\"The internal license has expired.\""</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -368,7 +398,7 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <div class="sect2">
 <h3 id="_comparison">Comparison</h3>
 <div class="paragraph">
-<p>Comparison contains a similarity score for a single templare comparison operation.</p>
+<p>A similarity score for a single (1:1) template comparison operation.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -385,21 +415,17 @@ The result is a list of Comparison objects that holds a similarity score for eac
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmName</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the algorithm used to create this comparison</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>NormalizedScore</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce<br>
+<strong>Example</strong> : <code>0.8734</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Un-normalized similarity score, raw score as produced by the algorithm</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An un-normalized similarity score, as produced by the algorithm<br>
+<strong>Example</strong> : <code>8734.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
 </tr>
 </tbody>
@@ -408,7 +434,7 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <div class="sect2">
 <h3 id="_image">Image</h3>
 <div class="paragraph">
-<p>Object that contains image data.</p>
+<p>Data transfer object for an image.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -437,7 +463,7 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <div class="sect2">
 <h3 id="_info">Info</h3>
 <div class="paragraph">
-<p>Basic information of the algorithm.</p>
+<p>Basic information describing the algorithm.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -454,42 +480,78 @@ The result is a list of Comparison objects that holds a similarity score for eac
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Name</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmName</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of algorithm</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of algorithm<br>
+<strong>Example</strong> : <code>"AlwaysTrue"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>SdkManufacturer</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the manufacturer of the SDK</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmVersion</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Algorithm version identifier<br>
+<strong>Example</strong> : <code>"1.0.1"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>SdkModel</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Identifier of the model SDK</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the Company which produces the algorithm<br>
+<strong>Example</strong> : <code>"MdTF"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ValidTypes</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of integer indexes of valid biometric types for this algorithm</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; integer &gt; array</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of CPUs for the deployed docker container.<br>
+<strong>Example</strong> : <code>4.0</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Version</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedMem</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Algorithm version identifier</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of memory (MB) for the deployed docker container.<br>
+<strong>Example</strong> : <code>2048.0</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
+<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
+<h3 id="_requesterror">RequestError</h3>
+<div class="paragraph">
+<p>Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).</p>
+</div>
+<div class="paragraph">
+<p><em>Type</em> : string</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_servererror">ServerError</h3>
+<div class="paragraph">
+<p>Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).</p>
+</div>
+<div class="paragraph">
+<p><em>Type</em> : string</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_template">Template</h3>
 <div class="paragraph">
-<p>Object that contains a byte array of template data.</p>
+<p>Data transfer object for a template.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -508,8 +570,9 @@ The result is a list of Comparison objects that holds a similarity score for eac
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Template</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A byte array that contains template data.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string (byte) &gt; array</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The template data, encoded as a base64 string. The data string shall not exceed 1 MB.<br>
+<strong>Example</strong> : <code>"dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K"</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
@@ -519,7 +582,7 @@ The result is a list of Comparison objects that holds a similarity score for eac
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-11-19 16:14:39 -05:00
+Last updated 2019-01-07 13:36:06 -05:00
 </div>
 </div>
 </body>
