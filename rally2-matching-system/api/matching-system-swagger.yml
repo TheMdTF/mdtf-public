@@ -9,6 +9,9 @@ info:
     name: John Howard
     url: https://mdtf.org
     email: john@mdtf.org
+# the license of the swagger documentation
+license:
+  name: Copyright (c) 2018The Maryland Test Facility
 # the domain of the service
 host: api.mdtf.org
 # array of all schemes that your API supports
