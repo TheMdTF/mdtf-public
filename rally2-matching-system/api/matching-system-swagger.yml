@@ -31,7 +31,7 @@ produces:
 tags:
   - name: Biometric Operations
   - name: Algorithm Information
-      
+
 ################################################################################
 #                                   Definitions                                #
 ################################################################################
@@ -96,7 +96,7 @@ definitions:
 #############
 ## RESPONSES
 #############
-  
+
   Info:
     type: object
     description: Basic information describing the algorithm.
@@ -112,7 +112,7 @@ definitions:
       AlgorithmType:
         type: string
         enum: [Face, Finger, Iris]
-        description: A string enum describing the type of biometric images the algorithm is meant to process 
+        description: A string enum describing the type of biometric images the algorithm is meant to process
       CompanyName:
         type: string
         description: Name of the Company which produces the algorithm
@@ -137,7 +137,7 @@ definitions:
     description: |
       Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).
     example: Unable to decode image data as a PNG.
-    
+
   ServerError:
     type: string
     description: |
@@ -192,7 +192,7 @@ paths:
             $ref: "#/definitions/RequestError"
         500:
           description: Internal Server Error
-          schema: 
+          schema:
             $ref: "#/definitions/ServerError"
 
   /v1/compare-list:
@@ -220,7 +220,7 @@ paths:
             $ref: "#/definitions/RequestError"
         500:
           description: Internal Server Error
-          schema: 
+          schema:
             $ref: "#/definitions/ServerError"
 
   /v1/info:
@@ -239,5 +239,5 @@ paths:
             $ref: '#/definitions/Info'
         500:
           description: Internal Server Error
-          schema: 
+          schema:
             $ref: "#/definitions/ServerError"

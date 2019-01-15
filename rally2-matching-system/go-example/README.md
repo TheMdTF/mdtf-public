@@ -8,8 +8,8 @@ It is not required that matching system providers implement the matching system 
 ## Running and Testing via Docker
 *PREREQUISITES*:
  * A clone of the git repository
- * An installation of [docker](https://docs.docker.com/install/#supported-platforms) 
- 
+ * An installation of [docker](https://docs.docker.com/install/#supported-platforms)
+
 To run the sample application via docker:
  * package the image using `./docker/make-docker-image.sh`
  * run the image using `./docker/run-docker-image.sh`
@@ -21,9 +21,9 @@ The script `./docker/save-docker-image.sh` is an example which outputs the docke
 *PREREQUISITES*:
  * A linux [Golang development environment](https://golang.org/doc/install)
  * gcc, cmake
- 
+
 To run the sample application using Go:
- * `go get -d github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`	
+ * `go get -d github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`
  * `go get github.com/golang/dep/cmd/dep`
  * from `$GOPATH/src/github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example`:
    * `dep ensure -vendor-only`
