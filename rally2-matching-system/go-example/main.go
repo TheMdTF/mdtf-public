@@ -9,21 +9,21 @@ package main
 import "C"
 
 import (
-	"net/http"
-	"encoding/json"
-	"unsafe"
-	"github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example/models"
-	"encoding/base64"
-	"strconv"
-	"github.com/disintegration/imaging"
 	"bytes"
-	"strings"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
+	"github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example/models"
+	"github.com/disintegration/imaging"
+	"net/http"
+	"strconv"
+	"strings"
+	"unsafe"
 )
 
 func createTemplate(w http.ResponseWriter, r *http.Request) {
 
-	switch r.Method{
+	switch r.Method {
 	case http.MethodPost:
 
 		//parse the json
@@ -31,14 +31,14 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 		var imageModel models.Image
 		err := jsonDecoder.Decode(&imageModel)
 		if err != nil {
-			http.Error(w, "Bad Image Model: " + err.Error(), http.StatusBadRequest)
+			http.Error(w, "Bad Image Model: "+err.Error(), http.StatusBadRequest)
 			return
 		}
 
 		//decode the image string
 		imageByteData, err := base64.StdEncoding.DecodeString(imageModel.ImageData)
 		if err != nil {
-			http.Error(w, "Bad Base 64 Encoding: " + err.Error(), http.StatusBadRequest)
+			http.Error(w, "Bad Base 64 Encoding: "+err.Error(), http.StatusBadRequest)
 			return
 		}
 
@@ -46,12 +46,12 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 		reader := bytes.NewReader(imageByteData)
 		_, err = imaging.Decode(reader)
 		if err != nil {
-			http.Error(w, "Bad Image Data: " + err.Error(), http.StatusBadRequest)
+			http.Error(w, "Bad Image Data: "+err.Error(), http.StatusBadRequest)
 			return
 		}
 
 		//check that the valid image is a png
-		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n"){
+		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n") {
 			http.Error(w, "Image Data not a PNG", http.StatusBadRequest)
 			return
 		}
@@ -76,7 +76,7 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 }
 
 func compareList(w http.ResponseWriter, r *http.Request) {
-	switch r.Method{
+	switch r.Method {
 	case http.MethodPost:
 
 		//parse the json
@@ -89,7 +89,7 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 		}
 
 		//pass each comparison to the C library
-		var cList [] models.Comparison
+		var cList []models.Comparison
 		decoded1, _ := base64.StdEncoding.DecodeString(compRequest.SingleTemplate.Template)
 		template1 := C.CString(string(decoded1))
 		defer C.free(unsafe.Pointer(template1))
@@ -101,7 +101,7 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			s := C.cpp_compare_template(template1, template2)
 
 			cList = append(cList, models.Comparison{
-				Score: float32(s),
+				Score:           float32(s),
 				NormalizedScore: float32(s),
 			})
 		}
@@ -115,16 +115,16 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 }
 
 func info(w http.ResponseWriter, r *http.Request) {
-	switch r.Method{
+	switch r.Method {
 	case http.MethodGet:
 		i := models.Info{
-			AlgorithmName: "Example MdTF Matching Algorithm",
-			AlgorithmVersion: "1.0.0",
-			AlgorithmType: "Iris",
-			CompanyName: "MdTF",
+			AlgorithmName:         "Example MdTF Matching Algorithm",
+			AlgorithmVersion:      "1.0.0",
+			AlgorithmType:         "Iris",
+			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
-			RecommendedCpus: 4,
-			RecommendedMem: 2048,
+			RecommendedCpus:       4,
+			RecommendedMem:        2048,
 		}
 
 		json.NewEncoder(w).Encode(i)
