@@ -3,14 +3,14 @@ swagger: '2.0'
 info:
   title: The Maryland Test Facility Acquisition System Interface
   description: DRAFT Application Programming Interface for sending acquisition records to the MdTF Backend.
-  version: "1.1.0"
+  version: "1.1.1"
   contact:
     name: Andrew Blanchard
     url: https://mdtf.org
-    email: andrew@mdtf.org   
-# the license of the swagger documentation
-license:
-  name: Copyright (c) 2018 The Maryland Test Facility
+    email: andrew@mdtf.org
+  # the license of the swagger documentation
+  license:
+    name: Copyright (c) 2018, The Maryland Test Facility
 # the domain of the service
 host: api.mdtf.org
 # array of all schemes that your API supports

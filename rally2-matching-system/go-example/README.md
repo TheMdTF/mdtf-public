@@ -11,11 +11,11 @@ It is not required that matching system providers implement the matching system 
  * An installation of [docker](https://docs.docker.com/install/#supported-platforms)
 
 To run the sample application via docker:
- * package the image using `./docker/make-docker-image.sh`
- * run the image using `./docker/run-docker-image.sh`
+ * cd `./docker`
+ * package the image using `./make-docker-image.sh`
+ * run the image using `./run-docker-image.sh`
 
-After the steps above, the server should be accessible at `localhost:8080`. The test scripts in `./tests` should send requests to this address and output the results to the command line.
-The script `./docker/save-docker-image.sh` is an example which outputs the docker image in the format we will expect for delivery to the MdTF.
+After the steps above, the server should be accessible at `localhost:8080`. The test scripts in `../tests` should send requests to this address and output the results to the command line.  The script `./docker/save-docker-image.sh` will output the docker image in the format we expect for delivery to the MdTF.  Please utilize the scripts' `[COMPANY_NAME]` command line parameter when preparing for delivery.
 
 ## Manually Building and Running With C/Go
 *PREREQUISITES*:
