@@ -1,14 +1,14 @@
 #!/bin/bash
 
-host=$1
-port=$2
+HOST=$1
+PORT=$2
 
-if [ -z $host ]; then
-  host=localhost
+if [ -z $HOST ]; then
+  HOST=localhost
 fi
 
-if [ -z $port ]; then
-  port=8080
+if [ -z $PORT ]; then
+  PORT=8080
 fi
 
 curl --header "Content-Type: application/json" \
@@ -16,4 +16,4 @@ curl --header "Content-Type: application/json" \
   --data '{
   "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
   }' \
-  http://$host:$port/v1/create-template
+  http://${HOST}:${PORT}/v1/create-template

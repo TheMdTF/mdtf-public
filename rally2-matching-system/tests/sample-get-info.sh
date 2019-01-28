@@ -1,16 +1,16 @@
 #!/bin/bash
 
-host=$1
-port=$2
+HOST=$1
+PORT=$2
 
-if [ -z $host ]; then
-  host=localhost
+if [ -z $HOST ]; then
+  HOST=localhost
 fi
 
-if [ -z $port ]; then
-  port=8080
+if [ -z $PORT ]; then
+  PORT=8080
 fi
 
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://$host:$port/v1/info
+  http://${HOST}:${PORT}/v1/info

@@ -13,24 +13,27 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example/models"
-	"github.com/disintegration/imaging"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
 	"unsafe"
+
+	"github.com/TheMdTF/mdtf-public/rally2-matching-system/go-example/models"
+	"github.com/disintegration/imaging"
 )
 
 func createTemplate(w http.ResponseWriter, r *http.Request) {
-
 	switch r.Method {
 	case http.MethodPost:
+		log.Println("received call to create template")
 
 		//parse the json
 		jsonDecoder := json.NewDecoder(r.Body)
 		var imageModel models.Image
 		err := jsonDecoder.Decode(&imageModel)
 		if err != nil {
+			log.Println("error decoding create template request: ", err)
 			http.Error(w, "Bad Image Model: "+err.Error(), http.StatusBadRequest)
 			return
 		}
@@ -38,6 +41,7 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 		//decode the image string
 		imageByteData, err := base64.StdEncoding.DecodeString(imageModel.ImageData)
 		if err != nil {
+			log.Println("error decoding base64 image string to bytes: ", err)
 			http.Error(w, "Bad Base 64 Encoding: "+err.Error(), http.StatusBadRequest)
 			return
 		}
@@ -46,12 +50,14 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 		reader := bytes.NewReader(imageByteData)
 		_, err = imaging.Decode(reader)
 		if err != nil {
+			log.Println("error decoding bytes as image data: ", err)
 			http.Error(w, "Bad Image Data: "+err.Error(), http.StatusBadRequest)
 			return
 		}
 
 		//check that the valid image is a png
 		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n") {
+			log.Println("invalid image type (not a PNG): ", err)
 			http.Error(w, "Image Data not a PNG", http.StatusBadRequest)
 			return
 		}
@@ -68,7 +74,11 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 		}
 
 		//return response
-		json.NewEncoder(w).Encode(template)
+		err = json.NewEncoder(w).Encode(template)
+		if err != nil {
+			log.Println("error encoding response: ", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -78,23 +88,38 @@ func createTemplate(w http.ResponseWriter, r *http.Request) {
 func compareList(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
+		log.Println("received call to compare list")
 
 		//parse the json
 		decoder := json.NewDecoder(r.Body)
 		var compRequest models.CompareListRequest
 		err := decoder.Decode(&compRequest)
 		if err != nil {
+			log.Println("error decoding compare list request: ", err)
 			http.Error(w, "Bad Comparison Request Data", http.StatusBadRequest)
 			return
 		}
+		log.Printf("list contains %d templates\n", len(compRequest.TemplateList))
 
 		//pass each comparison to the C library
 		var cList []models.Comparison
-		decoded1, _ := base64.StdEncoding.DecodeString(compRequest.SingleTemplate.Template)
+		var decoded1 []byte
+		decoded1, err = base64.StdEncoding.DecodeString(compRequest.SingleTemplate.Template)
+		if err != nil {
+			log.Println("error decoding single template: ", err)
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
 		template1 := C.CString(string(decoded1))
 		defer C.free(unsafe.Pointer(template1))
 		for i := 0; i < len(compRequest.TemplateList); i++ {
-			decoded2, _ := base64.StdEncoding.DecodeString(compRequest.TemplateList[i].Template)
+			var decoded2 []byte
+			decoded2, err = base64.StdEncoding.DecodeString(compRequest.TemplateList[i].Template)
+			if err != nil {
+				log.Printf("error decoding the template at index %d: %s", i, err.Error())
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
 			template2 := C.CString(string(decoded2))
 			defer C.free(unsafe.Pointer(template2))
 
@@ -107,7 +132,12 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 		}
 
 		//return response
-		json.NewEncoder(w).Encode(cList)
+		err = json.NewEncoder(w).Encode(cList)
+		if err != nil {
+			log.Println("error encoding response: ", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -117,6 +147,8 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 func info(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
+		log.Println("received call to info")
+
 		i := models.Info{
 			AlgorithmName:         "Example MdTF Matching Algorithm",
 			AlgorithmVersion:      "1.0.0",
@@ -127,7 +159,12 @@ func info(w http.ResponseWriter, r *http.Request) {
 			RecommendedMem:        2048,
 		}
 
-		json.NewEncoder(w).Encode(i)
+		err := json.NewEncoder(w).Encode(i)
+		if err != nil {
+			log.Println("error encoding response: ", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

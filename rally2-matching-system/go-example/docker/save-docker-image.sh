@@ -1,9 +1,9 @@
 #!/bin/bash
 
-company=$1
+COMPANY_NAME=$1
 
-if [ -z $company ]; then
-  company=unknown
+if [ -z $COMPANY_NAME ]; then
+  COMPANY_NAME=unknown
 fi
 
-docker save $company-rally2-matching-system:latest | gzip > $company-rally2-matching-system.tgz
+docker save ${COMPANY_NAME}-rally2-matching-system:latest | gzip > ${COMPANY_NAME}-rally2-matching-system.tgz
