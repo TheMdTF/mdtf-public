@@ -3,7 +3,7 @@ swagger: '2.0'
 info:
   title: The Maryland Test Facility Acquisition System Interface
   description: DRAFT Application Programming Interface for sending acquisition records to the MdTF Backend.
-  version: "1.1.1"
+  version: "1.1.2"
   contact:
     name: Andrew Blanchard
     url: https://mdtf.org
@@ -195,6 +195,10 @@ paths:
           description: No ongoing transaction was found for the specified StationID.
           schema:
             $ref: '#/definitions/Error'
+        410:
+          description: The test volunteer has exited the station and the transaction has ended.
+          schema:
+            $ref: '#/definitions/Error'
         429:
           description: Too many requests for the ongoing transaction.
           schema:
@@ -230,6 +234,10 @@ paths:
           description: No ongoing transaction was found for the specified StationID.
           schema:
             $ref: '#/definitions/Error'
+        410:
+          description: The test volunteer has exited the station and the transaction has ended.
+          schema:
+            $ref: '#/definitions/Error'
         429:
           description: Too many requests for the ongoing transaction.
           schema:
@@ -262,6 +270,10 @@ paths:
             $ref: '#/definitions/Error'
         404:
           description: No ongoing transaction was found for the specified StationID.
+          schema:
+            $ref: '#/definitions/Error'
+        410:
+          description: The test volunteer has exited the station and the transaction has ended.
           schema:
             $ref: '#/definitions/Error'
         429:
