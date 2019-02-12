@@ -13,7 +13,7 @@ info:
   license:
     name: Copyright (c) 2018, The Maryland Test Facility
 # the domain of the service
-host: api.mdtf.org
+host: 172.17.0.2:8080
 # array of all schemes that your API supports
 schemes:
   - http
