@@ -123,11 +123,11 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			template2 := C.CString(string(decoded2))
 			defer C.free(unsafe.Pointer(template2))
 
-			s := C.cpp_compare_template(template1, template2)
+			s := float32(C.cpp_compare_template(template1, template2))
 
 			cList = append(cList, models.Comparison{
-				Score:           float32(s),
-				NormalizedScore: float32(s),
+				Score:           &s,
+				NormalizedScore: &s,
 			})
 		}
 
