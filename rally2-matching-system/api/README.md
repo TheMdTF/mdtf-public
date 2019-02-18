@@ -19,6 +19,7 @@
 <ul class="sectlevel2">
 <li><a href="#_version_information">Version information</a></li>
 <li><a href="#_contact_information">Contact information</a></li>
+<li><a href="#_license_information">License information</a></li>
 <li><a href="#_uri_scheme">URI scheme</a></li>
 <li><a href="#_tags">Tags</a></li>
 <li><a href="#_consumes">Consumes</a></li>
@@ -55,7 +56,7 @@
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
 <div class="paragraph">
-<p><em>Version</em> : 1.0.1</p>
+<p><em>Version</em> : 1.0.3</p>
 </div>
 </div>
 <div class="sect2">
@@ -66,9 +67,16 @@
 </div>
 </div>
 <div class="sect2">
+<h3 id="_license_information">License information</h3>
+<div class="paragraph">
+<p><em>License</em> : Copyright (c) 2018, The Maryland Test Facility<br>
+<em>Terms of service</em> : null</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_uri_scheme">URI scheme</h3>
 <div class="paragraph">
-<p><em>Host</em> : api.mdtf.org<br>
+<p><em>Host</em> : 172.17.0.2:8080<br>
 <em>Schemes</em> : HTTP</p>
 </div>
 </div>
@@ -384,12 +392,12 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>SingleTemplate</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_template">Template</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TemplateList</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_template">Template</a> &gt; array</p></td>
 </tr>
 </tbody>
@@ -416,14 +424,14 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>NormalizedScore</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce<br>
 <strong>Example</strong> : <code>0.8734</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">An un-normalized similarity score, as produced by the algorithm<br>
 <strong>Example</strong> : <code>8734.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
@@ -452,7 +460,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ImageData</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.<br>
 <strong>Example</strong> : <code>"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
@@ -481,48 +489,48 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmName</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Name of algorithm<br>
 <strong>Example</strong> : <code>"AlwaysTrue"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmVersion</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Algorithm version identifier<br>
 <strong>Example</strong> : <code>"1.0.1"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the Company which produces the algorithm<br>
 <strong>Example</strong> : <code>"MdTF"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of CPUs for the deployed docker container.<br>
 <strong>Example</strong> : <code>4.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedMem</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of memory (MB) for the deployed docker container.<br>
 <strong>Example</strong> : <code>2048.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
 <strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
@@ -569,7 +577,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Template</strong><br>
-<em>optional</em></p></td>
+<em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The template data, encoded as a base64 string. The data string shall not exceed 1 MB.<br>
 <strong>Example</strong> : <code>"dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
@@ -582,7 +590,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-01-07 13:36:06 -05:00
+Last updated 2019-02-18 15:04:03 -05:00
 </div>
 </div>
 </body>
