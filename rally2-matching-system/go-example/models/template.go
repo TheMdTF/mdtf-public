@@ -6,5 +6,5 @@ package models
 type Template struct {
 
 	// The template data, encoded as a base64 string.  The data string shall not exceed 1 MB.
-	Template string `json:"Template,omitempty"`
+	Template string
 }
