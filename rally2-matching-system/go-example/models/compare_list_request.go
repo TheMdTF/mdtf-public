@@ -6,8 +6,8 @@ package models
 type CompareListRequest struct {
 
 	// single template
-	SingleTemplate *Template `json:"SingleTemplate,omitempty"`
+	SingleTemplate *Template
 
 	// template list
-	TemplateList []*Template `json:"TemplateList"`
+	TemplateList []*Template
 }
