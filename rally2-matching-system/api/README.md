@@ -5,7 +5,6 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<title>The Maryland Test Facility Matching System Interface</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 </head>
@@ -51,7 +50,7 @@
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DRAFT Application Programming Interface for receiving matching system requests from the MdTF Backend.</p>
+<p>Application Programming Interface for receiving matching system requests from the MdTF Backend.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -590,7 +589,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-18 15:04:03 -05:00
+Last updated 2019-02-22 17:02:39 -05:00
 </div>
 </div>
 </body>

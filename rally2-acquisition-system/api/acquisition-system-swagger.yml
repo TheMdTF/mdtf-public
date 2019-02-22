@@ -2,8 +2,8 @@ swagger: '2.0'
 
 info:
   title: The Maryland Test Facility Acquisition System Interface
-  description: DRAFT Application Programming Interface for sending acquisition records to the MdTF Backend.
-  version: "1.1.2"
+  description: Application Programming Interface for sending acquisition records to the MdTF Backend.
+  version: "1.2.0"
   contact:
     name: Andrew Blanchard
     url: https://mdtf.org
@@ -38,9 +38,9 @@ tags:
 ################################################################################
 
 definitions:
-############
-## REQUESTS
-############
+  ############
+  ## REQUESTS
+  ############
   FaceCapture:
     type: object
     required: ["StationID", "FaceImageData"]
@@ -87,9 +87,19 @@ definitions:
         x-nullable: false
       FingerImages:
         type: array
-        description: The captured finger(s). At least one FingerImage must be submitted with the request.
+        description: The captured finger(s). A minimum of one (1) FingerImage must be submitted with a request. No more than ten (10) FingerImages may be submitted with a request. Each submitted FingerImage must have a distinct type (i.e. there cannot be two "RightIndexFingers" in a request).
         items:
           $ref: '#/definitions/FingerImage'
+        example: [
+        {
+          "FingerType": "RightIndexFinger",
+          "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+        },
+        {
+          "FingerType": "RightMiddleFinger",
+          "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+        }
+        ]
 
   FingerImage:
     type: object
@@ -103,9 +113,9 @@ definitions:
         example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
         x-nullable: false
 
-#############
-## RESPONSES
-#############
+  #############
+  ## RESPONSES
+  #############
 
   Error:
     type: object
@@ -121,9 +131,9 @@ definitions:
         type: string
         description: A detailed description of the error that occurred.
 
-#########
-## ENUMS
-#########
+  #########
+  ## ENUMS
+  #########
 
   FingerType:
     type: string
@@ -176,7 +186,7 @@ parameters:
 paths:
   /v1/face-captures:
     parameters:
-        - $ref: '#/parameters/face_capture'
+      - $ref: '#/parameters/face_capture'
     post:
       summary: Associate a face image capture with the ongoing transaction
       description: |
@@ -215,7 +225,7 @@ paths:
 
   /v1/iris-captures:
     parameters:
-        - $ref: '#/parameters/iris_capture'
+      - $ref: '#/parameters/iris_capture'
     post:
       summary: Associate an iris image capture (or pair of image captures) with the ongoing transaction
       description: |

@@ -18,6 +18,7 @@
 <ul class="sectlevel2">
 <li><a href="#_version_information">Version information</a></li>
 <li><a href="#_contact_information">Contact information</a></li>
+<li><a href="#_license_information">License information</a></li>
 <li><a href="#_uri_scheme">URI scheme</a></li>
 <li><a href="#_tags">Tags</a></li>
 <li><a href="#_consumes">Consumes</a></li>
@@ -47,12 +48,12 @@
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DRAFT Application Programming Interface for sending acquisition records to the MdTF Backend.</p>
+<p>Application Programming Interface for sending acquisition records to the MdTF Backend.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
 <div class="paragraph">
-<p><em>Version</em> : 1.1.0</p>
+<p><em>Version</em> : 1.2.0</p>
 </div>
 </div>
 <div class="sect2">
@@ -60,6 +61,13 @@
 <div class="paragraph">
 <p><em>Contact</em> : Andrew Blanchard<br>
 <em>Contact Email</em> : <a href="mailto:andrew@mdtf.org">andrew@mdtf.org</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_license_information">License information</h3>
+<div class="paragraph">
+<p><em>License</em> : Copyright (c) 2018, The Maryland Test Facility<br>
+<em>Terms of service</em> : null</p>
 </div>
 </div>
 <div class="sect2">
@@ -183,6 +191,11 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>410</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The test volunteer has exited the station and the transaction has ended.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>429</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Too many requests for the ongoing transaction.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
@@ -271,6 +284,11 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">No ongoing transaction was found for the specified StationID.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>410</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The test volunteer has exited the station and the transaction has ended.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
 </tr>
 <tr>
@@ -363,6 +381,11 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">No ongoing transaction was found for the specified StationID.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>410</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The test volunteer has exited the station and the transaction has ended.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_error">Error</a></p></td>
 </tr>
 <tr>
@@ -479,7 +502,14 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>FingerImages</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The captured finger(s). At least one FingerImage must be submitted with the request.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The captured finger(s). A minimum of one (1) FingerImage must be submitted with a request. No more than ten (10) FingerImages may be submitted with a request. Each submitted FingerImage must have a distinct type (i.e. there cannot be two "RightIndexFingers" in a request).<br>
+<strong>Example</strong> : <code>[ {
+  "FingerType" : "RightIndexFinger",
+  "FingerImageData" : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+}, {
+  "FingerType" : "RightMiddleFinger",
+  "FingerImageData" : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+} ]</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_fingerimage">FingerImage</a> &gt; array</p></td>
 </tr>
 <tr>
@@ -578,7 +608,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-01-07 13:38:30 -05:00
+Last updated 2019-02-22 17:05:32 -05:00
 </div>
 </div>
 </body>
