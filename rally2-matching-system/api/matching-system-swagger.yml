@@ -2,7 +2,7 @@ swagger: "2.0"
 
 info:
   title: The Maryland Test Facility Matching System Interface
-  description: DRAFT Application Programming Interface for receiving matching system requests from the MdTF Backend.
+  description: Application Programming Interface for receiving matching system requests from the MdTF Backend.
   version: "1.0.3"
   contact:
     name: John Howard
