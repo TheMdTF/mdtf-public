@@ -2,10 +2,19 @@
 
 echo -e "\nRally Matching System Test Routine Started..."
 
+# Set the mode, required
+
+mode=$1
+
+if [ -z $mode ]; then
+  echo "No mode provided, should be face//finger//iris.. exiting"
+  exit
+fi
+
 # Set the service address and port, if passed
 
-host=$1
-port=$2
+host=$2
+port=$3
 
 if [ -z $host ]; then
   host=localhost
@@ -14,14 +23,15 @@ fi
 if [ -z $port ]; then
   port=8080
 fi
+echo "Mode: " $mode
 echo "Host: " $host
 echo -e "Port: " $port "\n"
 
 # Get a list of images
 
-cd test-routine-images
-sh ./list-test-routine-images.sh test-routine-images.dat
-cd ..
+cd test-routine-images/$mode
+sh ../list-test-routine-images.sh test-routine-images.dat
+cd ../..
 
 # Create templates
 
@@ -42,7 +52,7 @@ while read p; do
 JSON
   )
   templates+=( $(echo $template | jq '.Template') )
-done < ./test-routine-images/test-routine-images.dat
+done < ./test-routine-images/$mode/test-routine-images.dat
 end=$(date +%s%N | cut -b1-13)
 
 n=${#templates[@]}
