@@ -61,7 +61,7 @@ for i in "${templates[@]}"; do
   templateList="$templateList { \"Template\": $i }"
   c=$(($c+1))
 done
-templateList="$templateList ] }"
+templateList="$templateList ]"
 
 # Output the header of a scores file
 
