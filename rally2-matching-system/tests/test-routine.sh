@@ -6,7 +6,7 @@ echo -e "\nRally Matching System Test Routine Started..."
 
 mode=$1
 
-if [ -z $mode ]; then
+if [ -z $mode ] || ([ $mode != "face" ] && [ $mode != "iris" ] && [ $mode != "finger" ]); then
   echo "No mode provided, should be face//finger//iris.. exiting"
   exit
 fi
