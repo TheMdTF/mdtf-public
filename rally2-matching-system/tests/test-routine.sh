@@ -83,6 +83,7 @@ echo -e "image1\timage2\tnormalized_score\tscore" >> scores.dat
 # Execute template comparisons and save the scores
 
 allScores=()
+allNormalScores=()
 start=$(date +%s%N | cut -b1-13)
 c1=0
 for i in "${templates[@]}"; do
@@ -110,6 +111,7 @@ JSON
   done
   c1=$((c1+1))
   allScores+=( ${scores[@]} )
+  allNormalScores+=( ${nscores[@]} )
 done
 end=$(date +%s%N | cut -b1-13)
 
@@ -122,6 +124,20 @@ echo "Score Matrix:"
 index=0
 numImgs=${#images[@]}
 for s in ${allScores[@]}; do
+    if ! (($index % $numImgs)); then
+      if ((index !=0)); then
+         echo ""
+      fi
+  fi
+  printf "%0.3f " $s
+  ((index++))
+done
+
+# Print the normalized score matrix
+echo -e "\n\nNormalized Score Matrix:"
+index=0
+numImgs=${#images[@]}
+for s in ${allNormalScores[@]}; do
     if ! (($index % $numImgs)); then
       if ((index !=0)); then
          echo ""
