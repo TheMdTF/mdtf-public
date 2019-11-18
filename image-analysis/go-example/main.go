@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/disintegration/imaging"
-	"scratch/mdtf/image-analysis/go-example/models" // Replace this import with the appropriate path.
+	"github.com/TheMdTF/mdtf-public/image-analysis/go-example/models"
 )
 
 

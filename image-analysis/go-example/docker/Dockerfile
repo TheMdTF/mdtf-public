@@ -20,9 +20,9 @@ RUN go get github.com/golang/dep/cmd/dep
 # Install library dependencies
 RUN dep ensure -vendor-only
 
-#move the models onto the GOPATH
-RUN mkdir -p $GOPATH/src/scratch/mdtf/image-analysis/go-example
-RUN mv models $GOPATH/src/scratch/mdtf/image-analysis/go-example
+# move the models onto the GOPATH
+fRUN mkdir -p $GOPATH/src/github.com/TheMdTF/mdtf-public/image-analysis/go-example
+RUN mv models $GOPATH/src/github.com/TheMdTF/mdtf-public/image-analysis/go-example
 
 #build the go wrapper
 RUN GOOS=linux GOARCH=amd64 go build -o ./image-analysis .
