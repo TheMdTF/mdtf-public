@@ -118,7 +118,7 @@
 <div class="sect2">
 <h3 id="_algorithm_information_resource">Algorithm Information</h3>
 <div class="sect3">
-<h4 id="_info">Returns basic information for the algorithm.</h4>
+<h4 id="_info_endpoint">Returns basic information for the algorithm.</h4>
 <div class="literalblock">
 <div class="content">
 <pre>GET /v1/info</pre>
