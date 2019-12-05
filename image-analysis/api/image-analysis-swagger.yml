@@ -1,0 +1,188 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'Maryland Test Facility Image Analysis Interface'
+  description: 'Application Programming Interface for receiving image analysis requests.'
+  contact:
+    name: John Howard
+    url: https://mdtf.org
+    email: john@mdtf.org
+  license:
+    name: Copyright (c) 2019, The Maryland Test Facility
+
+# placeholder
+host: 172.17.0.2:8080
+
+schemes:
+ - http
+  
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+  
+################################################################################
+#                                   Tags                                       #
+################################################################################
+
+tags:
+  - name: Biometric Operations
+  - name: Algorithm Information
+
+################################################################################
+#                                   Definitions                                #
+################################################################################
+
+definitions:
+
+############
+## REQUESTS
+############
+  Image:
+    type: object
+    description: |
+      Data transfer object for an image.
+    properties:
+      ImageData:
+        type: string
+        description: The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+        x-nullable: false
+    required:
+      - ImageData
+
+#############
+## RESPONSES
+#############
+
+  Info:
+    type: object
+    description: Basic information describing the algorithm.
+    properties:
+      AlgorithmName:
+        type: string
+        description: Name of algorithm
+        example: AlwaysTrue
+      AlgorithmVersion:
+        type: string
+        description: Algorithm version identifier
+        example: "1.0.1"
+      AlgorithmType:
+        type: string
+        enum: [Face, Finger, Iris]
+        description: A string enum describing the type of biometric images the algorithm is meant to process
+      CompanyName:
+        type: string
+        description: Name of the Company which produces the algorithm
+        example: MdTF
+      TechnicalContactEmail:
+        type: string
+        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
+        example: john@mdtf.org
+      RecommendedCPUs:
+        type: number
+        format: integer
+        description: The recommended allocation of CPUs for the deployed docker container.
+        example: 4
+      RecommendedMem:
+        type: number
+        format: integer
+        description: The recommended allocation of memory (MB) for the deployed docker container.
+        example: 2048
+    required:
+      - AlgorithmName
+      - AlgorithmVersion
+      - AlgorithmType
+      - CompanyName
+      - TechnicalContactEmail
+      - RecommendedCPUs
+      - RecommendedMem
+  
+  AnalysisScore:
+    type: number
+    format: float
+    minimum: 0
+    maximum: 1
+    description: Normalized score between 0 and 1, with 1 being the highest score the algorithm can produce, representing the result of analysis of the given biometric image.
+    example: 0.8734
+    x-nullable: false
+
+
+  RequestError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).
+    example: Unable to decode image data as a PNG.
+
+  ServerError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
+    example: The internal license has expired.
+    
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+
+parameters:
+
+  image:
+    name: image
+    in: body
+    description: |
+      The biometric image that is being submitted for analysis.
+    required: true
+    schema:
+      $ref: "#/definitions/Image"
+
+
+################################################################################
+#                                   Paths                                      #
+################################################################################
+
+paths:
+  /v1/info:
+    get:
+      summary: Returns basic information for the algorithm.
+      description: |
+        This endpoint returns some basic information about the algorithm.
+      tags:
+        - Algorithm Information
+      operationId: info
+      responses:
+        # Response code
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/Info'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ServerError"
+    
+  /v1/analyze-image:
+    post:
+      summary: Generate an analysis score for the provided biometric image.
+      description: |
+        This endpoint accepts a base64 encoded PNG and provides a numeric score between 0 and 1 indicating the result of image analysis.
+      tags:
+        - Biometric Operations
+      operationId: analyze_image
+      parameters:
+        - $ref: "#/parameters/image"
+      responses:
+        # Response code
+        200:
+          description: Successful Response
+          schema:
+            $ref: "#/definitions/AnalysisScore"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/RequestError"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ServerError"
