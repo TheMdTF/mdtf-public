@@ -120,7 +120,7 @@ definitions:
     type: string
     description: |
       Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
-    example: The internal license has expired.
+    example: Error encoding response.
     
 ################################################################################
 #                                   Parameters                                 #
