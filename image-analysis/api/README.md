@@ -28,7 +28,7 @@
 <li><a href="#_paths">Resources</a>
 <ul class="sectlevel2">
 <li><a href="#_algorithm_information_resource">Algorithm Information</a></li>
-<li><a href="#_biometric_operations_resource">Biometric Operations</a></li>
+<li><a href="#_analysis_operations_resource">Analysis Operations</a></li>
 </ul>
 </li>
 <li><a href="#_definitions">Definitions</a>
@@ -85,7 +85,7 @@
 <p>Algorithm Information</p>
 </li>
 <li>
-<p>Biometric Operations</p>
+<p>Analysis Operations</p>
 </li>
 </ul>
 </div>
@@ -173,7 +173,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_biometric_operations_resource">Biometric Operations</h3>
+<h3 id="_analysis_operations_resource">Analysis Operations</h3>
 <div class="sect3">
 <h4 id="_analyze_image">Generate an analysis score for the provided biometric image.</h4>
 <div class="literalblock">
