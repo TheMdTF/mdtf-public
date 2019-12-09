@@ -28,7 +28,7 @@ produces:
 ################################################################################
 
 tags:
-  - name: Biometric Operations
+  - name: Analysis Operations
   - name: Algorithm Information
 
 ################################################################################
