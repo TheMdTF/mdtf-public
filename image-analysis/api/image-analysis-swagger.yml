@@ -168,7 +168,7 @@ paths:
       description: |
         This endpoint accepts a base64 encoded PNG and provides a numeric score between 0 and 1 indicating the result of image analysis.
       tags:
-        - Biometric Operations
+        - Analysis Operations
       operationId: analyze_image
       parameters:
         - $ref: "#/parameters/image"
