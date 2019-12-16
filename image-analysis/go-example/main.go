@@ -11,10 +11,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/disintegration/imaging"
 	"github.com/TheMdTF/mdtf-public/image-analysis/go-example/models"
+	"github.com/disintegration/imaging"
 )
-
 
 func info(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -26,7 +25,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmVersion:      "1.0.0",
 			AlgorithmType:         "Face",
 			CompanyName:           "MdTF",
-			TechnicalContactEmail: "carter@mdtf.org",
+			TechnicalContactEmail: "john@mdtf.org",
 			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
 		}
@@ -86,7 +85,7 @@ func analyzeImage(w http.ResponseWriter, r *http.Request) {
 		var imagePrefix []byte
 		if len(imageByteData) >= 64 {
 			imagePrefix = imageByteData[len(imageByteData)-64:]
-		} else{
+		} else {
 			imagePrefix = imageByteData
 		}
 		imageSeed, _ := binary.Varint(imagePrefix)
@@ -114,4 +113,3 @@ func main() {
 		panic(err)
 	}
 }
-
