@@ -109,6 +109,17 @@ definitions:
     example: 0.8734
     x-nullable: false
 
+  AnalysisResult:
+    type: object
+    properties:
+      Score:
+        $ref: '#/definitions/AnalysisScore'
+    required:
+      - Score
+    maxProperties: 8
+    additionalProperties:
+      type: string
+    description: A JSON object containing the image analysis score for a single image and between 0 and 7 additional string properties containing relevant information for interpreting the score. The full contents shall not exceed 512 Bytes.
 
   RequestError:
     type: string
@@ -177,7 +188,7 @@ paths:
         200:
           description: Successful Response
           schema:
-            $ref: "#/definitions/AnalysisScore"
+            $ref: "#/definitions/AnalysisResult"
         400:
           description: Bad Request
           schema:
