@@ -112,6 +112,8 @@ definitions:
 
   AnalysisResult:
     type: object
+    description: |
+      Object containing the image analysis score for a single image and a maximum of 7 additional information properties. The full contents shall not exceed 512 Bytes.
     properties:
       Score:
         $ref: '#/definitions/AnalysisScore'
@@ -120,8 +122,8 @@ definitions:
     maxProperties: 8
     additionalProperties:
       type: string
-    description: |
-      Object containing the image analysis score for a single image and a maximum of 7 additional string properties to provide logging or supplemental information. The full contents shall not exceed 512 Bytes.
+      description: |
+        Logging or supplemental information for analysis of the provided image.
 
   RequestError:
     type: string

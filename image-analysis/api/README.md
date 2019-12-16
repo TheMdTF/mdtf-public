@@ -36,6 +36,7 @@
 <li><a href="#_image">Image</a></li>
 <li><a href="#_info">Info</a></li>
 <li><a href="#_analysisscore">AnalysisScore</a></li>
+<li><a href ="#_analysisresult">AnalysisResult</a></li>
 <li><a href="#_requesterror">RequestError</a></li>
 <li><a href="#_servererror">ServerError</a></li>
 </ul>
@@ -234,7 +235,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Successful Response</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"> <a href="#_analysisscore">AnalysisScore</a> </p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"> <a href="#_analysisresult">AnalysisResult</a> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
@@ -382,6 +383,41 @@
 <div class="paragraph">
 <p><em>Type</em> : number</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_analysisresult">AnalysisResult</h3>
+<div class="paragraph">
+<p>Object containing the image analysis score for a single image and a maximum of 7 additional string properties to provide logging or supplemental information. The full contents shall not exceed 512 Bytes.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 22.8889%;">
+<col style="width: 58.1111%;">
+<col style="width: 19.0000%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Primary numeric score produced by image analysis algorithm<br>
+<strong>Example</strong> : <code>0.8743</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href ="#_analysisscore">AnalysisScore</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>[Custom Property]*</strong><br>
+<em>optional</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_requesterror">RequestError</h3>
