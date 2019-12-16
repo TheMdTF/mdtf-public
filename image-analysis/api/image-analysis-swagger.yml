@@ -105,7 +105,8 @@ definitions:
     format: float
     minimum: 0
     maximum: 1
-    description: Normalized score between 0 and 1, with 1 being the highest score the algorithm can produce, representing the result of analysis of the given biometric image.
+    description: |
+      Normalized score between 0 and 1, with 1 being the highest score the algorithm can produce, representing the result of analysis of the given biometric image.
     example: 0.8734
     x-nullable: false
 
@@ -119,7 +120,8 @@ definitions:
     maxProperties: 8
     additionalProperties:
       type: string
-    description: A JSON object containing the image analysis score for a single image and between 0 and 7 additional string properties containing relevant information for interpreting the score. The full contents shall not exceed 512 Bytes.
+    description: |
+      JSON object containing the image analysis score for a single image and between 0 and 7 additional string properties containing relevant information for interpreting the score. The full contents shall not exceed 512 Bytes.
 
   RequestError:
     type: string
