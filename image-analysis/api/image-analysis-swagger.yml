@@ -121,7 +121,7 @@ definitions:
     additionalProperties:
       type: string
     description: |
-      JSON object containing the image analysis score for a single image and between 0 and 7 additional string properties containing relevant information for interpreting the score. The full contents shall not exceed 512 Bytes.
+      JSON object containing the image analysis score for a single image and a maximum of 7 additional string properties to provide logging or supplemental information. The full contents shall not exceed 512 Bytes.
 
   RequestError:
     type: string
