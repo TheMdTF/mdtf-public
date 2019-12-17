@@ -332,17 +332,17 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmVersion</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Algorithm version identifier<br>
 <strong>Example</strong> : <code>"1.0.1"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
@@ -352,11 +352,10 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ImageDataset</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
-<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum to select an MdTF dataset of biometric images for this submission to analyze</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Association, Enrollment, IDENTIFICATION)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
@@ -371,6 +370,13 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of memory (MB) for the deployed docker container.<br>
 <strong>Example</strong> : <code>2048.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
+<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>

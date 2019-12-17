@@ -65,22 +65,22 @@ definitions:
         type: string
         description: Name of algorithm
         example: AlwaysTrue
-      AlgorithmVersion:
-        type: string
-        description: Algorithm version identifier
-        example: "1.0.1"
       AlgorithmType:
         type: string
         enum: [Face, Finger, Iris]
         description: A string enum describing the type of biometric images the algorithm is meant to process
+      AlgorithmVersion:
+        type: string
+        description: Algorithm version identifier
+        example: "1.0.1"
       CompanyName:
         type: string
         description: Name of the Company which produces the algorithm
         example: MdTF
-      TechnicalContactEmail:
+      ImageDataset:
         type: string
-        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
-        example: john@mdtf.org
+        enum: [Association, Enrollment, IDENTIFICATION]
+        description: A string enum to select an MdTF dataset of biometric images for this submission to analyze
       RecommendedCPUs:
         type: number
         format: integer
@@ -91,14 +91,19 @@ definitions:
         format: integer
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
+      TechnicalContactEmail:
+        type: string
+        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
+        example: john@mdtf.org
     required:
       - AlgorithmName
-      - AlgorithmVersion
       - AlgorithmType
+      - AlgorithmVersion
       - CompanyName
-      - TechnicalContactEmail
+      - ImageDataset
       - RecommendedCPUs
       - RecommendedMem
+      - TechnicalContactEmail
   
   AnalysisScore:
     type: number
