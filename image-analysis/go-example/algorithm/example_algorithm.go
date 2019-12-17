@@ -1,5 +1,5 @@
 // algorithm implements an image analysis algorithm that complies with the MdTF image analysis API.
-// Its numeric analysis score output is a pseudorandom function of partial image contents.
+// Its analysis output is a pseudorandom function of partial image contents.
 package algorithm
 
 import (
@@ -43,9 +43,9 @@ func analyzeHelper(imageBytes []byte, results *models.AnalysisResult) {
 	results.ComputationTimeMilli = fmt.Sprintf("%f", compTimeMs)
 }
 
-// genRandomImageScore generates a random example AnalysisScore.
+// genRandomImageScore generates a random example analysis score.
 // Output is seeded by image contents to maintain deterministic stateless algorithm behavior.
-func genRandomImageScore(imageBytes []byte) float32 {
+func genRandomImageScore(imageBytes []byte) string {
 	var imagePrefix []byte
 
 	// Sleep to simulate algorithm computation time
@@ -59,7 +59,7 @@ func genRandomImageScore(imageBytes []byte) float32 {
 	}
 	imageSeed, _ := binary.Varint(imagePrefix)
 	rand.Seed(imageSeed)
-	return rand.Float32()
+	return fmt.Sprintf("%.3f", rand.Float32())
 }
 
 // truncateOutput ensures a basic response will be returned if the response exceeds its maximum allowable size.

@@ -35,7 +35,6 @@
 <ul class="sectlevel2">
 <li><a href="#_image">Image</a></li>
 <li><a href="#_info">Info</a></li>
-<li><a href="#_analysisscore">AnalysisScore</a></li>
 <li><a href ="#_analysisresult">AnalysisResult</a></li>
 <li><a href="#_requesterror">RequestError</a></li>
 <li><a href="#_servererror">ServerError</a></li>
@@ -382,18 +381,9 @@
 </table>
 </div>
 <div class="sect2">
-<h3 id="_analysisscore">AnalysisScore</h3>
-<div class="paragraph">
-<p>Normalized score between 0 and 1, with 1 being the highest score the algorithm can produce, representing the result of analysis of the given biometric image.</p>
-</div>
-<div class="paragraph">
-<p><em>Type</em> : number</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_analysisresult">AnalysisResult</h3>
 <div class="paragraph">
-<p>Object containing the image analysis score for a single image and a maximum of 7 additional string properties to provide logging or supplemental information. The full contents shall not exceed 512 Bytes.</p>
+<p>Object containing the results of analysis for a single image. Must include at least 1 and no more than 8 string properties. The full contents shall not exceed 512 Bytes.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -410,16 +400,9 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Primary numeric score produced by image analysis algorithm<br>
-<strong>Example</strong> : <code>0.8743</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href ="#_analysisscore">AnalysisScore</a></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>[Custom Property]*</strong><br>
-<em>optional</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image. Custom properties may not include raw portions of the image data.</p></td>
+<em>required (at least 1)</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image. Properties may not include raw portions of the image data.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
@@ -448,7 +431,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-18 16:19 -05:00
+Last updated 2019-12-17 14:48 -05:00
 </div>
 </div>
 </body>
