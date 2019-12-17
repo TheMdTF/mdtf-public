@@ -1,7 +1,7 @@
 package models
 
 // AnalysisResult stores the AnalysisResult model for this algorithm including 3 example custom fields.
-// Only Score is a required field and up to 7 custom string fields may be provided.
+// Only Score is required for API compliance.
 type AnalysisResult struct{
 	Score 				float32
 
