@@ -123,7 +123,7 @@ definitions:
     additionalProperties:
       type: string
       description: |
-        Logging or supplemental information for analysis of the provided image.
+        Logging or supplemental information for analysis of the provided image. May not include portions of the raw image data.
 
   RequestError:
     type: string

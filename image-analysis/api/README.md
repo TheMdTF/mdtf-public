@@ -413,7 +413,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>[Custom Property]*</strong><br>
 <em>optional</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image. Custom properties may not include raw portions of the image data.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
