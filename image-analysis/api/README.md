@@ -352,6 +352,13 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
+<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of CPUs for the deployed docker container.<br>
@@ -364,13 +371,6 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of memory (MB) for the deployed docker container.<br>
 <strong>Example</strong> : <code>2048.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
-<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
