@@ -3,14 +3,13 @@ package main
 import (
 	"bytes"
 	"encoding/base64"
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"strings"
 
+	"github.com/TheMdTF/mdtf-public/image-analysis/go-example/algorithm"
 	"github.com/TheMdTF/mdtf-public/image-analysis/go-example/models"
 	"github.com/disintegration/imaging"
 )
@@ -22,12 +21,13 @@ func info(w http.ResponseWriter, r *http.Request) {
 
 		i := models.Info{
 			AlgorithmName:         "MdTF Image Analysis Algorithm",
-			AlgorithmVersion:      "1.0.0",
 			AlgorithmType:         "Face",
+			AlgorithmVersion:      "1.0.0",
 			CompanyName:           "MdTF",
-			TechnicalContactEmail: "john@mdtf.org",
+			ImageDataset:		   "Enrollment",
 			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
+			TechnicalContactEmail: "john@mdtf.org",
 		}
 
 		err := json.NewEncoder(w).Encode(i)
@@ -81,19 +81,16 @@ func analyzeImage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// generate random example score seeded by partial image contents
-		var imagePrefix []byte
-		if len(imageByteData) >= 64 {
-			imagePrefix = imageByteData[len(imageByteData)-64:]
-		} else {
-			imagePrefix = imageByteData
+		//run analysis algorithm on image
+		analysisResult, err := algorithm.AnalyzeImage(imageByteData)
+		if err != nil {
+			log.Println(err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		imageSeed, _ := binary.Varint(imagePrefix)
-		rand.Seed(imageSeed)
-		analysisValue := rand.Float32()
 
 		//return response
-		err = json.NewEncoder(w).Encode(analysisValue)
+		err = json.NewEncoder(w).Encode(analysisResult)
 		if err != nil {
 			log.Println("error encoding response: ", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
