@@ -332,17 +332,17 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmVersion</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Algorithm version identifier<br>
 <strong>Example</strong> : <code>"1.0.1"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmType</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing the type of biometric images the algorithm is meant to process</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Face, Finger, Iris)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
