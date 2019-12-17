@@ -184,7 +184,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a base64 encoded PNG and provides a numeric score between 0 and 1 indicating the result of image analysis.</p>
+<p>This endpoint accepts a base64 encoded PNG and returns an object containing the results of image analysis.</p>
 </div>
 </div>
 <div class="sect4">
@@ -402,7 +402,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>[Custom Property]*</strong><br>
 <em>required (at least 1)</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Logging or supplemental information for analysis of the provided image. Properties may not include raw portions of the image data.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Any output of the analysis algorithm for the provided image. Contents may not include portions of the raw image data.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
@@ -420,7 +420,7 @@
 <div class="sect2">
 <h3 id="_servererror">ServerError</h3>
 <div class="paragraph">
-<p>Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate an analysis score).</p>
+<p>Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate an analysis response).</p>
 </div>
 <div class="paragraph">
 <p><em>Type</em> : string</p>

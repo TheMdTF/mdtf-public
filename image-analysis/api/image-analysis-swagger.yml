@@ -108,13 +108,13 @@ definitions:
   AnalysisResult:
     type: object
     description: |
-      Object containing the image analysis score for a single image and a maximum of 7 additional information properties. The full contents shall not exceed 512 Bytes.
+      Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties. The full contents shall not exceed 512 Bytes.
     minProperties: 1
     maxProperties: 8
     additionalProperties:
       type: string
       description: |
-        Logging or supplemental information for analysis of the provided image. May not include portions of the raw image data.
+        Any output of the analysis algorithm for the provided image. Contents may not include portions of the raw image data.
 
   RequestError:
     type: string
@@ -170,9 +170,9 @@ paths:
     
   /v1/analyze-image:
     post:
-      summary: Generate an analysis score for the provided biometric image.
+      summary: Returns an object containing the results of analysis for the provided biometric image.
       description: |
-        This endpoint accepts a base64 encoded PNG and provides a numeric score between 0 and 1 indicating the result of image analysis.
+        This endpoint accepts a base64 encoded PNG and provides an object containing custom analysis output.
       tags:
         - Analysis Operations
       operationId: analyze_image
