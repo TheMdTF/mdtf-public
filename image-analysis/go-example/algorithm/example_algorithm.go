@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"math/rand"
-	"time"
 
 	"github.com/TheMdTF/mdtf-public/image-analysis/go-example/models"
 )
@@ -33,24 +33,13 @@ func analyzeHelper(imageBytes []byte, results *models.AnalysisResult) {
 			}
 		}(results)
 
-	start := time.Now()
-	results.Score = genRandomImageScore(imageBytes)
-	compTime := time.Since(start)
-
-	results.Timestamp = start.String()
-
-	compTimeMs := float32(compTime.Nanoseconds()) / float32(time.Millisecond.Nanoseconds())
-	results.ComputationTimeMilli = fmt.Sprintf("%f", compTimeMs)
+	results.Score, results.NormalizedScore = genRandomImageScore(imageBytes)
 }
 
 // genRandomImageScore generates a random example analysis score.
 // Output is seeded by image contents to maintain deterministic stateless algorithm behavior.
-func genRandomImageScore(imageBytes []byte) string {
+func genRandomImageScore(imageBytes []byte) (score string, normalizedScore string) {
 	var imagePrefix []byte
-
-	// Sleep to simulate algorithm computation time
-	rand.Seed(time.Now().Unix() - int64(len(imageBytes)))
-	time.Sleep(time.Millisecond * time.Duration(rand.Float32()*25))
 
 	if len(imageBytes) >= 64 {
 		imagePrefix = imageBytes[len(imageBytes)-64:]
@@ -59,7 +48,9 @@ func genRandomImageScore(imageBytes []byte) string {
 	}
 	imageSeed, _ := binary.Varint(imagePrefix)
 	rand.Seed(imageSeed)
-	return fmt.Sprintf("%.3f", rand.Float32())
+	scoreFloat := math.Min(rand.ExpFloat64() / 0.5, 10.0)
+	normalizedScoreFloat := scoreFloat / 10.0
+	return fmt.Sprintf("%.3f", scoreFloat), fmt.Sprintf("%.3f", normalizedScoreFloat)
 }
 
 // truncateOutput ensures a basic response will be returned if the response exceeds its maximum allowable size.
@@ -70,7 +61,7 @@ func truncateOutput(ar models.AnalysisResult) (models.AnalysisResult, error){
 	}
 
 	if len(responseBytes) > 512{
-		return models.AnalysisResult{ Score: ar.Score, Timestamp: ar.Timestamp, AnalysisError: "truncated" }, nil
+		return models.AnalysisResult{ Score: ar.Score, NormalizedScore: ar.NormalizedScore, AnalysisError: "truncated" }, nil
 	}
 	return ar, nil
 }

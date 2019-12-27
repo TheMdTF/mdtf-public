@@ -65,19 +65,19 @@ func analyzeImage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		//check that the valid image is a png
+		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n") {
+			log.Println("invalid image type (not a PNG): ", err)
+			http.Error(w, "Image Data not a PNG", http.StatusBadRequest)
+			return
+		}
+
 		//check for valid image data
 		reader := bytes.NewReader(imageByteData)
 		_, err = imaging.Decode(reader)
 		if err != nil {
 			log.Println("error decoding bytes as image data: ", err)
 			http.Error(w, "Bad Image Data: "+err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		//check that the valid image is a png
-		if !strings.HasPrefix(fmt.Sprintf("%s", imageByteData), "\x89PNG\r\n\x1a\n") {
-			log.Println("invalid image type (not a PNG): ", err)
-			http.Error(w, "Image Data not a PNG", http.StatusBadRequest)
 			return
 		}
 
