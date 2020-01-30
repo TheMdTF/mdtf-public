@@ -48,7 +48,7 @@
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Application Programming Interface for receiving matching system requests from the MdTF Backend.</p>
+<p>Application Programming Interface for receiving image analysis requests.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
