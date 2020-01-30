@@ -115,6 +115,9 @@ definitions:
       type: string
       description: |
         Any output of the analysis algorithm for the provided image. Contents may not include portions of the raw image data.
+    example:
+      AnalysisScore: 5.0002
+      NormalizedScore: 0.50002
 
   RequestError:
     type: string
