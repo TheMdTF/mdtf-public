@@ -94,7 +94,7 @@ definitions:
       TechnicalContactEmail:
         type: string
         description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
-        example: john@mdtf.org
+        example: info@mdtf.org
     required:
       - AlgorithmName
       - AlgorithmType

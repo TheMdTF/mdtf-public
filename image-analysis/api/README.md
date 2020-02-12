@@ -5,12 +5,13 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
+<title>Maryland Test Facility Image Analysis Interface</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The Maryland Test Facility Image Analysis Interface</h1>
+<h1>Maryland Test Facility Image Analysis Interface</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -33,9 +34,9 @@
 </li>
 <li><a href="#_definitions">Definitions</a>
 <ul class="sectlevel2">
+<li><a href="#_analysisresult">AnalysisResult</a></li>
 <li><a href="#_image">Image</a></li>
 <li><a href="#_info">Info</a></li>
-<li><a href ="#_analysisresult">AnalysisResult</a></li>
 <li><a href="#_requesterror">RequestError</a></li>
 <li><a href="#_servererror">ServerError</a></li>
 </ul>
@@ -59,14 +60,14 @@
 <div class="sect2">
 <h3 id="_contact_information">Contact information</h3>
 <div class="paragraph">
-<p><em>Contact</em> : John Howard<br>
-<em>Contact Email</em> : <a href="mailto:john@mdtf.org">john@mdtf.org</a></p>
+<p><em>Contact</em> : MdTF<br>
+<em>Contact Email</em> : <a href="mailto:info@mdtf.org">info@mdtf.org</a></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_license_information">License information</h3>
 <div class="paragraph">
-<p><em>License</em> : Copyright (c) 2018, The Maryland Test Facility<br>
+<p><em>License</em> : Copyright (c) 2019, The Maryland Test Facility<br>
 <em>Terms of service</em> : null</p>
 </div>
 </div>
@@ -118,7 +119,7 @@
 <div class="sect2">
 <h3 id="_algorithm_information_resource">Algorithm Information</h3>
 <div class="sect3">
-<h4 id="_info_endpoint">Returns basic information for the algorithm.</h4>
+<h4 id="_info">Returns basic information for the algorithm.</h4>
 <div class="literalblock">
 <div class="content">
 <pre>GET /v1/info</pre>
@@ -165,7 +166,7 @@
 <h6 id="_response_500">Response 500</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">"\"The internal license has expired.\""</code></pre>
+<pre class="highlight"><code class="language-json" data-lang="json">"\"Error encoding response.\""</code></pre>
 </div>
 </div>
 </div>
@@ -175,7 +176,7 @@
 <div class="sect2">
 <h3 id="_analysis_operations_resource">Analysis Operations</h3>
 <div class="sect3">
-<h4 id="_analyze_image">Generate an analysis score for the provided biometric image.</h4>
+<h4 id="_analyze_image">Returns an object containing the results of analysis for the provided biometric image.</h4>
 <div class="literalblock">
 <div class="content">
 <pre>POST /v1/analyze-image</pre>
@@ -184,7 +185,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a base64 encoded PNG and returns an object containing the results of image analysis.</p>
+<p>This endpoint accepts a base64 encoded PNG and provides an object containing custom analysis output.</p>
 </div>
 </div>
 <div class="sect4">
@@ -234,7 +235,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Successful Response</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"> <a href="#_analysisresult">AnalysisResult</a> </p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_analysisresult">AnalysisResult</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
@@ -252,6 +253,18 @@
 <div class="sect4">
 <h5 id="_example_http_response_2">Example HTTP response</h5>
 <div class="sect5">
+<h6 id="_response_200">Response 200</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "AnalysisScore" : 5.0002,
+  "NormalizedScore" : 0.50002,
+  "ErrorLog" : ""
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
 <h6 id="_response_400">Response 400</h6>
 <div class="listingblock">
 <div class="content">
@@ -263,7 +276,7 @@
 <h6 id="_response_500_2">Response 500</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">"\"The internal license has expired.\""</code></pre>
+<pre class="highlight"><code class="language-json" data-lang="json">"\"Error encoding response.\""</code></pre>
 </div>
 </div>
 </div>
@@ -275,6 +288,15 @@
 <div class="sect1">
 <h2 id="_definitions">Definitions</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_analysisresult">AnalysisResult</h3>
+<div class="paragraph">
+<p>Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.</p>
+</div>
+<div class="paragraph">
+<p><em>Type</em> : &lt; string, string &gt; map</p>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_image">Image</h3>
 <div class="paragraph">
@@ -297,7 +319,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ImageData</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 10MB.<br>
 <strong>Example</strong> : <code>"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
@@ -354,7 +376,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ImageDataset</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum to select an MdTF dataset of biometric images for this submission to analyze</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Association, Enrollment, IDENTIFICATION)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (NIST_MEDS, MdTF_Enrollment)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
@@ -381,34 +403,6 @@
 </table>
 </div>
 <div class="sect2">
-<h3 id="_analysisresult">AnalysisResult</h3>
-<div class="paragraph">
-<p>Object containing the results of analysis for a single image. Must include at least 1 and no more than 8 string properties. The full contents shall not exceed 512 Bytes.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 22.8889%;">
-<col style="width: 58.1111%;">
-<col style="width: 19.0000%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Name</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>[Custom Property]*</strong><br>
-<em>required (at least 1)</em> </p> <p><em>*Property name must be descriptive and unique.</em> </p> </td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Any output of the analysis algorithm for the provided image. Contents may not include portions of the raw image data.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
 <h3 id="_requesterror">RequestError</h3>
 <div class="paragraph">
 <p>Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).</p>
@@ -420,7 +414,7 @@
 <div class="sect2">
 <h3 id="_servererror">ServerError</h3>
 <div class="paragraph">
-<p>Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate an analysis response).</p>
+<p>Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).</p>
 </div>
 <div class="paragraph">
 <p><em>Type</em> : string</p>
@@ -431,7 +425,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-17 14:48 -05:00
+Last updated 2020-02-12 16:04:22 -05:00
 </div>
 </div>
 </body>
