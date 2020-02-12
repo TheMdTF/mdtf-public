@@ -4,9 +4,9 @@ info:
   title: 'Maryland Test Facility Image Analysis Interface'
   description: 'Application Programming Interface for receiving image analysis requests.'
   contact:
-    name: John Howard
+    name: MdTF
     url: https://mdtf.org
-    email: john@mdtf.org
+    email: info@mdtf.org
   license:
     name: Copyright (c) 2019, The Maryland Test Facility
 
@@ -14,15 +14,15 @@ info:
 host: 172.17.0.2:8080
 
 schemes:
- - http
-  
+  - http
+
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
 # format of the responses to the client (Accepts)
 produces:
   - application/json
-  
+
 ################################################################################
 #                                   Tags                                       #
 ################################################################################
@@ -37,9 +37,9 @@ tags:
 
 definitions:
 
-############
-## REQUESTS
-############
+  ############
+  ## REQUESTS
+  ############
   Image:
     type: object
     description: |
@@ -47,15 +47,15 @@ definitions:
     properties:
       ImageData:
         type: string
-        description: The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.
+        description: The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 10MB.
         example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
         x-nullable: false
     required:
       - ImageData
 
-#############
-## RESPONSES
-#############
+  #############
+  ## RESPONSES
+  #############
 
   Info:
     type: object
@@ -108,16 +108,18 @@ definitions:
   AnalysisResult:
     type: object
     description: |
-      Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties. The full contents shall not exceed 512 Bytes.
+      Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.
     minProperties: 1
     maxProperties: 8
     additionalProperties:
       type: string
       description: |
-        Any output of the analysis algorithm for the provided image. Contents may not include portions of the raw image data.
+        Any output of the analysis algorithm for the provided image. Contents MAY NOT include portions of the raw image data. Note that the example fields are just that - examples. Fields should be defined based on useful output for evaluating the performance of your algorithm.
     example:
       AnalysisScore: 5.0002
       NormalizedScore: 0.50002
+      ErrorLog: ""
+
 
   RequestError:
     type: string
@@ -130,7 +132,7 @@ definitions:
     description: |
       Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
     example: Error encoding response.
-    
+
 ################################################################################
 #                                   Parameters                                 #
 ################################################################################
@@ -170,7 +172,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: "#/definitions/ServerError"
-    
+
   /v1/analyze-image:
     post:
       summary: Returns an object containing the results of analysis for the provided biometric image.
