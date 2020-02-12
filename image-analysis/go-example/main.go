@@ -24,10 +24,10 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmType:         "Face",
 			AlgorithmVersion:      "1.0.0",
 			CompanyName:           "MdTF",
-			ImageDataset:		   "Enrollment",
+			ImageDataset:          "Enrollment",
 			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
-			TechnicalContactEmail: "john@mdtf.org",
+			TechnicalContactEmail: "info@mdtf.org",
 		}
 
 		err := json.NewEncoder(w).Encode(i)
