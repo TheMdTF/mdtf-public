@@ -5,13 +5,13 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<title>Maryland Test Facility Image Analysis Interface</title>
+<title>The Maryland Test Facility Image Analysis Interface</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Maryland Test Facility Image Analysis Interface</h1>
+<h1>The Maryland Test Facility Image Analysis Interface</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -49,7 +49,7 @@
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Application Programming Interface for receiving image analysis requests.</p>
+<p>Application programming interface for receiving image analysis requests.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -128,7 +128,7 @@
 <div class="sect4">
 <h5 id="_description">Description</h5>
 <div class="paragraph">
-<p>This endpoint returns some basic information about the algorithm.</p>
+<p>This endpoint returns some basic information about the image analysis algorithm.</p>
 </div>
 </div>
 <div class="sect4">
@@ -185,7 +185,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a base64 encoded PNG and provides an object containing custom analysis output.</p>
+<p>This endpoint accepts a base64 encoded PNG image and returns an object containing the output of a generic image analysis routine on that image.</p>
 </div>
 </div>
 <div class="sect4">
@@ -210,7 +210,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>image</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The biometric image that is being submitted for analysis.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The image that is being submitted for analysis.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_image">Image</a></p></td>
 </tr>
 </tbody>
@@ -291,7 +291,7 @@
 <div class="sect2">
 <h3 id="_analysisresult">AnalysisResult</h3>
 <div class="paragraph">
-<p>Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.</p>
+<p>Object containing the results of a generic image analysis algorithm on a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.</p>
 </div>
 <div class="paragraph">
 <p><em>Type</em> : &lt; string, string &gt; map</p>
@@ -349,7 +349,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>AlgorithmName</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Name of algorithm<br>
-<strong>Example</strong> : <code>"AlwaysTrue"</code></p></td>
+<strong>Example</strong> : <code>"OpenFace"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -368,7 +368,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the Company which produces the algorithm<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the company which produces the algorithm<br>
 <strong>Example</strong> : <code>"MdTF"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
@@ -396,7 +396,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>TechnicalContactEmail</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.<br>
-<strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
+<strong>Example</strong> : <code>"<a href="mailto:info@mdtf.org">info@mdtf.org</a>"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
@@ -425,7 +425,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-12 16:04:22 -05:00
+Last updated 2020-02-18 09:59:03 -05:00
 </div>
 </div>
 </body>

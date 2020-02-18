@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
   version: '1.0.0'
-  title: 'Maryland Test Facility Image Analysis Interface'
-  description: 'Application Programming Interface for receiving image analysis requests.'
+  title: 'The Maryland Test Facility Image Analysis Interface'
+  description: 'Application programming interface for receiving image analysis requests.'
   contact:
     name: MdTF
     url: https://mdtf.org
@@ -64,7 +64,7 @@ definitions:
       AlgorithmName:
         type: string
         description: Name of algorithm
-        example: AlwaysTrue
+        example: OpenFace
       AlgorithmType:
         type: string
         enum: [Face, Finger, Iris]
@@ -75,7 +75,7 @@ definitions:
         example: "1.0.1"
       CompanyName:
         type: string
-        description: Name of the Company which produces the algorithm
+        description: Name of the company which produces the algorithm
         example: MdTF
       ImageDataset:
         type: string
@@ -108,13 +108,13 @@ definitions:
   AnalysisResult:
     type: object
     description: |
-      Object containing the results of analysis for a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.
+      Object containing the results of a generic image analysis algorithm on a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.
     minProperties: 1
     maxProperties: 8
     additionalProperties:
       type: string
       description: |
-        Any output of the analysis algorithm for the provided image. Contents MAY NOT include portions of the raw image data. Note that the example fields are just that - examples. Fields should be defined based on useful output for evaluating the performance of your algorithm.
+        The output of a generic image analysis algorithm on the image provided. Contents MAY NOT include portions of the raw image data. Note that the example fields are just that - examples.  In this example, 3 of 8 output property fields have been utilized. Field name and output values should be defined based on useful output for evaluating the performance of your image analysis algorithm.
     example:
       AnalysisScore: 5.0002
       NormalizedScore: 0.50002
@@ -143,7 +143,7 @@ parameters:
     name: image
     in: body
     description: |
-      The biometric image that is being submitted for analysis.
+      The image that is being submitted for analysis.
     required: true
     schema:
       $ref: "#/definitions/Image"
@@ -158,7 +158,7 @@ paths:
     get:
       summary: Returns basic information for the algorithm.
       description: |
-        This endpoint returns some basic information about the algorithm.
+        This endpoint returns some basic information about the image analysis algorithm.
       tags:
         - Algorithm Information
       operationId: info
@@ -177,7 +177,7 @@ paths:
     post:
       summary: Returns an object containing the results of analysis for the provided biometric image.
       description: |
-        This endpoint accepts a base64 encoded PNG and provides an object containing custom analysis output.
+        This endpoint accepts a base64 encoded PNG image and returns an object containing the output of a generic image analysis routine on that image.
       tags:
         - Analysis Operations
       operationId: analyze_image
