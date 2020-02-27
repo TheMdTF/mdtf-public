@@ -256,8 +256,8 @@
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
-  "AnalysisScore" : 5.0002,
-  "NormalizedScore" : 0.50002,
+  "AnalysisScore" : "5.0002",
+  "NormalizedScore" : "0.50002",
   "ErrorLog" : ""
 }</code></pre>
 </div>

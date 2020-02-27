@@ -116,8 +116,8 @@ definitions:
       description: |
         The output of a generic image analysis algorithm on the image provided. Contents MAY NOT include portions of the raw image data. Note that the example fields are just that - examples.  In this example, 3 of 8 output property fields have been utilized. Field name and output values should be defined based on useful output for evaluating the performance of your image analysis algorithm.
     example:
-      AnalysisScore: 5.0002
-      NormalizedScore: 0.50002
+      AnalysisScore: "5.0002"
+      NormalizedScore: "0.50002"
       ErrorLog: ""
 
 
