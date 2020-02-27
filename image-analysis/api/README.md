@@ -375,7 +375,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ImageDataset</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum to select an MdTF dataset of biometric images for this submission to analyze</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (NIST_MEDS, MdTF_Enrollment)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (NIST_MEDS, MDTF_RALLY2_ENROLLMENT)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
