@@ -24,7 +24,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmType:         "Face",
 			AlgorithmVersion:      "1.0.0",
 			CompanyName:           "MdTF",
-			ImageDataset:          "Enrollment",
+			ImageDataset:          "NIST_MEDS",
 			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
 			TechnicalContactEmail: "info@mdtf.org",

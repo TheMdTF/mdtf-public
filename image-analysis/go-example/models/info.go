@@ -17,7 +17,7 @@ type Info struct {
 	CompanyName string
 
 	// A string enum to select an MdTF dataset of biometric images for this submission to analyze
-	// Enum: [Association Enrollment IDENTIFICATION]
+	// Enum: [NIST_MEDS MDTF_RALLY2_ENROLLMENT]
 	ImageDataset string
 
 	// The recommended allocation of CPUs for the deployed docker container.
