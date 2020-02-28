@@ -1,8 +1,12 @@
 # The Maryland Test Facility Public Code Repository
 
-Public code that supports the execution of the Biometric Technology Rallies
+Public code that supports software integration efforts at the [Maryland Test Facility Website](https://mdtf.org).
 
-More details about the Biometric Technology Rallies can be found at the [Maryland Test Facility Website](https://mdtf.org)
+### image-analysis
+* api
+	This folder contains the API definition for generic image analysis systems submitted to the MdTF for evaluation.
+* go-example
+	This folder contains a working go example implementation of the image-analysis API definition. See example README for more details.
 
 ### rally2-acquisition-system
 * api

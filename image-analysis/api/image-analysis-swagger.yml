@@ -1,0 +1,199 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'The Maryland Test Facility Image Analysis Interface'
+  description: 'Application programming interface for receiving image analysis requests.'
+  contact:
+    name: MdTF
+    url: https://mdtf.org
+    email: info@mdtf.org
+  license:
+    name: Copyright (c) 2019, The Maryland Test Facility
+
+# placeholder
+host: 172.17.0.2:8080
+
+schemes:
+  - http
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+
+tags:
+  - name: Analysis Operations
+  - name: Algorithm Information
+
+################################################################################
+#                                   Definitions                                #
+################################################################################
+
+definitions:
+
+  ############
+  ## REQUESTS
+  ############
+  Image:
+    type: object
+    description: |
+      Data transfer object for an image.
+    properties:
+      ImageData:
+        type: string
+        description: The captured image data in PNG format, encoded as a base64 string. The data string shall not exceed 10MB.
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+        x-nullable: false
+    required:
+      - ImageData
+
+  #############
+  ## RESPONSES
+  #############
+
+  Info:
+    type: object
+    description: Basic information describing the algorithm.
+    properties:
+      AlgorithmName:
+        type: string
+        description: Name of algorithm
+        example: OpenFace
+      AlgorithmType:
+        type: string
+        enum: [Face, Finger, Iris]
+        description: A string enum describing the type of biometric images the algorithm is meant to process
+      AlgorithmVersion:
+        type: string
+        description: Algorithm version identifier
+        example: "1.0.1"
+      CompanyName:
+        type: string
+        description: Name of the company which produces the algorithm
+        example: MdTF
+      ImageDataset:
+        type: string
+        enum: [NIST_MEDS, MDTF_RALLY2_ENROLLMENT]
+        description: A string enum to select an MdTF dataset of biometric images for this submission to analyze
+      RecommendedCPUs:
+        type: number
+        format: integer
+        description: The recommended allocation of CPUs for the deployed docker container.
+        example: 4
+      RecommendedMem:
+        type: number
+        format: integer
+        description: The recommended allocation of memory (MB) for the deployed docker container.
+        example: 2048
+      TechnicalContactEmail:
+        type: string
+        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
+        example: info@mdtf.org
+    required:
+      - AlgorithmName
+      - AlgorithmType
+      - AlgorithmVersion
+      - CompanyName
+      - ImageDataset
+      - RecommendedCPUs
+      - RecommendedMem
+      - TechnicalContactEmail
+
+  AnalysisResult:
+    type: object
+    description: |
+      Object containing the results of a generic image analysis algorithm on a single image. Must include at least 1 and not more than 8 string properties in a JSON object with a depth of 1. The full contents shall not exceed 512 Bytes.
+    minProperties: 1
+    maxProperties: 8
+    additionalProperties:
+      type: string
+      description: |
+        The output of a generic image analysis algorithm on the image provided. Contents MAY NOT include portions of the raw image data. Note that the example fields are just that - examples.  In this example, 3 of 8 output property fields have been utilized. Field name and output values should be defined based on useful output for evaluating the performance of your image analysis algorithm.
+    example:
+      AnalysisScore: "5.0002"
+      NormalizedScore: "0.50002"
+      ErrorLog: ""
+
+
+  RequestError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).
+    example: Unable to decode image data as a PNG.
+
+  ServerError:
+    type: string
+    description: |
+      Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
+    example: Error encoding response.
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+
+parameters:
+
+  image:
+    name: image
+    in: body
+    description: |
+      The image that is being submitted for analysis.
+    required: true
+    schema:
+      $ref: "#/definitions/Image"
+
+
+################################################################################
+#                                   Paths                                      #
+################################################################################
+
+paths:
+  /v1/info:
+    get:
+      summary: Returns basic information for the algorithm.
+      description: |
+        This endpoint returns some basic information about the image analysis algorithm.
+      tags:
+        - Algorithm Information
+      operationId: info
+      responses:
+        # Response code
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/Info'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ServerError"
+
+  /v1/analyze-image:
+    post:
+      summary: Returns an object containing the results of analysis for the provided biometric image.
+      description: |
+        This endpoint accepts a base64 encoded PNG image and returns an object containing the output of a generic image analysis routine on that image.
+      tags:
+        - Analysis Operations
+      operationId: analyze_image
+      parameters:
+        - $ref: "#/parameters/image"
+      responses:
+        # Response code
+        200:
+          description: Successful Response
+          schema:
+            $ref: "#/definitions/AnalysisResult"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/RequestError"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ServerError"
