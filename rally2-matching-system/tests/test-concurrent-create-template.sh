@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This script can be used to perform concurrent requests to the `/v1/create-template` endpoint using custom images. Both
-# passed images will be extracted sequentally, and then again in randomized order by the specified number of concurrent
+# passed images will be extracted sequentially first, and then again in randomized order by the specified number of concurrent
 # workers. A sample range of template bytes will be printed to the console (the range is hardcoded and may need to be
 # adjusted depending on the matching system) and color coded by image for human readablity. This is intended to be used
 # to exercise and debug concurrency related extraction errors using a limited set of local files and an easily 
