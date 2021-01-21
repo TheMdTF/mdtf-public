@@ -4,8 +4,8 @@
 # passed images will be extracted sequentially first, and then again in randomized order by the specified number of concurrent
 # workers. A sample range of template bytes will be printed to the console (the range is hardcoded and may need to be
 # adjusted depending on the matching system) and color coded by image for human readablity. This is intended to be used
-# to exercise and debug concurrency related extraction errors using a limited set of local files and an easily 
-# configurable number of workers.
+# to debug concurrency related extraction errors using a limited set of local files and an easily configurable
+# number of workers.
 #
 # EXPECTS:
 #   * $1 - service address (ex. 172.17.0.2:8080)
