@@ -9,8 +9,8 @@
 #
 # EXPECTS:
 #   * $1 - service address (ex. 172.17.0.2:8080)
-#   * $2 - filename1 (ex. ~/Pictures/ANDREW_Right4.png)
-#   * $3 - filename2 (ex. ~/Pictures/ANDREW_Right4.png)
+#   * $2 - filename1 (ex. ~/Pictures/S001_Right4.png)
+#   * $3 - filename2 (ex. ~/Pictures/S002_Right4.png)
 #   * $4 - number of workers (ex. 3)
 
 # define output colors
