@@ -8,7 +8,7 @@ info:
     name: John Howard
     url: https://mdtf.org
     email: john@mdtf.org
-# the license of the swagger documentation
+  # the license of the swagger documentation
   license:
     name: Copyright (c) 2018, The Maryland Test Facility
 # the domain of the service
@@ -37,9 +37,9 @@ tags:
 
 definitions:
 
-############
-## REQUESTS
-############
+  ############
+  ## REQUESTS
+  ############
   Image:
     type: object
     description: |
@@ -102,9 +102,9 @@ definitions:
       - SingleTemplate
       - TemplateList
 
-#############
-## RESPONSES
-#############
+  #############
+  ## RESPONSES
+  #############
 
   Info:
     type: object
@@ -140,6 +140,33 @@ definitions:
         format: integer
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
+      Thresholds:
+        type: object
+        properties:
+          "1:500":
+            type: number
+            format: float64
+          "1:1e3":
+            type: number
+            format: float64
+          "1:1e4":
+            type: number
+            format: float64
+          "1:1e5":
+            type: number
+            format: float64
+          "1:1e6":
+            type: number
+            format: float64
+        additionalProperties:
+          type: number
+          format: float64
+        example:
+          "1:500": 134.5
+          "1:1e3": 123.0
+          "1:1e4": 451.123451
+          "1:1e5": 88.6
+          "1:1e6": .753
     required:
       - AlgorithmName
       - AlgorithmVersion
@@ -148,6 +175,12 @@ definitions:
       - TechnicalContactEmail
       - RecommendedCPUs
       - RecommendedMem
+      - Thresholds
+      - "1:500"
+      - "1:1e3"
+      - "1:1e4"
+      - "1:1e5"
+      - "1:1e6"
 
   RequestError:
     type: string
@@ -258,3 +291,4 @@ paths:
           description: Internal Server Error
           schema:
             $ref: "#/definitions/ServerError"
+

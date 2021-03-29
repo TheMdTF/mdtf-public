@@ -157,6 +157,13 @@ func info(w http.ResponseWriter, r *http.Request) {
 			TechnicalContactEmail: "john@mdtf.org",
 			RecommendedCpus:       4,
 			RecommendedMem:        2048,
+			Threshold: map[string]float64{
+				"1:500": 0.123,
+				"1:1e3": 123.120,
+				"1:1e4": 0.10,
+				"1:1e5": 1.0999129,
+				"1:1e6": 75.0,
+			},
 		}
 
 		err := json.NewEncoder(w).Encode(i)

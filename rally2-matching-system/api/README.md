@@ -534,6 +534,18 @@
 <strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Example</strong> : <code>{
+  "1:500" : 134.5,
+  "1:1e3" : 123.0,
+  "1:1e4" : 451.123451,
+  "1:1e5" : 88.6,
+  "1:1e6" : 0.753
+}</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string, number (float64) &gt; map</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -589,7 +601,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-22 17:02:39 -05:00
+Last updated 2021-03-29 13:26:22 -04:00
 </div>
 </div>
 </body>
