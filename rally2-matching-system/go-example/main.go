@@ -158,11 +158,11 @@ func info(w http.ResponseWriter, r *http.Request) {
 			RecommendedCpus:       4,
 			RecommendedMem:        2048,
 			Thresholds: map[string]float64{
-				"1:500": 0.123,
-				"1:1e3": 123.120,
-				"1:1e4": 0.10,
-				"1:1e5": 1.0999129,
-				"1:1e6": 75.0,
+				"1:500": float64(0.99),
+				"1:1e3": float64(0.96),
+				"1:1e4": float64(0.90),
+				"1:1e5": float64(0.84),
+				"1:1e6": float64(0.80),
 			},
 		}
 

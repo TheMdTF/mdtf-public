@@ -28,5 +28,5 @@ type Info struct {
 
 	// The list of threshold scores for various false match rates (FMRs) for your submitted matching system.
 	// Systems are required to provide at least thresholds for achieving FMRs for 1:500, 1:1e3,  1:1e4,  1:1e5,  1:1e6
-	Thresholds map[string] float64
+	Thresholds map[string] float64 `json:",map[string]string"`
 }

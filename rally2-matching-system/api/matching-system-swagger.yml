@@ -158,14 +158,20 @@ definitions:
           "1:1e6":
             type: number
             format: float64
+        required:
+          - "1:500"
+          - "1:1e3"
+          - "1:1e4"
+          - "1:1e5"
+          - "1:1e6"
         additionalProperties:
           type: number
           format: float64
         example:
-          "1:500": 134.5
-          "1:1e3": 123.0
-          "1:1e4": 451.123451
-          "1:1e5": 88.6
+          "1:500": .99
+          "1:1e3": .97
+          "1:1e4": .96
+          "1:1e5": .86
           "1:1e6": .753
     required:
       - AlgorithmName
@@ -176,11 +182,6 @@ definitions:
       - RecommendedCPUs
       - RecommendedMem
       - Thresholds
-      - "1:500"
-      - "1:1e3"
-      - "1:1e4"
-      - "1:1e5"
-      - "1:1e6"
 
   RequestError:
     type: string
