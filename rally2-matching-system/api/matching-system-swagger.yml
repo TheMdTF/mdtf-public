@@ -141,32 +141,8 @@ definitions:
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
       Thresholds:
-        type: object
-        properties:
-          "1:500":
-            type: string
-          "1:1e3":
-            type: string
-          "1:1e4":
-            type: string
-          "1:1e5":
-            type: string
-          "1:1e6":
-            type: string
-        required:
-          - "1:500"
-          - "1:1e3"
-          - "1:1e4"
-          - "1:1e5"
-          - "1:1e6"
-        additionalProperties:
-          type: string
-        example:
-          "1:500": "0.99"
-          "1:1e3": "0.97"
-          "1:1e4": "0.96"
-          "1:1e5": "0.86"
-          "1:1e6": "0.753"
+        $ref: '#/definitions/ThresholdList'
+
     required:
       - AlgorithmName
       - AlgorithmVersion
@@ -176,6 +152,34 @@ definitions:
       - RecommendedCPUs
       - RecommendedMem
       - Thresholds
+
+  ThresholdList:
+    type: object
+    properties:
+      "1:500":
+        type: string
+      "1:1e3":
+        type: string
+      "1:1e4":
+        type: string
+      "1:1e5":
+        type: string
+      "1:1e6":
+        type: string
+    required:
+      - "1:500"
+      - "1:1e3"
+      - "1:1e4"
+      - "1:1e5"
+      - "1:1e6"
+    additionalProperties:
+      type: string
+    example:
+      "1:500": "0.99"
+      "1:1e3": "0.97"
+      "1:1e4": "0.96"
+      "1:1e5": "0.86"
+      "1:1e6": "0.753"
 
   RequestError:
     type: string
@@ -286,4 +290,3 @@ paths:
           description: Internal Server Error
           schema:
             $ref: "#/definitions/ServerError"
-
