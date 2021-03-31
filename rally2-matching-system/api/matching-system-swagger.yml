@@ -144,20 +144,15 @@ definitions:
         type: object
         properties:
           "1:500":
-            type: number
-            format: float64
+            type: string
           "1:1e3":
-            type: number
-            format: float64
+            type: string
           "1:1e4":
-            type: number
-            format: float64
+            type: string
           "1:1e5":
-            type: number
-            format: float64
+            type: string
           "1:1e6":
-            type: number
-            format: float64
+            type: string
         required:
           - "1:500"
           - "1:1e3"
@@ -165,14 +160,13 @@ definitions:
           - "1:1e5"
           - "1:1e6"
         additionalProperties:
-          type: number
-          format: float64
+          type: string
         example:
-          "1:500": .99
-          "1:1e3": .97
-          "1:1e4": .96
-          "1:1e5": .86
-          "1:1e6": .753
+          "1:500": "0.99"
+          "1:1e3": "0.97"
+          "1:1e4": "0.96"
+          "1:1e5": "0.86"
+          "1:1e6": "0.753"
     required:
       - AlgorithmName
       - AlgorithmVersion
