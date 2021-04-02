@@ -537,7 +537,8 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Example</strong> : <code>{
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters. There are 5 required thresholds, and you may specify 5 additional thresholds.<br>
+<strong>Example</strong> : <code>{
   "1:500" : "0.99",
   "1:1e3" : "0.97",
   "1:1e4" : "0.96",
@@ -601,7 +602,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-31 14:25:29 -04:00
+Last updated 2021-04-01 14:57:54 -04:00
 </div>
 </div>
 </body>
