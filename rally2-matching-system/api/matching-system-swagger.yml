@@ -140,6 +140,11 @@ definitions:
         format: integer
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
+      Test:
+        description: A string enum describing which test to run with the algorithm
+        type: string
+        enum:
+          - MDTF_2020_RALLY
       Thresholds:
         description: A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters.
           There are 5 required thresholds, and you may specify 5 additional thresholds.
@@ -184,6 +189,7 @@ definitions:
       - TechnicalContactEmail
       - RecommendedCPUs
       - RecommendedMem
+      - Test
       - Thresholds
 
   RequestError:

@@ -157,6 +157,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 			TechnicalContactEmail: "john@mdtf.org",
 			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
+			Test:                  "MDTF_2020_RALLY",
 			Thresholds: map[string]float64{
 				"1:500": float64(0.99),
 				"1:1e3": float64(0.96),
