@@ -129,7 +129,7 @@
 <div class="sect4">
 <h5 id="_description">Description</h5>
 <div class="paragraph">
-<p>This endpoint returns some basic information about the algorithm.</p>
+<p>This endpoint returns some basic information about the algorithm. The response should be stateless, with no fixed values.</p>
 </div>
 </div>
 <div class="sect4">
@@ -534,6 +534,25 @@
 <strong>Example</strong> : <code>"<a href="mailto:john@mdtf.org">john@mdtf.org</a>"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Test</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing which test to run with the algorithm</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (MDTF_2020_RALLY)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters. There are 5 required thresholds, and you may specify 5 additional thresholds.<br>
+<strong>Example</strong> : <code>{
+  "1:500" : "0.99",
+  "1:1e3" : "0.97",
+  "1:1e4" : "0.96",
+  "1:1e5" : "0.86",
+  "1:1e6" : "0.753"
+}</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string, string &gt; map</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -589,7 +608,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-22 17:02:39 -05:00
+Last updated 2021-04-08 10:47:04 -04:00
 </div>
 </div>
 </body>

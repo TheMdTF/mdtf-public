@@ -155,8 +155,16 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmType:         "Iris",
 			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
-			RecommendedCpus:       4,
+			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
+			Test:                  "MDTF_2020_RALLY",
+			Thresholds: map[string]float64{
+				"1:500": float64(0.75),
+				"1:1e3": float64(0.85),
+				"1:1e4": float64(0.95),
+				"1:1e5": float64(0.97),
+				"1:1e6": float64(0.99),
+			},
 		}
 
 		err := json.NewEncoder(w).Encode(i)

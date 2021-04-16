@@ -8,7 +8,7 @@ info:
     name: John Howard
     url: https://mdtf.org
     email: john@mdtf.org
-# the license of the swagger documentation
+  # the license of the swagger documentation
   license:
     name: Copyright (c) 2018, The Maryland Test Facility
 # the domain of the service
@@ -37,9 +37,9 @@ tags:
 
 definitions:
 
-############
-## REQUESTS
-############
+  ############
+  ## REQUESTS
+  ############
   Image:
     type: object
     description: |
@@ -102,9 +102,9 @@ definitions:
       - SingleTemplate
       - TemplateList
 
-#############
-## RESPONSES
-#############
+  #############
+  ## RESPONSES
+  #############
 
   Info:
     type: object
@@ -140,6 +140,47 @@ definitions:
         format: integer
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
+      Test:
+        description: A string enum describing which test to run with the algorithm
+        type: string
+        enum:
+          - MDTF_2020_RALLY
+      Thresholds:
+        description: A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters.
+          There are 5 required thresholds, and you may specify 5 additional thresholds.
+        maxProperties: 10
+        type: object
+        properties:
+          "1:500":
+            type: string
+            maxLength: 10
+          "1:1e3":
+            type: string
+            maxLength: 10
+          "1:1e4":
+            type: string
+            maxLength: 10
+          "1:1e5":
+            type: string
+            maxLength: 10
+          "1:1e6":
+            type: string
+            maxLength: 10
+        required:
+          - "1:500"
+          - "1:1e3"
+          - "1:1e4"
+          - "1:1e5"
+          - "1:1e6"
+        additionalProperties:
+          type: string
+          maxLength: 10
+        example:
+          "1:500": "0.75"
+          "1:1e3": "0.85"
+          "1:1e4": "0.95"
+          "1:1e5": "0.97"
+          "1:1e6": "0.99"
     required:
       - AlgorithmName
       - AlgorithmVersion
@@ -148,6 +189,8 @@ definitions:
       - TechnicalContactEmail
       - RecommendedCPUs
       - RecommendedMem
+      - Test
+      - Thresholds
 
   RequestError:
     type: string
@@ -244,7 +287,7 @@ paths:
     get:
       summary: Returns basic information for the algorithm.
       description: |
-        This endpoint returns some basic information about the algorithm.
+        This endpoint returns some basic information about the algorithm. The response should be stateless, with no fixed values.
       tags:
         - Algorithm Information
       operationId: info
