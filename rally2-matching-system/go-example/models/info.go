@@ -3,7 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
+	"errors"
 	"strconv"
 	"strings"
 )
@@ -119,7 +119,7 @@ func convertMapFloat(in map[string]string) (out map[string]float64, err error) {
 	out = make(map[string]float64, len(in))
 	for k, v := range in {
 		if len(v) > 10 {
-			return nil, errors.Errorf("invalid threshold length; was: %d and should be at max 10", len(v))
+			return nil, fmt.Errorf("invalid threshold length; was: %d and should be at max 10", len(v))
 		}
 		out[k], err = strconv.ParseFloat(v, 64)
 		if err != nil {

@@ -159,11 +159,11 @@ func info(w http.ResponseWriter, r *http.Request) {
 			RecommendedMem:        2048,
 			Test:                  "MDTF_2020_RALLY",
 			Thresholds: map[string]float64{
-				"1:500": float64(0.99),
-				"1:1e3": float64(0.96),
-				"1:1e4": float64(0.90),
-				"1:1e5": float64(0.84),
-				"1:1e6": float64(0.80),
+				"1:500": float64(0.75),
+				"1:1e3": float64(0.85),
+				"1:1e4": float64(0.95),
+				"1:1e5": float64(0.97),
+				"1:1e6": float64(0.99),
 			},
 		}
 

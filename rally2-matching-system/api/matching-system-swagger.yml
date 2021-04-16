@@ -176,11 +176,11 @@ definitions:
           type: string
           maxLength: 10
         example:
-          "1:500": "0.99"
-          "1:1e3": "0.97"
-          "1:1e4": "0.96"
-          "1:1e5": "0.86"
-          "1:1e6": "0.753"
+          "1:500": "0.75"
+          "1:1e3": "0.85"
+          "1:1e4": "0.95"
+          "1:1e5": "0.97"
+          "1:1e6": "0.99"
     required:
       - AlgorithmName
       - AlgorithmVersion
