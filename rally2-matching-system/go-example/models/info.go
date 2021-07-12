@@ -35,8 +35,11 @@ type Info struct {
 	TechnicalContactEmail string
 
 	// A string enum describing which test to run with the algorithm
-	// Enum: [MDTF_2020_RALLY]
 	Test string
+
+	// A string enum to indicate the metric by which a comparision score is determined.
+	// Enum[Distance, Similarity]
+	ThresholdMetric string
 
 	// The list of threshold scores for various false match rates (FMRs) for your submitted matching system.
 	// Systems are required to provide at least thresholds for achieving FMRs for 1:500, 1:1e3,  1:1e4,  1:1e5,  1:1e6
@@ -54,6 +57,7 @@ func (i Info) MarshalJSON() (b []byte, err error) {
 		RecommendedMem        int64
 		TechnicalContactEmail string
 		Test                  string
+		ThresholdMetric		  string
 		Thresholds            map[string]string
 	}{
 		AlgorithmName:         i.AlgorithmName,
@@ -64,6 +68,7 @@ func (i Info) MarshalJSON() (b []byte, err error) {
 		RecommendedMem:        i.RecommendedMem,
 		TechnicalContactEmail: i.TechnicalContactEmail,
 		Test:                  i.Test,
+		ThresholdMetric:	   i.ThresholdMetric,
 		Thresholds:            convertMapString(i.Thresholds),
 	}
 	return json.Marshal(temp)
@@ -88,6 +93,7 @@ func (i *Info) UnmarshalJSON(b []byte) (err error) {
 		RecommendedMem        int64
 		TechnicalContactEmail string
 		Test                  string
+		ThresholdMetric		  string
 		Thresholds            map[string]string
 	}{}
 	err = json.Unmarshal(b, &temp)
@@ -111,6 +117,7 @@ func (i *Info) UnmarshalJSON(b []byte) (err error) {
 	i.RecommendedMem = temp.RecommendedMem
 	i.TechnicalContactEmail = temp.TechnicalContactEmail
 	i.Test = temp.Test
+	i.ThresholdMetric = temp.ThresholdMetric
 	i.Thresholds = thresh
 	return
 }

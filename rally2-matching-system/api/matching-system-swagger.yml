@@ -3,16 +3,16 @@ swagger: "2.0"
 info:
   title: The Maryland Test Facility Matching System Interface
   description: Application Programming Interface for receiving matching system requests from the MdTF Backend.
-  version: "1.0.3"
+  version: "1.1.0"
   contact:
-    name: John Howard
+    name: The MdTF
     url: https://mdtf.org
-    email: john@mdtf.org
+    email: rally@mdtf.org
   # the license of the swagger documentation
   license:
-    name: Copyright (c) 2018, The Maryland Test Facility
+    name: Copyright (c) 2021, The Maryland Test Facility
 # the domain of the service
-host: 172.17.0.2:8080
+# host: 172.17.0.2:8080
 # array of all schemes that your API supports
 schemes:
   - http
@@ -120,11 +120,14 @@ definitions:
         example: "1.0.1"
       AlgorithmType:
         type: string
-        enum: [Face, Finger, Iris]
+        enum: 
+          - Face
+          - Finger
+          - Iris
         description: A string enum describing the type of biometric images the algorithm is meant to process
       CompanyName:
         type: string
-        description: Name of the Company which produces the algorithm
+        description: Name of the Company which produced the algorithm
         example: MdTF
       TechnicalContactEmail:
         type: string
@@ -135,19 +138,29 @@ definitions:
         format: integer
         description: The recommended allocation of CPUs for the deployed docker container.
         example: 4
+        maximum: 8
       RecommendedMem:
         type: number
         format: integer
         description: The recommended allocation of memory (MB) for the deployed docker container.
         example: 2048
+        maximum: 8192
       Test:
-        description: A string enum describing which test to run with the algorithm
+        description: A string enum describing which test the algorithm is being submitted for
         type: string
         enum:
-          - MDTF_2020_RALLY
+          - MDTF_2021_RALLY
+      ThresholdMetric:
+        description: A string enum to indicate the metric by which a comparision score is determined.
+        type: string
+        enum:
+          - Distance
+          - Similarity
+        example: Similarity
       Thresholds:
-        description: A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters.
-          There are 5 required thresholds, and you may specify 5 additional thresholds.
+        description: A map of False Match Rates to their threshold values.
+          Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.
+          There are 5 required thresholds. 5 additional thresholds may be specified.
         maxProperties: 10
         type: object
         properties:
@@ -190,6 +203,7 @@ definitions:
       - RecommendedCPUs
       - RecommendedMem
       - Test
+      - ThresholdMetric
       - Thresholds
 
   RequestError:
@@ -287,7 +301,7 @@ paths:
     get:
       summary: Returns basic information for the algorithm.
       description: |
-        This endpoint returns some basic information about the algorithm. The response should be stateless, with no fixed values.
+        This endpoint returns some basic information about the algorithm.
       tags:
         - Algorithm Information
       operationId: info

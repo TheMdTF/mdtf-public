@@ -155,9 +155,10 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmType:         "Iris",
 			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
-			RecommendedCPUs:       4,
+			RecommendedCPUs:       4,	
 			RecommendedMem:        2048,
-			Test:                  "MDTF_2020_RALLY",
+			Test:                  "MDTF_2021_RALLY",
+			ThresholdMetric:       "Similarity",
 			Thresholds: map[string]float64{
 				"1:500": float64(0.75),
 				"1:1e3": float64(0.85),

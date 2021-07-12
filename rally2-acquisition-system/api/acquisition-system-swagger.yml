@@ -5,12 +5,12 @@ info:
   description: Application Programming Interface for sending acquisition records to the MdTF Backend.
   version: "1.2.0"
   contact:
-    name: Andrew Blanchard
+    name: The MdTF
     url: https://mdtf.org
-    email: andrew@mdtf.org
+    email: rally@mdtf.org
   # the license of the swagger documentation
   license:
-    name: Copyright (c) 2018, The Maryland Test Facility
+    name: Copyright (c) 2021, The Maryland Test Facility
 # the domain of the service
 host: api.mdtf.org
 # array of all schemes that your API supports
@@ -29,8 +29,7 @@ produces:
 
 tags:
   - name: Image Submission
-    description: |
-      Endpoints for submitting images to an ongoing transaction.
+    description: Endpoints for submitting images to an ongoing transaction.
 
 
 ################################################################################
@@ -48,7 +47,7 @@ definitions:
       StationID:
         type: string
         description: The unique identifier for the station that the image was captured at.
-        example: MdTF_Station
+        example: Station_A
         x-nullable: false
       FaceImageData:
         type: string
@@ -63,7 +62,7 @@ definitions:
       StationID:
         type: string
         description: The unique identifier for the station that the image was captured at.
-        example: MdTF_Station
+        example: Station_A
         x-nullable: false
       LeftIrisImageData:
         type: string
@@ -83,7 +82,7 @@ definitions:
       StationID:
         type: string
         description: The unique identifier for the station that the image was captured at.
-        example: MdTF_Station
+        example: Station_A
         x-nullable: false
       FingerImages:
         type: array
