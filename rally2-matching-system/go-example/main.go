@@ -158,7 +158,6 @@ func info(w http.ResponseWriter, r *http.Request) {
 			RecommendedCPUs:       4,	
 			RecommendedMem:        2048,
 			Test:                  "MDTF_2021_RALLY",
-			ThresholdMetric:       "Similarity",
 			Thresholds: map[string]float32{
 				"1:500": float32(0.75),
 				"1:1e3": float32(0.85),

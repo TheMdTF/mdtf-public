@@ -421,16 +421,9 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>NormalizedScore</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce<br>
-<strong>Example</strong> : <code>0.8734</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">An un-normalized similarity score, as produced by the algorithm<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A similarity score, as produced by the algorithm<br>
 <strong>Example</strong> : <code>8734.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
 </tr>
@@ -542,24 +535,67 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock">enum (MDTF_2021_RALLY)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ThresholdMetric</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum to indicate the metric by which a comparision score is determined.<br>
-<strong>Example</strong> : <code>"Similarity"</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (Distance, Similarity)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of False Match Rates to their threshold values. Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters. There are 5 required thresholds. 5 additional thresholds may be specified.<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor provided threshold values. Score values, returned from calls to v1/compare-list , greater than threshold value, at the respective FMR, indicate a matching determination by the algorithm.
+</p><p class="tableblock">Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters. There are 5 required thresholds.<br>
 <strong>Example</strong> : <code>{
-  "1:500" : "0.75",
-  "1:1e3" : "0.85",
-  "1:1e4" : "0.95",
-  "1:1e5" : "0.97",
-  "1:1e6" : "0.99"
+  "1:500" : "7543",
+  "1:1e3" : "8730",
+  "1:1e4" : "9321",
+  "1:1e5" : "9863",
+  "1:1e6" : "9972"
 }</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string, string &gt; map</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_info_thresholds">Thresholds</a></p></td>
+</tr>
+</tbody>
+</table>
+<div id="_info_thresholds" class="paragraph">
+<p><strong>Thresholds</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 61.1111%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e3</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e4</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e5</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e6</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:500</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
@@ -616,7 +652,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-13 08:15:32 -04:00
+Last updated 2021-07-14 15:14:55 -04:00
 </div>
 </div>
 </body>
