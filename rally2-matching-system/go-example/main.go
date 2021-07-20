@@ -127,7 +127,6 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 
 			cList = append(cList, models.Comparison{
 				Score:           float32(s),
-				NormalizedScore: float32(s),
 			})
 		}
 
