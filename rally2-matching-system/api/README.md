@@ -185,7 +185,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. &lt;br&gt;&lt;br&gt; The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
+<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br> The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
 </div>
 </div>
 <div class="sect4">
