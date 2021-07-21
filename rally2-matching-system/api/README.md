@@ -537,7 +537,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor provided threshold values. Score values, returned from calls to v1/compare-list , greater than threshold value, at the respective FMR, indicate a matching determination by the algorithm.
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold value at the respective FMR.
 </p><p class="tableblock">Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters. There are 5 required thresholds.<br>
 <strong>Example</strong> : <code>{
   "1:500" : "7543",
