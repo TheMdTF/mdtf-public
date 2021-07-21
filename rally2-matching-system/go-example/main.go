@@ -151,7 +151,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 		i := models.Info{
 			AlgorithmName:         "Example MdTF Matching Algorithm",
 			AlgorithmVersion:      "1.0.0",
-			AlgorithmType:         "Iris",
+			AlgorithmType:         "Face",
 			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
 			RecommendedCPUs:       4,	

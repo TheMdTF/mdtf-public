@@ -78,12 +78,11 @@ templateList="$templateList ]"
 if [ -f "scores.dat" ] ; then
     rm "scores.dat"
 fi
-echo -e "image1\timage2\tnormalized_score\tscore" >> scores.dat
+echo -e "image1\timage2\tscore" >> scores.dat
 
 # Execute template comparisons and save the scores
 
 allScores=()
-allNormalScores=()
 start=$(date +%s%N | cut -b1-13)
 c1=0
 for i in "${templates[@]}"; do
@@ -102,16 +101,14 @@ JSON
   )
 
   scores=( $(echo $tmp | jq -r '.[].Score') )
-  nscores=( $(echo $tmp | jq -r '.[].NormalizedScore') )
   echo "Compare list generated" ${#scores[@]} "scores"
   c2=0
   for i in ${scores[@]}; do
-    echo -e ${images[c1]}"\t"${images[c2]}"\t"${nscores[c2]}"\t"$i >> scores.dat
+    echo -e ${images[c1]}"\t"${images[c2]}"\t"$i >> scores.dat
     c2=$((c2+1))
   done
   c1=$((c1+1))
   allScores+=( ${scores[@]} )
-  allNormalScores+=( ${nscores[@]} )
 done
 end=$(date +%s%N | cut -b1-13)
 
@@ -124,20 +121,6 @@ echo "Score Matrix:"
 index=0
 numImgs=${#images[@]}
 for s in ${allScores[@]}; do
-    if ! (($index % $numImgs)); then
-      if ((index !=0)); then
-         echo ""
-      fi
-  fi
-  printf "%0.3f " $s
-  ((index++))
-done
-
-# Print the normalized score matrix
-echo -e "\n\nNormalized Score Matrix:"
-index=0
-numImgs=${#images[@]}
-for s in ${allNormalScores[@]}; do
     if ! (($index % $numImgs)); then
       if ((index !=0)); then
          echo ""
