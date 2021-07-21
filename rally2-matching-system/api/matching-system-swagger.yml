@@ -144,7 +144,7 @@ definitions:
         enum:
           - MDTF_2021_RALLY
       Thresholds:
-        description: A map of preset False Match Rates (FMR) to vendor provided threshold values.  Score values, returned from calls to v1/compare-list , greater than threshold value, at the respective FMR, indicate a matching determination by the algorithm.
+        description: A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold value at the respective FMR.
         
         
           Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.

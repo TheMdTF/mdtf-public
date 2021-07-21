@@ -185,7 +185,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. &lt;br&gt;&lt;br&gt; The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
+<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br> The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
 </div>
 </div>
 <div class="sect4">
@@ -537,7 +537,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor provided threshold values. Score values, returned from calls to v1/compare-list , greater than threshold value, at the respective FMR, indicate a matching determination by the algorithm.
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold value at the respective FMR.
 </p><p class="tableblock">Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters. There are 5 required thresholds.<br>
 <strong>Example</strong> : <code>{
   "1:500" : "7543",
