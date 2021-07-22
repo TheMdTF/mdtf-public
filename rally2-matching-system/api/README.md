@@ -55,28 +55,27 @@
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
 <div class="paragraph">
-<p><em>Version</em> : 1.0.3</p>
+<p><em>Version</em> : 1.1.0</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_contact_information">Contact information</h3>
 <div class="paragraph">
-<p><em>Contact</em> : John Howard<br>
-<em>Contact Email</em> : <a href="mailto:john@mdtf.org">john@mdtf.org</a></p>
+<p><em>Contact</em> : The MdTF<br>
+<em>Contact Email</em> : <a href="mailto:rally@mdtf.org">rally@mdtf.org</a></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_license_information">License information</h3>
 <div class="paragraph">
-<p><em>License</em> : Copyright (c) 2018, The Maryland Test Facility<br>
+<p><em>License</em> : Copyright (c) 2021, The Maryland Test Facility<br>
 <em>Terms of service</em> : null</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_uri_scheme">URI scheme</h3>
 <div class="paragraph">
-<p><em>Host</em> : 172.17.0.2:8080<br>
-<em>Schemes</em> : HTTP</p>
+<p><em>Schemes</em> : HTTP</p>
 </div>
 </div>
 <div class="sect2">
@@ -129,7 +128,7 @@
 <div class="sect4">
 <h5 id="_description">Description</h5>
 <div class="paragraph">
-<p>This endpoint returns some basic information about the algorithm. The response should be stateless, with no fixed values.</p>
+<p>This endpoint returns some basic information about the algorithm.</p>
 </div>
 </div>
 <div class="sect4">
@@ -186,7 +185,7 @@
 <div class="sect4">
 <h5 id="_description_2">Description</h5>
 <div class="paragraph">
-<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. &lt;br&gt;&lt;br&gt; The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
+<p>This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br> The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.</p>
 </div>
 </div>
 <div class="sect4">
@@ -422,16 +421,9 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>NormalizedScore</strong><br>
-<em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Similarity score between 0 and 1, with 1 being the highest score the algorithm can produce<br>
-<strong>Example</strong> : <code>0.8734</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Score</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">An un-normalized similarity score, as produced by the algorithm<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A similarity score, as produced by the algorithm<br>
 <strong>Example</strong> : <code>8734.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (float)</p></td>
 </tr>
@@ -509,7 +501,7 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>CompanyName</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the Company which produces the algorithm<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of the Company which produced the algorithm<br>
 <strong>Example</strong> : <code>"MdTF"</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
@@ -517,6 +509,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedCPUs</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of CPUs for the deployed docker container.<br>
+<strong>Maximum value</strong> : <code>8</code><br>
 <strong>Example</strong> : <code>4.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
 </tr>
@@ -524,6 +517,7 @@
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>RecommendedMem</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The recommended allocation of memory (MB) for the deployed docker container.<br>
+<strong>Maximum value</strong> : <code>8192</code><br>
 <strong>Example</strong> : <code>2048.0</code></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">number (integer)</p></td>
 </tr>
@@ -537,21 +531,71 @@
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Test</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing which test to run with the algorithm</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (MDTF_2020_RALLY)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A string enum describing which test the algorithm is being submitted for</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">enum (MDTF_2021_RALLY)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Thresholds</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of thresholds to their expected values. Note that thresholds values cannot exceed a length of 10 characters. There are 5 required thresholds, and you may specify 5 additional thresholds.<br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold value at the respective FMR.
+</p><p class="tableblock">Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters. There are 5 required thresholds.<br>
 <strong>Example</strong> : <code>{
-  "1:500" : "0.99",
-  "1:1e3" : "0.97",
-  "1:1e4" : "0.96",
-  "1:1e5" : "0.86",
-  "1:1e6" : "0.753"
+  "1:500" : "7543",
+  "1:1e3" : "8730",
+  "1:1e4" : "9321",
+  "1:1e5" : "9863",
+  "1:1e6" : "9972"
 }</code></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string, string &gt; map</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_info_thresholds">Thresholds</a></p></td>
+</tr>
+</tbody>
+</table>
+<div id="_info_thresholds" class="paragraph">
+<p><strong>Thresholds</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 61.1111%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e3</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e4</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e5</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:1e6</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>1:500</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Maximal length</strong> : <code>10</code></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
@@ -608,7 +652,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-08 10:47:04 -04:00
+Last updated 2021-07-14 15:14:55 -04:00
 </div>
 </div>
 </body>

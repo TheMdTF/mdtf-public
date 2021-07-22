@@ -127,7 +127,6 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 
 			cList = append(cList, models.Comparison{
 				Score:           float32(s),
-				NormalizedScore: float32(s),
 			})
 		}
 
@@ -152,18 +151,18 @@ func info(w http.ResponseWriter, r *http.Request) {
 		i := models.Info{
 			AlgorithmName:         "Example MdTF Matching Algorithm",
 			AlgorithmVersion:      "1.0.0",
-			AlgorithmType:         "Iris",
+			AlgorithmType:         "Face",
 			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
-			RecommendedCPUs:       4,
+			RecommendedCPUs:       4,	
 			RecommendedMem:        2048,
-			Test:                  "MDTF_2020_RALLY",
-			Thresholds: map[string]float64{
-				"1:500": float64(0.75),
-				"1:1e3": float64(0.85),
-				"1:1e4": float64(0.95),
-				"1:1e5": float64(0.97),
-				"1:1e6": float64(0.99),
+			Test:                  "MDTF_2021_RALLY",
+			Thresholds: map[string]float32{
+				"1:500": float32(0.75),
+				"1:1e3": float32(0.85),
+				"1:1e4": float32(0.95),
+				"1:1e5": float32(0.97),
+				"1:1e6": float32(0.99),
 			},
 		}
 

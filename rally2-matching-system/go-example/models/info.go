@@ -35,12 +35,11 @@ type Info struct {
 	TechnicalContactEmail string
 
 	// A string enum describing which test to run with the algorithm
-	// Enum: [MDTF_2020_RALLY]
 	Test string
 
 	// The list of threshold scores for various false match rates (FMRs) for your submitted matching system.
 	// Systems are required to provide at least thresholds for achieving FMRs for 1:500, 1:1e3,  1:1e4,  1:1e5,  1:1e6
-	Thresholds map[string]float64
+	Thresholds map[string]float32
 }
 
 //MarshalJSON implements the Marshaller interface to meet swagger requirements
@@ -69,7 +68,7 @@ func (i Info) MarshalJSON() (b []byte, err error) {
 	return json.Marshal(temp)
 }
 
-func convertMapString(in map[string]float64) (out map[string]string) {
+func convertMapString(in map[string]float32) (out map[string]string) {
 	out = make(map[string]string, len(in))
 	for k, v := range in {
 		out[k] = strings.TrimSpace(fmt.Sprintf("%10f", v))
@@ -115,16 +114,18 @@ func (i *Info) UnmarshalJSON(b []byte) (err error) {
 	return
 }
 
-func convertMapFloat(in map[string]string) (out map[string]float64, err error) {
-	out = make(map[string]float64, len(in))
+func convertMapFloat(in map[string]string) (out map[string]float32, err error) {
+	out = make(map[string]float32, len(in))
 	for k, v := range in {
 		if len(v) > 10 {
 			return nil, fmt.Errorf("invalid threshold length; was: %d and should be at max 10", len(v))
 		}
-		out[k], err = strconv.ParseFloat(v, 64)
+		var val float64
+		val, err = strconv.ParseFloat(v, 32)
 		if err != nil {
 			return
 		}
+		out[k] = float32(val)
 	}
 	return
 }
