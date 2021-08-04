@@ -4,8 +4,10 @@ Public code that supports software integration efforts at the [Maryland Test Fac
 
 ### image-analysis
 * api
+
 	This folder contains the API definition for generic image analysis systems submitted to the MdTF for evaluation.
 * go-example
+
 	This folder contains a working go example implementation of the image-analysis API definition. See example README for more details.
 
 ### rally2-acquisition-system
