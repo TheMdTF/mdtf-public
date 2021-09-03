@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   title: The Maryland Test Facility Matching System Interface
   description: Application Programming Interface for receiving matching system requests from the MdTF Backend.
-  version: "1.1.0"
+  version: "1.1.1"
   contact:
     name: The MdTF
     url: https://mdtf.org
@@ -124,7 +124,9 @@ definitions:
         example: MdTF
       TechnicalContactEmail:
         type: string
-        description: The email address of an engineer or other technical resource to contact in the event of an error running your service. This field may be left blank if desired.
+        description: |
+          The email address of an engineer or other technical resource to contact in the event of
+          an error running your service. This field may be left blank if desired.
         example: john@mdtf.org
       RecommendedCPUs:
         type: number
@@ -144,13 +146,13 @@ definitions:
         enum:
           - MDTF_2021_RALLY
       Thresholds:
-        description: A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold value at the respective FMR.
-        
-        
+        description: |
+          A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to 
+          v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold
+          value at the respective FMR.<br></br>
           Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.
           There are 5 required thresholds. 
-          #5 additional thresholds may be specified.
-        maxProperties: 5 #10
+        maxProperties: 5 
         type: object
         properties:
           "1:500":
@@ -174,9 +176,6 @@ definitions:
           - "1:1e4"
           - "1:1e5"
           - "1:1e6"
-        # additionalProperties:
-        #   type: string
-        #   maxLength: 10
         example:
           "1:500": "7543"
           "1:1e3": "8730"
@@ -192,19 +191,20 @@ definitions:
       - RecommendedCPUs
       - RecommendedMem
       - Test
-      # - ThresholdMetric
       - Thresholds
 
   RequestError:
     type: string
     description: |
-      Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid image encoding).
+      Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid
+      image encoding).
     example: Unable to decode image data as a PNG.
 
   ServerError:
     type: string
     description: |
-      Relevant and concise diagnostic information in the event of a server side error (e.g. invalid license, or failure to generate a template).
+      Relevant and concise diagnostic information in the event of a server side error 
+      (e.g. invalid license, or failure to generate a template).
     example: The internal license has expired.
 ################################################################################
 #                                   Parameters                                 #
@@ -237,14 +237,14 @@ paths:
     post:
       summary: Generate a template from the provided biometric image
       description: |
-        This endpoint accepts a base64 encoded PNG and attempts to perform a 'feature extraction' operation producing a single template.
+        This endpoint accepts a base64 encoded PNG and attempts to perform a 'feature extraction' operation producing a
+        single template.
       tags:
         - Biometric Operations
       operationId: create_template
       parameters:
         - $ref: "#/parameters/image"
       responses:
-        # Response code
         200:
           description: Successful Response
           schema:
@@ -262,19 +262,23 @@ paths:
     post:
       summary: Compare a single template to a list of templates
       description: |
-        This endpoint accepts a template and a list of templates. It compares the single template to every template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br> The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates.
+        This endpoint accepts a template and a list of templates. It compares the single template to every template in the
+        provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. <br><br>
+        The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list
+        of templates.
       tags:
         - Biometric Operations
       operationId: compare_list
       parameters:
         - $ref: "#/parameters/compare_list_request"
       responses:
-        # Response code
         200:
           description: Successful Response
           schema:
             type: array
-            description: An array of comparison results. This list MUST contain the same number of elements AND be in the same order as the provided list of templates.
+            description: |
+              An array of comparison results. This list MUST contain the same number of elements AND be in 
+              the same order as the provided list of templates.
             items:
               $ref: "#/definitions/Comparison"
         400:
@@ -295,7 +299,6 @@ paths:
         - Algorithm Information
       operationId: info
       responses:
-        # Response code
         200:
           description: Successful Response
           schema:
