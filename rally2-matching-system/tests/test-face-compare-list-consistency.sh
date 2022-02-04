@@ -3,8 +3,8 @@
 echo -e "\nTesting Face Matching System Compare Template List Consistency.."
 
 # Set the service address and port, if passed
-host=$2
-port=$3
+host=$1
+port=$2
 
 if [ -z $host ]; then
   host=localhost
