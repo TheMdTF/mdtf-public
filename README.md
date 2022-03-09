@@ -1,11 +1,17 @@
-# The Maryland Test Facility Public Code Repository
+# The Maryland Test Facility Public Code and Data Repository
 
-Public code that supports software integration efforts at the [Maryland Test Facility Website](https://mdtf.org).
+Public code and data from the [Maryland Test Facility](https://mdtf.org).  
+
+### datasets
+This folder contains publicly releasable datasets from the Maryland Test Facility designed to further research across the biometrics and computer visison communities.
 
 ### image-analysis
 * api
+
 	This folder contains the API definition for generic image analysis systems submitted to the MdTF for evaluation.
+	
 * go-example
+
 	This folder contains a working go example implementation of the image-analysis API definition. See example README for more details.
 
 ### rally2-acquisition-system
