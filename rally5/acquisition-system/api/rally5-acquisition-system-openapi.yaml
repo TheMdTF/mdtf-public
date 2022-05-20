@@ -14,13 +14,6 @@ info:
 
 servers:
 - url: http://api.mdtf.org/
-  variables:
-    host:
-      default: ids.lab
-    port:
-      enum:
-      - '8080'
-      default: '8080'
 
 tags:
 - name: Image Submission
