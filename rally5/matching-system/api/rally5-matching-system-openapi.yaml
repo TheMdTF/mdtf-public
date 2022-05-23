@@ -35,7 +35,7 @@ components:
           x-nullable: false
       required:
         - ImageData
-  
+
     Template:
       type: object
       description: |
@@ -48,7 +48,7 @@ components:
           x-nullable: false
       required:
         - Template
-  
+
     Comparison:
       type: object
       description: |
@@ -109,13 +109,12 @@ components:
           example: john@mdtf.org
         RecommendedCPUs:
           type: number
-          format: integer
+          format: float
           description: The recommended allocation of CPUs for the deployed docker container.
           example: .5
           maximum: 8
         RecommendedMem:
-          type: number
-          format: integer
+          type: integer
           description: The recommended allocation of memory (MB) for the deployed docker container.
           example: 512
           maximum: 8192
@@ -171,14 +170,14 @@ components:
         - RecommendedMem
         - Test
         - Thresholds
-  
+
     RequestError:
       type: string
       description: |
         Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid
         image encoding).
       example: Unable to decode image data as a PNG.
-  
+
     ServerError:
       type: string
       description: |
@@ -195,7 +194,7 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Image"
-  
+
     compare_list_request:
       description: A single template object and a list of templates that it will be compared to.
       required: true
@@ -277,7 +276,7 @@ paths:
         of templates.
       tags:
         - Biometric Operations
-      operationId: compare_list
+      operationId: CompareTemplateList
       requestBody:
         $ref: "#/components/requestBodies/compare_list_request"
       responses:
@@ -295,7 +294,7 @@ paths:
         This endpoint returns some basic information about the algorithm.
       tags:
         - Algorithm Information
-      operationId: info
+      operationId: GetInfo
       responses:
         200:
           $ref: '#/components/responses/infoResponse'
