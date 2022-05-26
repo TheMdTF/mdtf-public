@@ -247,7 +247,7 @@ components:
 
 paths:
 
-  /v1/generate-template:
+  /v1/create-template:
     post:
       summary: Generate a template from the provided biometric image
       description: |

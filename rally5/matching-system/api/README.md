@@ -9,7 +9,7 @@ All URIs are relative to *http://localhost:8080*
 |------------ | ------------- | ------------- | -------------|
 | *AlgorithmInformationApi* | [**getInfo**](Apis/AlgorithmInformationApi.md#getinfo) | **GET** /v1/info | Returns basic information for the algorithm. |
 | *BiometricOperationsApi* | [**compareTemplateList**](Apis/BiometricOperationsApi.md#comparetemplatelist) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates |
-*BiometricOperationsApi* | [**generateTemplate**](Apis/BiometricOperationsApi.md#generatetemplate) | **POST** /v1/generate-template | Generate a template from the provided biometric image |
+*BiometricOperationsApi* | [**generateTemplate**](Apis/BiometricOperationsApi.md#generatetemplate) | **POST** /v1/create-template | Generate a template from the provided biometric image |
 
 
 <a name="documentation-for-models"></a>

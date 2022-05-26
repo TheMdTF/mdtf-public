@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost:8080*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**compareTemplateList**](BiometricOperationsApi.md#compareTemplateList) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates |
-| [**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/generate-template | Generate a template from the provided biometric image |
+| [**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/create-template | Generate a template from the provided biometric image |
 
 
 <a name="compareTemplateList"></a>
