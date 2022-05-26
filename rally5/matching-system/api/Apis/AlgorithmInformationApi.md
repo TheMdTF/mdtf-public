@@ -2,14 +2,14 @@
 
 All URIs are relative to *http://localhost:8080*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**info**](AlgorithmInformationApi.md#info) | **GET** /v1/info | Returns basic information for the algorithm.
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**getInfo**](AlgorithmInformationApi.md#getInfo) | **GET** /v1/info | Returns basic information for the algorithm. |
 
 
-<a name="info"></a>
-# **info**
-> Info info()
+<a name="getInfo"></a>
+# **getInfo**
+> Info getInfo()
 
 Returns basic information for the algorithm.
 

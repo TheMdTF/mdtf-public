@@ -2,15 +2,15 @@
 
 All URIs are relative to *http://localhost:8080*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**compareList**](BiometricOperationsApi.md#compareList) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates
-[**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/generate-template | Generate a template from the provided biometric image
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**compareTemplateList**](BiometricOperationsApi.md#compareTemplateList) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates |
+| [**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/generate-template | Generate a template from the provided biometric image |
 
 
-<a name="compareList"></a>
-# **compareList**
-> List compareList(CompareListRequest)
+<a name="compareTemplateList"></a>
+# **compareTemplateList**
+> List compareTemplateList(CompareListRequest)
 
 Compare a single probe template to a list of target templates
 
@@ -18,9 +18,9 @@ Compare a single probe template to a list of target templates
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **CompareListRequest** | [**CompareListRequest**](../Models/CompareListRequest.md)| A single template object and a list of templates that it will be compared to. |
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **CompareListRequest** | [**CompareListRequest**](../Models/CompareListRequest.md)| A single template object and a list of templates that it will be compared to. | |
 
 ### Return type
 
@@ -45,9 +45,9 @@ Generate a template from the provided biometric image
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Image** | [**Image**](../Models/Image.md)| The biometric image that is being submitted for feature extraction.  |
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **Image** | [**Image**](../Models/Image.md)| The biometric image that is being submitted for feature extraction.  | |
 
 ### Return type
 
