@@ -2,11 +2,11 @@
 
 All URIs are relative to *http://api.mdtf.org*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**v1FaceCapturesPost**](ImageSubmissionApi.md#v1FaceCapturesPost) | **POST** /v1/face-captures | Associate a face image capture with the ongoing transaction
-[**v1FingerCapturesPost**](ImageSubmissionApi.md#v1FingerCapturesPost) | **POST** /v1/finger-captures | Associate up to 10 finger captures with the ongoing transaction
-[**v1IrisCapturesPost**](ImageSubmissionApi.md#v1IrisCapturesPost) | **POST** /v1/iris-captures | Associate an iris image capture (or pair of image captures) with the ongoing transaction
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**v1FaceCapturesPost**](ImageSubmissionApi.md#v1FaceCapturesPost) | **POST** /v1/face-captures | Associate a face image capture with the ongoing transaction |
+| [**v1FingerCapturesPost**](ImageSubmissionApi.md#v1FingerCapturesPost) | **POST** /v1/finger-captures | Associate up to 10 finger captures with the ongoing transaction |
+| [**v1IrisCapturesPost**](ImageSubmissionApi.md#v1IrisCapturesPost) | **POST** /v1/iris-captures | Associate an iris image capture (or pair of image captures) with the ongoing transaction |
 
 
 <a name="v1FaceCapturesPost"></a>
@@ -19,9 +19,9 @@ Associate a face image capture with the ongoing transaction
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **FaceCapture** | [**FaceCapture**](../Models/FaceCapture.md)| face image collected as part of a transaction |
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **FaceCapture** | [**FaceCapture**](../Models/FaceCapture.md)| face image collected as part of a transaction | |
 
 ### Return type
 
@@ -46,9 +46,9 @@ Associate up to 10 finger captures with the ongoing transaction
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **FingerCapture** | [**FingerCapture**](../Models/FingerCapture.md)| finger image(s) collected as part of a transaction |
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **FingerCapture** | [**FingerCapture**](../Models/FingerCapture.md)| finger image(s) collected as part of a transaction | |
 
 ### Return type
 
@@ -73,9 +73,9 @@ Associate an iris image capture (or pair of image captures) with the ongoing tra
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **IrisCapture** | [**IrisCapture**](../Models/IrisCapture.md)| iris image(s) collected as part of a transaction |
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **IrisCapture** | [**IrisCapture**](../Models/IrisCapture.md)| iris image(s) collected as part of a transaction | |
 
 ### Return type
 

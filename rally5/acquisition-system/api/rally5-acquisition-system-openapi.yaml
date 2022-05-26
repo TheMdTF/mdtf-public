@@ -10,14 +10,21 @@ info:
     url: https://mdtf.org
     email: rally@mdtf.org
   license:
-    name: Copyright (c) 2021, The Maryland Test Facility
+    name: Copyright (c) 2022, The Maryland Test Facility
 
 servers:
-- url: http://api.mdtf.org/
+  - url: http://api.mdtf.org/
+    variables:
+      host:
+        default: ids.lab
+      port:
+        enum:
+          - '8080'
+        default: '8080'
 
 tags:
-- name: Image Submission
-  description: Endpoints for submitting images to an ongoing transaction.
+  - name: Image Submission
+    description: Endpoints for submitting images to an ongoing transaction.
 
 components:
   schemas:
@@ -74,7 +81,7 @@ components:
           items:
             $ref: '#/components/schemas/FingerImage'
           example: [{FingerType: RightIndexFinger, FingerImageData: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==},
-            {FingerType: RightMiddleFinger, FingerImageData: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==}]
+                    {FingerType: RightMiddleFinger, FingerImageData: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==}]
 
     FingerImage:
       type: object
@@ -93,7 +100,6 @@ components:
       properties:
         Code:
           type: integer
-          format: int32
           description: The error code.
         Message:
           type: string
@@ -106,16 +112,16 @@ components:
       type: string
       description: The allowed string names for finger images.
       enum:
-      - RightThumb
-      - RightIndexFinger
-      - RightMiddleFinger
-      - RightRingFinger
-      - RightLittleFinger
-      - LeftThumb
-      - LeftIndexFinger
-      - LeftMiddleFinger
-      - LeftRingFinger
-      - LeftLittleFinger
+        - RightThumb
+        - RightIndexFinger
+        - RightMiddleFinger
+        - RightRingFinger
+        - RightLittleFinger
+        - LeftThumb
+        - LeftIndexFinger
+        - LeftMiddleFinger
+        - LeftRingFinger
+        - LeftLittleFinger
 
   requestBodies:
     face_capture:
@@ -172,7 +178,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
 
-
 paths:
   /v1/face-captures:
     post:
@@ -181,7 +186,7 @@ paths:
         Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
-      - Image Submission
+        - Image Submission
       requestBody:
         $ref: '#/components/requestBodies/face_capture'
       responses:
@@ -197,8 +202,6 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
-        default:
-          $ref: '#/components/schemas/Error'
 
   /v1/iris-captures:
     post:
@@ -207,7 +210,7 @@ paths:
         Acquisition System Providers may submit iris image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
-      - Image Submission
+        - Image Submission
       requestBody:
         $ref: '#/components/requestBodies/iris_capture'
       responses:
@@ -223,8 +226,6 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
-        default:
-          $ref: '#/components/schemas/Error'
 
   /v1/finger-captures:
     post:
@@ -232,7 +233,7 @@ paths:
       description: |
         Acquisition System Providers may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
-      - Image Submission
+        - Image Submission
       requestBody:
         $ref: '#/components/requestBodies/finger_capture'
       responses:
@@ -248,5 +249,3 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
-        default:
-          $ref: '#/components/schemas/Error'
