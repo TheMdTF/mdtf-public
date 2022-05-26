@@ -1,9 +1,18 @@
 # FingerType
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-| **FingerImageData** | **String** | The captured finger image data, encoded as a base64 string. The data string shall not exceed 100kB. | [optional] [default to null] |
+| String                | Type | Description | Notes |
+|-----------------------| ------------ | ------------- | -------------|
+| **RightThumb**        |**FingerType**|Enum type of finger image|[enum]|
+| **RightIndexFinger**  |**FingerType**|Enum type of finger image|[enum]|
+| **RightMiddleFinger** |**FingerType**|Enum type of finger image|[enum]|
+| **RightRingFinger**   |**FingerType**|Enum type of finger image|[enum]|
+| **RightLittleFinger** |**FingerType**|Enum type of finger image|[enum]|
+| **LeftThumb**         |**FingerType**|Enum type of finger image|[enum]|
+| **LeftIndexFinger**   |**FingerType**|Enum type of finger image|[enum]|
+| **LeftMiddleFinger**  |**FingerType**|Enum type of finger image|[enum]|
+| **LeftRingFinger**    |**FingerType**|Enum type of finger image|[enum]|
+| **LeftLittleFinger**  |**FingerType**|Enum type of finger image|[enum]|
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
