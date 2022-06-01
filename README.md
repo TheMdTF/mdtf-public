@@ -15,11 +15,20 @@ This folder contains publicly releasable datasets from the Maryland Test Facilit
 * go-example
 
 	This folder contains a working go example implementation of the image-analysis API definition. See example README for more details.
+
 ### rally5 
 
  * acquisition-system
 
     * api
+    
+      Contains OAS3 Spec and a generated [README.md](./rally5/acquisition-system/api/README.md) for Rally5 acquisition system api. Acquisition System vendors will interact with this API to submit acquired images.
+
+ * matching-system
+
+   * api 
+
+     Contains OAS3 Spec and a generated [README.md](./rally5/matching-system/api/README.md) for Rally5 matching system api. Matching System vendors will produce a matching system container image implementing the provided API to generate and compare biometric templates.
 
 ### deprecated
 
