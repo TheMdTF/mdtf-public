@@ -3,9 +3,11 @@
 Public code and data from the [Maryland Test Facility](https://mdtf.org).  
 
 ### datasets
+
 This folder contains publicly releasable datasets from the Maryland Test Facility designed to further research across the biometrics and computer visison communities.
 
 ### image-analysis
+
 * api
 
 	This folder contains the API definition for generic image analysis systems submitted to the MdTF for evaluation.
@@ -13,17 +15,28 @@ This folder contains publicly releasable datasets from the Maryland Test Facilit
 * go-example
 
 	This folder contains a working go example implementation of the image-analysis API definition. See example README for more details.
+### rally5 
 
-### rally2-acquisition-system
-* api
+ * acquisition-system
 
-	This folder contains the API definition for acquisition systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
+    * api
 
-### rally2-matching-system
-* api
+### deprecated
 
-	This folder contains the API definition for matching systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
+Contains deprecated APIs from past Collection Events, Rallies, ETC.
 
-* example
+* #### rally2
+  * rally2-acquisition-system
 
-	This folder contains a working example of a matching system implemented in C with endpoints exposed via golang. See example README for more details.
+    * api
+    
+        This folder contains the API definition for acquisition systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
+  * rally2-matching-system
+
+    * api
+
+        This folder contains the API definition for matching systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
+
+    * example
+
+        This folder contains a working example of a matching system implemented in C with endpoints exposed via golang. See example README for more details.
