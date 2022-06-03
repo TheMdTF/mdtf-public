@@ -2,8 +2,4 @@
 Apis/ImageSubmissionApi.md
 Models/Error.md
 Models/FaceCapture.md
-Models/FingerCapture.md
-Models/FingerImage.md
-Models/FingerType.md
-Models/IrisCapture.md
 README.md
