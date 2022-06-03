@@ -251,7 +251,7 @@ paths:
     post:
       summary: Generate a template from the provided biometric image
       description: |
-        This endpoint accepts a base64 encoded PNG and attempts to perform a 'feature extraction' operation producing a
+        This endpoint accepts a base64 encoded PNG and attempts to perform a feature extraction operation producing a
         single template.
       tags:
         - Biometric Operations
