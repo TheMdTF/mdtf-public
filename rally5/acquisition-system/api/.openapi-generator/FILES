@@ -1,0 +1,5 @@
+.openapi-generator-ignore
+Apis/ImageSubmissionApi.md
+Models/Error.md
+Models/FaceCapture.md
+README.md
