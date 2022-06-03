@@ -43,58 +43,6 @@ components:
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
 
-    IrisCapture:
-      type: object
-      required: [StationID]
-      properties:
-        StationID:
-          type: string
-          description: The unique identifier for the station that the image was captured at.
-          example: Station_A
-          x-nullable: false
-        LeftIrisImageData:
-          type: string
-          description: The captured left iris image data, encoded as a base64 string. The data string shall not exceed 512kB. At least one iris image data
-            field MUST be filled.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-        RightIrisImageData:
-          type: string
-          description: The captured right iris image data, encoded as a base64 string. The data string shall not exceed 512kB. At least one iris image data
-            field MUST be filled.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-
-    FingerCapture:
-      type: object
-      required: [StationID]
-      properties:
-        StationID:
-          type: string
-          description: The unique identifier for the station that the image was captured at.
-          example: Station_A
-          x-nullable: false
-        FingerImages:
-          type: array
-          description: The captured finger(s). A minimum of one (1) FingerImage must be submitted with a request. No more than ten (10) FingerImages may
-            be submitted with a request. Each submitted FingerImage must have a distinct type (i.e. there cannot be two "RightIndexFingers" in a request).
-          items:
-            $ref: '#/components/schemas/FingerImage'
-          example: [{FingerType: RightIndexFinger, FingerImageData: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==},
-                    {FingerType: RightMiddleFinger, FingerImageData: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==}]
-
-    FingerImage:
-      type: object
-      required: [FingerType]
-      properties:
-        FingerType:
-          $ref: '#/components/schemas/FingerType'
-        FingerImageData:
-          type: string
-          description: The captured finger image data, encoded as a base64 string. The data string shall not exceed 100kB.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-
     Error:
       type: object
       properties:
@@ -108,21 +56,6 @@ components:
           type: string
           description: A detailed description of the error that occurred.
 
-    FingerType:
-      type: string
-      description: The allowed string names for finger images.
-      enum:
-        - RightThumb
-        - RightIndexFinger
-        - RightMiddleFinger
-        - RightRingFinger
-        - RightLittleFinger
-        - LeftThumb
-        - LeftIndexFinger
-        - LeftMiddleFinger
-        - LeftRingFinger
-        - LeftLittleFinger
-
   requestBodies:
     face_capture:
       description: face image collected as part of a transaction
@@ -131,20 +64,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/FaceCapture'
-    iris_capture:
-      description: iris image(s) collected as part of a transaction
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IrisCapture'
-    finger_capture:
-      description: finger image(s) collected as part of a transaction
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FingerCapture'
 
   responses:
     400:
@@ -189,53 +108,6 @@ paths:
         - Image Submission
       requestBody:
         $ref: '#/components/requestBodies/face_capture'
-      responses:
-        200:
-          description: Successfully associated the image capture with the ongoing transaction.
-        400:
-          $ref: '#/components/responses/400'
-        404:
-          $ref: '#/components/responses/404'
-        410:
-          $ref: '#/components/responses/410'
-        429:
-          $ref: '#/components/responses/429'
-        500:
-          $ref: '#/components/responses/500'
-
-  /v1/iris-captures:
-    post:
-      summary: Associate an iris image capture (or pair of image captures) with the ongoing transaction
-      description: |
-        Acquisition System Providers may submit iris image data through this endpoint. Submitted image captures will be
-        stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
-      tags:
-        - Image Submission
-      requestBody:
-        $ref: '#/components/requestBodies/iris_capture'
-      responses:
-        200:
-          description: Successfully associated the image capture with the ongoing transaction.
-        400:
-          $ref: '#/components/responses/400'
-        404:
-          $ref: '#/components/responses/404'
-        410:
-          $ref: '#/components/responses/410'
-        429:
-          $ref: '#/components/responses/429'
-        500:
-          $ref: '#/components/responses/500'
-
-  /v1/finger-captures:
-    post:
-      summary: Associate up to 10 finger captures with the ongoing transaction
-      description: |
-        Acquisition System Providers may submit finger image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
-      tags:
-        - Image Submission
-      requestBody:
-        $ref: '#/components/requestBodies/finger_capture'
       responses:
         200:
           description: Successfully associated the image capture with the ongoing transaction.
