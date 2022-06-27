@@ -7,7 +7,7 @@ All URIs are relative to *http://api.mdtf.org*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *ImageSubmissionApi* | [**v1FaceCapturesPost**](Apis/ImageSubmissionApi.md#v1facecapturespost) | **POST** /v1/face-captures | Associate a face image capture with the ongoing transaction |
+| *ImageSubmissionApi* | [**v1FaceCapturesPost**](Apis/ImageSubmissionApi.md#v1facecapturespost) | **POST** /v1/face-captures | Associate a face image capture with the ongoing transaction. |
 
 
 <a name="documentation-for-models"></a>

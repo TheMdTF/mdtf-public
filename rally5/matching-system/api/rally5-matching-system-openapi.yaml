@@ -57,7 +57,7 @@ components:
         Score:
           type: number
           format: float
-          description: A similarity score, as produced by the algorithm
+          description: A similarity score, as produced by the algorithm.
           example: 8734
           x-nullable: false
       required:
@@ -84,11 +84,11 @@ components:
       properties:
         AlgorithmName:
           type: string
-          description: Name of algorithm
+          description: Name of algorithm.
           example: AlwaysTrue
         AlgorithmVersion:
           type: string
-          description: Algorithm version identifier
+          description: Algorithm version identifier.
           example: 1.0.1
         AlgorithmModality:
           type: string
@@ -96,10 +96,10 @@ components:
             - Face
             - Finger
             - Iris
-          description: A string enum describing the type of biometric images the algorithm is meant to process
+          description: A string enum describing the type of biometric images the algorithm is meant to process.
         CompanyName:
           type: string
-          description: Name of the Company which produced the algorithm
+          description: Name of the Company which produced the algorithm.
           example: MdTF
         TechnicalContactEmail:
           type: string
@@ -119,7 +119,7 @@ components:
           example: 512
           maximum: 8192
         Test:
-          description: A string enum describing which collection event the algorithm is being submitted for
+          description: A string enum describing which collection event the algorithm is being submitted for.
           type: string
           enum:
             - MDTF_2022_RALLY
@@ -249,7 +249,7 @@ paths:
 
   /v1/create-template:
     post:
-      summary: Generate a template from the provided biometric image
+      summary: Generate a template from the provided biometric image.
       description: |
         This endpoint accepts a base64 encoded PNG and attempts to perform a feature extraction operation producing a
         single template.
@@ -268,11 +268,11 @@ paths:
 
   /v1/compare-list:
     post:
-      summary: Compare a single probe template to a list of target templates
+      summary: Compare a single probe template to a list of target templates.
       description: |
         This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the
         provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
-        The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list
+        The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
         of templates.
       tags:
         - Biometric Operations

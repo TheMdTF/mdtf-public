@@ -58,7 +58,7 @@ components:
 
   requestBodies:
     face_capture:
-      description: face image collected as part of a transaction
+      description: Face image collected as part of a transaction.
       required: true
       content:
         application/json:
@@ -91,7 +91,7 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     500:
-      description: This capture failed because of a server side issue
+      description: This capture failed because of a server side issue.
       content:
         application/json:
           schema:
@@ -100,7 +100,7 @@ components:
 paths:
   /v1/face-captures:
     post:
-      summary: Associate a face image capture with the ongoing transaction
+      summary: Associate a face image capture with the ongoing transaction.
       description: |
         Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
