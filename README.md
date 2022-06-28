@@ -4,7 +4,7 @@ Public code and data from the [Maryland Test Facility](https://mdtf.org).
 
 ### datasets
 
-This folder contains publicly releasable datasets from the Maryland Test Facility designed to further research across the biometrics and computer visison communities.
+This folder contains publicly releasable datasets from the Maryland Test Facility, designed to further research across the biometrics and computer visison communities.
 
 ### image-analysis
 
@@ -20,29 +20,29 @@ This folder contains publicly releasable datasets from the Maryland Test Facilit
 
  * acquisition-system
 
-    * api
+    * API
     
-      Contains OAS3 Spec and a generated [README.md](./rally5/acquisition-system/api/README.md) for Rally5 acquisition system api. Acquisition System vendors will interact with this API to submit acquired images.
+      Contains OAS3 Spec and a generated [README.md](./rally5/acquisition-system/api/README.md) for Rally5 acquisition system API. Acquisition system providers will interact with this API to submit acquired images.
 
  * matching-system
 
-   * api 
+   * API
 
-     Contains OAS3 Spec and a generated [README.md](./rally5/matching-system/api/README.md) for Rally5 matching system api. Matching System vendors will produce a matching system container image implementing the provided API to generate and compare biometric templates.
+     Contains OAS3 Spec and a generated [README.md](./rally5/matching-system/api/README.md) for Rally5 matching system API. Matching system providers will produce a matching system container image implementing the provided API to generate and compare biometric templates.
 
 ### deprecated
 
-Contains deprecated APIs from past Collection Events, Rallies, ETC.
+Contains deprecated APIs from past collection events, rallies, etc.
 
 * #### rally2
   * rally2-acquisition-system
 
-    * api
+    * API
     
         This folder contains the API definition for acquisition systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
   * rally2-matching-system
 
-    * api
+    * API
 
         This folder contains the API definition for matching systems participating in the 2019 Biometric Technology Rally. The API is open for comment as of November 11, 2018. Comments can be made via GitHub Issues.
 

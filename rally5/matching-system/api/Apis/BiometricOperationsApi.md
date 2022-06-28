@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**compareTemplateList**](BiometricOperationsApi.md#compareTemplateList) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates |
-| [**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/create-template | Generate a template from the provided biometric image |
+| [**compareTemplateList**](BiometricOperationsApi.md#compareTemplateList) | **POST** /v1/compare-list | Compare a single probe template to a list of target templates. |
+| [**generateTemplate**](BiometricOperationsApi.md#generateTemplate) | **POST** /v1/create-template | Generate a template from the provided biometric image. |
 
 
 <a name="compareTemplateList"></a>
 # **compareTemplateList**
 > List compareTemplateList(CompareListRequest)
 
-Compare a single probe template to a list of target templates
+Compare a single probe template to a list of target templates.
 
-    This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison.  The returned comparison list MUST contain the same number of elements AND be in the same order as the provided list of templates. 
+    This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the provided list. The result is a list of Comparison objects that holds a similarity score for each comparison.  The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list of templates. 
 
 ### Parameters
 
@@ -39,7 +39,7 @@ No authorization required
 # **generateTemplate**
 > Template generateTemplate(Image)
 
-Generate a template from the provided biometric image
+Generate a template from the provided biometric image.
 
     This endpoint accepts a base64 encoded PNG and attempts to perform a feature extraction operation producing a single template. 
 
