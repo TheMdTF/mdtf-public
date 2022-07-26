@@ -13,7 +13,7 @@ All URIs are relative to *http://api.mdtf.org*
 
 Associate a face image capture with the ongoing transaction.
 
-    Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction. 
+    Acquisition system providers may submit face image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
 
 ### Parameters
 
