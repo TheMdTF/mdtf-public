@@ -22,7 +22,6 @@ All URIs are relative to *http://localhost:8080*
  - [Info_Thresholds](./Models/Info_Thresholds.md)
  - [Template](./Models/Template.md)
 
-
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
 

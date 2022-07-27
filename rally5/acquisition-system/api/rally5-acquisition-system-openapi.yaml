@@ -102,7 +102,7 @@ paths:
     post:
       summary: Associate a face image capture with the ongoing transaction.
       description: |
-        Acquisition System Providers may submit face image data through this endpoint. Submitted image captures will be
+        Acquisition system providers may submit face image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission

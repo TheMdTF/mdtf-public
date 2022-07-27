@@ -1,6 +1,6 @@
 # The Maryland Test Facility Public Code and Data Repository
 
-Public code and data from the [Maryland Test Facility](https://mdtf.org).  
+Public code and data from the [Maryland Test Facility](https://mdtf.org).
 
 ### datasets
 
