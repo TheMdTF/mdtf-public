@@ -2,7 +2,7 @@
 
 ## Description
 
-This dataset includes demographically disaggregated False Match Rate (FMR) and False Non-match Rate (FNMR) values for 126 face recognition algorithms collected during NIST's 2019 Face Recognition Vendor Test (FRVT).  These data we culled from Annex 15 of the [NIST FRVT Part 3 Report](https://pages.nist.gov/frvt/reports/demographics/annexes/annex_15.pdf) and reshapped to support research into face recognition fairness models.
+This dataset includes demographically disaggregated False Match Rate (FMR) and False Non-match Rate (FNMR) values for 126 face recognition algorithms collected during NIST's 2019 Face Recognition Vendor Test (FRVT).  These data were culled from Annex 15 of the [NIST FRVT Part 3 Report](https://pages.nist.gov/frvt/reports/demographics/annexes/annex_15.pdf) and reshaped to support research into face recognition fairness models.
 
 ### Demographic Labels
 |Label|As In Dataset|
