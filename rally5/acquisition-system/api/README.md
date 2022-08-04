@@ -3,7 +3,7 @@
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.mdtf.org*
+All URIs are relative to *https://api.mdtf.org*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
@@ -21,4 +21,3 @@ All URIs are relative to *http://api.mdtf.org*
 ## Documentation for Authorization
 
 All endpoints do not require authorization.
-
