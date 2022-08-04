@@ -1,6 +1,6 @@
 # ImageSubmissionApi
 
-All URIs are relative to *http://api.mdtf.org*
+All URIs are relative to *https://api.mdtf.org*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -13,7 +13,7 @@ All URIs are relative to *http://api.mdtf.org*
 
 Associate a face image capture with the ongoing transaction.
 
-    Acquisition system providers may submit face image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
+    Acquisition system providers may submit face image data through this endpoint. Submitted image captures will be stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction. 
 
 ### Parameters
 
@@ -33,3 +33,4 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+

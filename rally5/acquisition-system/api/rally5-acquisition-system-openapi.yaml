@@ -13,7 +13,7 @@ info:
     name: Copyright (c) 2022, The Maryland Test Facility
 
 servers:
-  - url: http://api.mdtf.org/
+  - url: https://api.mdtf.org/
     variables:
       host:
         default: ids.lab
