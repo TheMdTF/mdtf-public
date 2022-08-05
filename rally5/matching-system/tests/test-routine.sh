@@ -62,7 +62,7 @@ echo -e "Average extraction time" $avgr "ms per extraction\n"
 
 # Create a compare list
 
-templateList="\"TemplateList\": ["
+templateList="\"TargetTemplateList\": ["
 c=0
 for i in "${templates[@]}"; do
   if [ "$c" -gt 0 ]; then
@@ -92,7 +92,7 @@ for i in "${templates[@]}"; do
   --data @- \
     http://$host:$port/v1/compare-list << JSON
   {
-    "SingleTemplate": {
+    "ProbeTemplate": {
       "Template": $i
     },
     $templateList

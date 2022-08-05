@@ -5,9 +5,9 @@ package models
 // swagger:model CompareListRequest
 type CompareListRequest struct {
 
-	// single template
-	SingleTemplate *Template
+	// probe template
+	ProbeTemplate *Template
 
-	// template list
-	TemplateList []*Template
+	// target template list
+	TargetTemplateList []*Template
 }

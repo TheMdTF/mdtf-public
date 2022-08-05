@@ -99,22 +99,22 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Bad Comparison Request Data", http.StatusBadRequest)
 			return
 		}
-		log.Printf("list contains %d templates\n", len(compRequest.TemplateList))
+		log.Printf("list contains %d templates\n", len(compRequest.TargetTemplateList))
 
 		//pass each comparison to the C library
 		var cList []models.Comparison
 		var decoded1 []byte
-		decoded1, err = base64.StdEncoding.DecodeString(compRequest.SingleTemplate.Template)
+		decoded1, err = base64.StdEncoding.DecodeString(compRequest.ProbeTemplate.Template)
 		if err != nil {
-			log.Println("error decoding single template: ", err)
+			log.Println("error decoding probe template: ", err)
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		template1 := C.CString(string(decoded1))
 		defer C.free(unsafe.Pointer(template1))
-		for i := 0; i < len(compRequest.TemplateList); i++ {
+		for i := 0; i < len(compRequest.TargetTemplateList); i++ {
 			var decoded2 []byte
-			decoded2, err = base64.StdEncoding.DecodeString(compRequest.TemplateList[i].Template)
+			decoded2, err = base64.StdEncoding.DecodeString(compRequest.TargetTemplateList[i].Template)
 			if err != nil {
 				log.Printf("error decoding the template at index %d: %s", i, err.Error())
 				http.Error(w, err.Error(), http.StatusBadRequest)
@@ -126,7 +126,7 @@ func compareList(w http.ResponseWriter, r *http.Request) {
 			s := C.cpp_compare_template(template1, template2)
 
 			cList = append(cList, models.Comparison{
-				Score:           float32(s),
+				Score: float32(s),
 			})
 		}
 
@@ -154,7 +154,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 			AlgorithmType:         "Face",
 			CompanyName:           "MdTF",
 			TechnicalContactEmail: "john@mdtf.org",
-			RecommendedCPUs:       4,	
+			RecommendedCPUs:       4,
 			RecommendedMem:        2048,
 			Test:                  "MDTF_2022_RALLY",
 			Thresholds: map[string]float32{

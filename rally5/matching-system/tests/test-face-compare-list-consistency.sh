@@ -62,7 +62,7 @@ template3=( $(echo $template3 | jq '.Template') )
 
 # Compare 1 and 2
 echo "First call to compare-list"
-templateList="\"TemplateList\": [ { \"Template\": $template2 } ]"
+templateList="\"TargetTemplateList\": [ { \"Template\": $template2 } ]"
 
 comp1=$(curl --header "Content-Type: application/json" \
   --request POST \
@@ -70,7 +70,7 @@ comp1=$(curl --header "Content-Type: application/json" \
   --data @- \
     http://$host:$port/v1/compare-list << JSON
   {
-    "SingleTemplate": {
+    "ProbeTemplate": {
       "Template": $template1
     },
     $templateList
@@ -83,7 +83,7 @@ echo -e "\n"
 
 # Compare 1 to 2 and 3
 echo "Second call to compare-list:"
-templateList="\"TemplateList\": [ { \"Template\": $template2 }, {\"Template\": $template3} ]"
+templateList="\"TargetTemplateList\": [ { \"Template\": $template2 }, {\"Template\": $template3} ]"
 
 comp2=$(curl --header "Content-Type: application/json" \
   --request POST \
@@ -91,7 +91,7 @@ comp2=$(curl --header "Content-Type: application/json" \
   --data @- \
     http://$host:$port/v1/compare-list << JSON
   {
-    "SingleTemplate": {
+    "ProbeTemplate": {
       "Template": $template1
     },
     $templateList

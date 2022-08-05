@@ -14,10 +14,10 @@ fi
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{
-  "SingleTemplate": {
+  "ProbeTemplate": {
     "Template": "dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K"
   },
-  "TemplateList": [
+  "TargetTemplateList": [
     {
       "Template": "aSBzZWUgeW91IGhhdmUgYSBjdXJpb3VzIG1pbmQ="
     },
