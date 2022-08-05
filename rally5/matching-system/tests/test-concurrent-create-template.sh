@@ -77,7 +77,7 @@ JSON
     )
 
     # print a sample of template bytes (adjust/remove the indices in the jq filter if needed)
-    template=$(echo $RESP | jq .Template[300:400])
+    template=$(echo $RESP | jq .Template)
     printf "%s_${COLORS[${INDEX}]}:\t${COLORS[${INDEX}]}\n" "$1" "$(printf "IMG%d" $(( $INDEX + 1 )))" $template
   done
 }
