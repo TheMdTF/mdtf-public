@@ -1,9 +1,9 @@
 # Sample Biometric Technology Rally II Matching System
 
 ## Overview
-This folder contains a simple application, written in [The Go Programming Language](https://golang.org/).  This application implements the [Rally Matching System API](https://github.com/TheMdTF/mdtf-public/blob/master/api/rally2-matching-system/README.md).  Creating an application that implements this API is required for matching system providers to participate in the [2019 Biometric Technology Rally](https://mdtf.org/Rally2019).  Finished applications should be packaged and saved using [Docker](https://www.docker.com/).
+This folder contains a simple application, written in [The Go Programming Language](https://golang.org/).  This application implements the [Rally Matching System API](https://github.com/TheMdTF/mdtf-public/blob/master/api/rally5-matching-system/README.md).  Creating an application that implements this API is required for matching system providers to participate in the [2022 Biometric Technology Rally](https://mdtf.org/Rally2022).  Finished applications should be packaged and saved using [Docker](https://www.docker.com/).
 
-It is not required that matching system providers implement the matching system API in Go, as the application in this folder does.  Matching system providers are free to use whatever technology stack they choose, as long as the final docker container conforms to the API.  Scripts that send API conformant requests to a user provided endpoint are provided in the `<mdtf-public>/rally2-matching-system/tests` folder.
+It is not required that matching system providers implement the matching system API in Go, as the application in this folder does.  Matching system providers are free to use whatever technology stack they choose, as long as the final docker container conforms to the API.  Scripts that send API conformant requests to a user provided endpoint are provided in the `<mdtf-public>/rally5-matching-system/tests` folder.
 
 ## Running and Testing via Docker
 *PREREQUISITES*:
