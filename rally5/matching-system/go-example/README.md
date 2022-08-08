@@ -1,4 +1,4 @@
-# Sample Biometric Technology Rally II Matching System
+# Sample Biometric Technology Rally V Matching System
 
 ## Overview
 This folder contains a simple application, written in [The Go Programming Language](https://golang.org/).  This application implements the [Rally Matching System API](https://github.com/TheMdTF/mdtf-public/blob/master/api/rally5-matching-system/README.md).  Creating an application that implements this API is required for matching system providers to participate in the [2022 Biometric Technology Rally](https://mdtf.org/Rally2022).  Finished applications should be packaged and saved using [Docker](https://www.docker.com/).
