@@ -2,8 +2,8 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -16,7 +16,7 @@ type Info struct {
 
 	// A string enum describing the type of biometric images the algorithm is meant to process
 	// Enum: [Face Finger Iris]
-	AlgorithmType string
+	AlgorithmModality string
 
 	// Algorithm version identifier
 	AlgorithmVersion string
@@ -46,7 +46,7 @@ type Info struct {
 func (i Info) MarshalJSON() (b []byte, err error) {
 	temp := struct {
 		AlgorithmName         string
-		AlgorithmType         string
+		AlgorithmModality     string
 		AlgorithmVersion      string
 		CompanyName           string
 		RecommendedCPUs       int64
@@ -56,7 +56,7 @@ func (i Info) MarshalJSON() (b []byte, err error) {
 		Thresholds            map[string]string
 	}{
 		AlgorithmName:         i.AlgorithmName,
-		AlgorithmType:         i.AlgorithmType,
+		AlgorithmModality:     i.AlgorithmModality,
 		AlgorithmVersion:      i.AlgorithmVersion,
 		CompanyName:           i.CompanyName,
 		RecommendedCPUs:       i.RecommendedCPUs,
@@ -80,7 +80,7 @@ func convertMapString(in map[string]float32) (out map[string]string) {
 func (i *Info) UnmarshalJSON(b []byte) (err error) {
 	temp := struct {
 		AlgorithmName         string
-		AlgorithmType         string
+		AlgorithmModality     string
 		AlgorithmVersion      string
 		CompanyName           string
 		RecommendedCPUs       int64
@@ -103,7 +103,7 @@ func (i *Info) UnmarshalJSON(b []byte) (err error) {
 	}
 
 	i.AlgorithmName = temp.AlgorithmName
-	i.AlgorithmType = temp.AlgorithmType
+	i.AlgorithmModality = temp.AlgorithmModality
 	i.AlgorithmVersion = temp.AlgorithmVersion
 	i.CompanyName = temp.CompanyName
 	i.RecommendedCPUs = temp.RecommendedCPUs
