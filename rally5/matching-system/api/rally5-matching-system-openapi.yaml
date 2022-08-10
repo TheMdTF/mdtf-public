@@ -185,6 +185,13 @@ components:
         (e.g. invalid license, or failure to generate a template).
       example: The internal license has expired.
 
+    ProcessingError:
+      type: string
+      description: |
+        Relevant and concise diagnostic information in the event of a server side error
+        (e.g. invalid license, or failure to generate a template).
+      example: Unable to create a template, i.e. failure to process
+
   requestBodies:
     image:
       description: |
@@ -238,6 +245,13 @@ components:
           schema:
             $ref: '#/components/schemas/RequestError'
 
+    InternalProcessingError:
+      description: Failure To Create Template
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProcessingError'
+
     InternalServerError:
       description: Internal Server Error
       content:
@@ -263,6 +277,8 @@ paths:
           $ref: '#/components/responses/templateResponse'
         400:
           $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/InternalProcessingError'
         500:
           $ref: '#/components/responses/InternalServerError'
 
