@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+Apis/InfoApi.md
+Apis/ValidateApi.md
+Models/CapturedDocument.md
+Models/Info.md
+Models/ValidationErrorResponse.md
+Models/ValidationItem.md
+Models/ValidationResponse.md
+Models/ValidationResponse_vector_inner.md
+README.md
