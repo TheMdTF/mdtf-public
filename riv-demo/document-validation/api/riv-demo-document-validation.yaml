@@ -29,11 +29,17 @@ paths:
       operationId: info
       responses:
         '200':
-          description: Successful operation
+          description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Info'
+        '500':
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
   /v1/validate:
     post:
       tags:
@@ -51,13 +57,19 @@ paths:
         required: true
       responses:
         '200':
-          description: Successful validation operation
+          description: successful validation operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResponse'
-        '405':
-          description: Validation error
+        '400':
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: server error
           content:
             application/json:
               schema:
@@ -66,6 +78,14 @@ components:
   schemas:
     Info:
       type: object
+      required:
+        - algorithmName
+        - algorithmVersion
+        - companyName
+        - event
+        - recommendedCPUs
+        - recommendedMem
+        - technicalContactEmail
       properties:
         algorithmName:
           description: Algorithm name
@@ -79,10 +99,10 @@ components:
           description: Company name
           type: string
           example: IDSL
-        technicalContactEmail:
-          description: eMail of the technical contact
+        event:
+          description: The name of the test event
           type: string
-          example: info@mdtf.org
+          enum: ["2023 Document Validation Demonstration"]
         recommendedCPUs:
           description: The recommended allocation of CPUs for the deployed docker container
           type: number
@@ -95,80 +115,84 @@ components:
           type: number
           format: int64
           example: 256
-        test:
-          description: The name of the test event
+        technicalContactEmail:
+          description: email of the technical contact
           type: string
-          example: 2023 Document Validation Demonstration
+          example: info@mdtf.org
+
     CapturedDocument:
+      description: Object representation of a document. Consists of an image of the front and back
       type: object
+      required:
+        - documentFront
+        - documentBack
       properties:
-        front:
+        documentFront:
+          description: Image of front of document; base64 encoded bytes
           type: string
-          example: base64 example
-        back:
+          format: byte
+          example: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+        documentBack:
+          description: Image of back of document; base64 encoded bytes
           type: string
-          example: base64 example
+          format: byte
+          example: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+
     ValidationResponse:
       type: object
+      required:
+        - validityOutcome
       properties:
-        valid:
+        validityOutcome:
           description: >-
             Whether the document is determined to be valid (True) or invalid
             (False)
           type: boolean
           example: true
-        score:
+        validityScore:
           description: >-
-            A score corresponding to the level of confidence that the document
-            is valid ranging between 0 and 1
+            A score corresponding to the level of confidence that the document 
+            is valid ranging between 0 and 1 (optional)
           type: number
           format: double
           example: 0.8
-        vector:
+        validityProperties:
           description: >-
             Key value pairs describing document properties and their
-            relationship to the validity decision
+            relationship to the validity decision. There are no strictly defined 
+            properties. The inclusion of descriptive properties is encouraged to provide more context. (optional)
           type: array
           items:
             type: object
             properties:
               property:
                 type: string
-                example: checkSumsCorrect
               value:
                 type: string
-                example: 'Yes'
           example:
-            - property: documentLivenessCheck
+            - property: informationFormatCorrect
+              value: true
+            - property: informationCorrect
+              value: true
+            - property: informationComplete
+              value: true
+            - property: checkSumsCorrect
+              value: true
+            - property: mrzCorrect
+              value: true
+            - property: photoTampered
+              value: true
+            - property: livenessCheck
               value: 'Passed'
-            - property: documentInformationFormatCorrect
-              value: true
-            - property: documentInformationCorrect
-              value: true
-            - property: documentInformationComplete
-              value: true
-            - property: documentCheckSumsCorrect
-              value: true
-            - property: documentMRZCorrect
-              value: true
-            - property: documentPhotoTampered
-              value: true
-            - property: documentSecurityFeaturesTampered
+            - property: informationCompleteness
+              value: 0.9
+            - property: securityFeaturesTampered
               value: None
-            - property: documentDataFieldsTampered
+            - property: dataFieldsTampered
               value: Age changed
     ValidationErrorResponse:
       type: object
       properties:
         error:
+          description: descriptive error string
           type: string
-          example: Failed to find document
-    ValidationItem:
-      type: object
-      properties:
-        property:
-          type: string
-          example: checkSumsCorrect
-        value:
-          type: string
-          example: 'Yes'

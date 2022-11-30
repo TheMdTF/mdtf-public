@@ -17,9 +17,8 @@ All URIs are relative to *http://localhost*
  - [CapturedDocument](./Models/CapturedDocument.md)
  - [Info](./Models/Info.md)
  - [ValidationErrorResponse](./Models/ValidationErrorResponse.md)
- - [ValidationItem](./Models/ValidationItem.md)
  - [ValidationResponse](./Models/ValidationResponse.md)
- - [ValidationResponse_vector_inner](./Models/ValidationResponse_vector_inner.md)
+ - [ValidationResponse_validityProperties_inner](./Models/ValidationResponse_validityProperties_inner.md)
 
 
 <a name="documentation-for-authorization"></a>
