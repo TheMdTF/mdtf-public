@@ -119,7 +119,7 @@ components:
           format: int64
           example: 256
         TechnicalContactEmail:
-          description: email of the technical contact
+          description: Email of the technical contact
           type: string
           example: info@mdtf.org
 
@@ -144,8 +144,10 @@ components:
       type: object
       properties:
         Property:
+          description: Name of the property
           type: string
         Value:
+          description: Value for the property
           type: string
     ValidationResponse:
       type: object
@@ -195,7 +197,9 @@ components:
               Value: Age changed
     ValidationErrorResponse:
       type: object
+      required:
+        - error
       properties:
         error:
-          description: descriptive error string
+          description: Descriptive error string
           type: string
