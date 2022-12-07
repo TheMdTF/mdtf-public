@@ -13,8 +13,8 @@ All URIs are relative to *https://api.mdtf.org*
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [Error](./Models/Error.md)
- - [FaceCapture](./Models/FaceCapture.md)
+ - [Error](Models/Error.md)
+ - [FaceCapture](Models/FaceCapture.md)
 
 
 <a name="documentation-for-authorization"></a>

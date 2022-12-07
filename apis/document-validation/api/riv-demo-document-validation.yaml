@@ -1,0 +1,205 @@
+---
+openapi: 3.0.3
+info:
+  title: The Maryland Test Facility Document Validation Interface
+  description: >-
+    This documents the API requirements for MdTF testing of document validation
+    algorithms.  Document validation testing at the MdTF is supported by the
+    Department of Homeland Security Science and Technology Directorate (DHS
+    S&T).  For more information please visit
+    [https://mdtf.org](https://mdtf.org) and
+    [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
+  contact:
+    email: info@mdtf.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+tags:
+  - name: Info
+    description: Return information about the document validation algorithm
+  - name: Validate
+    description: Return validation decision based on images of an identity document
+paths:
+  /v1/info:
+    get:
+      tags:
+        - Info
+      summary: Return information about the document validation algorithm
+      description: Return information about the validation algorithm
+      operationId: Info
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+        '500':
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+  /v1/validate:
+    post:
+      tags:
+        - Validate
+      summary: Validate an identity document based on images
+      description: >-
+        Receive base64 encoded PNG images of the front and back of a document.
+        Validation requires that the document is judged to be authentic.
+        See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended
+        best practices.
+      operationId: ValidateDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CapturedDocument'
+        required: true
+      responses:
+        '200':
+          description: successful validation operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '400':
+          description: client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+components:
+  schemas:
+    Info:
+      type: object
+      required:
+        - AlgorithmName
+        - AlgorithmVersion
+        - CompanyName
+        - Event
+        - RecommendedCPUs
+        - RecommendedMem
+        - TechnicalContactEmail
+      properties:
+        AlgorithmName:
+          description: Algorithm name
+          type: string
+          example: Docvalidate
+        AlgorithmVersion:
+          description: Algorithm version identifier
+          type: string
+          example: 1.0.0
+        CompanyName:
+          description: Company name
+          type: string
+          example: IDSL
+        Event:
+          description: The name of the test event
+          type: string
+          enum: [2023 Document Validation Demonstration]
+        RecommendedCPUs:
+          description: The recommended allocation of CPUs for the deployed docker container
+          type: number
+          format: int64
+          example: 4
+        RecommendedMem:
+          description: >-
+            The recommended allocation of memory (MB) for the deployed docker
+            container
+          type: number
+          format: int64
+          example: 256
+        TechnicalContactEmail:
+          description: Email of the technical contact
+          type: string
+          example: info@mdtf.org
+
+    CapturedDocument:
+      description: Object representation of a document. Consists of an image of the front and back
+      type: object
+      required:
+        - DocumentFront
+        - DocumentBack
+      properties:
+        DocumentFront:
+          description: Image of front of document; base64 encoded bytes
+          type: string
+          format: byte
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
+        DocumentBack:
+          description: Image of back of document; base64 encoded bytes
+          type: string
+          format: byte
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
+    ValidityProperty:
+      type: object
+      properties:
+        Property:
+          description: Name of the property
+          type: string
+        Value:
+          description: Value for the property
+          type: string
+    ValidationResponse:
+      type: object
+      required:
+        - ValidityOutcome
+      properties:
+        ValidityOutcome:
+          description: >-
+            Whether the document is determined to be valid (True) or invalid
+            (False)
+          type: boolean
+          example: true
+        ValidityScore:
+          description: >-
+            A score corresponding to the level of confidence that the document  is valid ranging between 0 and 1 (optional)
+          type: number
+          format: double
+          example: 0.8
+        ValidityProperties:
+          description: >-
+            Key value pairs describing document properties and their
+            relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+            more context. (optional)
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidityProperty'
+          example:
+            - Property: InformationFormatCorrect
+              Value: true
+            - Property: InformationCorrect
+              Value: true
+            - Property: InformationComplete
+              Value: true
+            - Property: CheckSumsCorrect
+              Value: true
+            - Property: MRZCorrect
+              Value: true
+            - Property: PhotoTampered
+              Value: true
+            - Property: LivenessCheck
+              Value: Passed
+            - Property: InformationCompleteness
+              Value: 0.9
+            - Property: SecurityFeaturesTampered
+              Value: None
+            - Property: DataFieldsTampered
+              Value: Age changed
+    ValidationErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          description: Descriptive error string
+          type: string

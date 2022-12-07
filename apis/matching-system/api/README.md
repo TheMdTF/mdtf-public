@@ -15,12 +15,12 @@ All URIs are relative to *http://localhost:8080*
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [CompareListRequest](./Models/CompareListRequest.md)
- - [Comparison](./Models/Comparison.md)
- - [Image](./Models/Image.md)
- - [Info](./Models/Info.md)
- - [Info_Thresholds](./Models/Info_Thresholds.md)
- - [Template](./Models/Template.md)
+ - [CompareListRequest](Models/CompareListRequest.md)
+ - [Comparison](Models/Comparison.md)
+ - [Image](Models/Image.md)
+ - [Info](Models/Info.md)
+ - [Info_Thresholds](Models/Info_Thresholds.md)
+ - [Template](Models/Template.md)
 
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
