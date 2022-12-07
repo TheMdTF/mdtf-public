@@ -22,13 +22,13 @@ This folder contains publicly releasable datasets from the Maryland Test Facilit
 
     * API
     
-      Contains OAS3 Spec and a generated [README.md](./rally5/acquisition-system/api/README.md) for Rally5 acquisition system API. Acquisition system providers will interact with this API to submit acquired images.
+      Contains OAS3 Spec and a generated [README.md](apis/acquisition-system/api/README.md) for Rally5 acquisition system API. Acquisition system providers will interact with this API to submit acquired images.
 
  * matching-system
 
    * API
 
-     Contains OAS3 Spec and a generated [README.md](./rally5/matching-system/api/README.md) for Rally5 matching system API. Matching system providers will produce a matching system container image implementing the provided API to generate and compare biometric templates.
+     Contains OAS3 Spec and a generated [README.md](apis/matching-system/api/README.md) for Rally5 matching system API. Matching system providers will produce a matching system container image implementing the provided API to generate and compare biometric templates.
 
 ### deprecated
 
