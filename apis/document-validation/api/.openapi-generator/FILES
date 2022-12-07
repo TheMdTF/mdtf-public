@@ -4,5 +4,5 @@ Models/CapturedDocument.md
 Models/Info.md
 Models/ValidationErrorResponse.md
 Models/ValidationResponse.md
-Models/ValidationResponse_ValidityProperties_inner.md
+Models/ValidityProperty.md
 README.md

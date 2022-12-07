@@ -1,4 +1,4 @@
-# Documentation for The Maryland Test Facility Document Validation Interface - OpenAPI 3.0
+# Documentation for The Maryland Test Facility Document Validation Interface
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
@@ -14,11 +14,11 @@ All URIs are relative to *http://localhost*
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [CapturedDocument](Models/CapturedDocument.md)
- - [Info](Models/Info.md)
- - [ValidationErrorResponse](Models/ValidationErrorResponse.md)
- - [ValidationResponse](Models/ValidationResponse.md)
- - [ValidationResponse_ValidityProperties_inner](Models/ValidationResponse_ValidityProperties_inner.md)
+ - [CapturedDocument](./Models/CapturedDocument.md)
+ - [Info](./Models/Info.md)
+ - [ValidationErrorResponse](./Models/ValidationErrorResponse.md)
+ - [ValidationResponse](./Models/ValidationResponse.md)
+ - [ValidityProperty](./Models/ValidityProperty.md)
 
 
 <a name="documentation-for-authorization"></a>

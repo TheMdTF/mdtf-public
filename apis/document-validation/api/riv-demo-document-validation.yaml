@@ -1,7 +1,7 @@
 ---
 openapi: 3.0.3
 info:
-  title: The Maryland Test Facility Document Validation Interface - OpenAPI 3.0
+  title: The Maryland Test Facility Document Validation Interface
   description: >-
     This documents the API requirements for MdTF testing of document validation
     algorithms.  Document validation testing at the MdTF is supported by the
@@ -139,7 +139,13 @@ components:
           type: string
           format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
-
+    ValidityProperty:
+      type: object
+      properties:
+        Property:
+          type: string
+        Value:
+          type: string
     ValidationResponse:
       type: object
       required:
@@ -164,12 +170,7 @@ components:
             more context. (optional)
           type: array
           items:
-            type: object
-            properties:
-              Property:
-                type: string
-              Value:
-                type: string
+            $ref: '#/components/schemas/ValidityProperty'
           example:
             - Property: InformationFormatCorrect
               Value: true
