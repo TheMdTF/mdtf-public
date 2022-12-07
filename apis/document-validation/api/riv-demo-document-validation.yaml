@@ -27,7 +27,7 @@ paths:
         - Info
       summary: Return information about the document validation algorithm
       description: Return information about the validation algorithm
-      operationId: info
+      operationId: Info
       responses:
         '200':
           description: successful operation
@@ -51,6 +51,7 @@ paths:
         Validation requires that the document is judged to be authentic.
         See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended
         best practices.
+      operationId: ValidateDocument
       requestBody:
         content:
           application/json:
