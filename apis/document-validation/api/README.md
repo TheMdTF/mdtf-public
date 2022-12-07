@@ -8,7 +8,7 @@ All URIs are relative to *http://localhost*
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
 | *InfoApi* | [**info**](Apis/InfoApi.md#info) | **GET** /v1/info | Return information about the document validation algorithm |
-| *ValidateApi* | [**v1ValidatePost**](Apis/ValidateApi.md#v1validatepost) | **POST** /v1/validate | Validate an identity document based on images |
+| *ValidateApi* | [**validateDocument**](Apis/ValidateApi.md#validatedocument) | **POST** /v1/validate | Validate an identity document based on images |
 
 
 <a name="documentation-for-models"></a>

@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**v1ValidatePost**](ValidateApi.md#v1ValidatePost) | **POST** /v1/validate | Validate an identity document based on images |
+| [**validateDocument**](ValidateApi.md#validateDocument) | **POST** /v1/validate | Validate an identity document based on images |
 
 
-<a name="v1ValidatePost"></a>
-# **v1ValidatePost**
-> ValidationResponse v1ValidatePost(CapturedDocument)
+<a name="validateDocument"></a>
+# **validateDocument**
+> ValidationResponse validateDocument(CapturedDocument)
 
 Validate an identity document based on images
 
