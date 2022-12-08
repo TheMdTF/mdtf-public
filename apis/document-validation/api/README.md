@@ -1,17 +1,3 @@
----
-title: The Maryland Test Facility Document Validation Interface v0.0.1
-language_tabs:
-  - shell: Shell
-language_clients:
-  - shell: ""
-toc_footers: []
-includes: []
-search: true
-highlight_theme: darkula
-headingLevel: 2
-
----
-
 <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="the-maryland-test-facility-document-validation-interface">The Maryland Test Facility Document Validation Interface v0.0.1</h1>
