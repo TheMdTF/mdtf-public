@@ -1,42 +1,46 @@
 ---
 openapi: 3.0.3
+
 info:
   title: The Maryland Test Facility Document Validation Interface
-  description: >-
-    This documents the API requirements for MdTF testing of document validation
+  description: This documents the API requirements for MdTF testing of document validation
     algorithms.  Document validation testing at the MdTF is supported by the
     Department of Homeland Security Science and Technology Directorate (DHS
     S&T).  For more information please visit
     [https://mdtf.org](https://mdtf.org) and
     [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
   contact:
+    name: The MdTF
+    url: https://mdtf.org
     email: info@mdtf.org
   license:
-    name: Apache 2.0
+    name: Copyright (c) 2022, The Maryland Test Facility
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 0.0.1
+
 tags:
   - name: Info
     description: Return information about the document validation algorithm
   - name: Validate
     description: Return validation decision based on images of an identity document
+
 paths:
   /v1/info:
     get:
       tags:
-        - Info
-      summary: Return information about the document validation algorithm
-      description: Return information about the validation algorithm
+        - Algorithm Information
+      summary: Return information about the document validation algorithm.
+      description: This endpoint returns information about the validation algorithm.
       operationId: Info
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Info'
         '500':
-          description: server error
+          description: Server error
           content:
             application/json:
               schema:
@@ -45,7 +49,7 @@ paths:
     post:
       tags:
         - Validate
-      summary: Validate an identity document based on images
+      summary: Validate an identity document based on images.
       description: >-
         Receive base64 encoded PNG images of the front and back of a document.
         Validation requires that the document is judged to be authentic.
@@ -60,26 +64,28 @@ paths:
         required: true
       responses:
         '200':
-          description: successful validation operation
+          description: Successful validation operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResponse'
         '400':
-          description: client error
+          description: Client error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
         '500':
-          description: server error
+          description: Server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+
 components:
   schemas:
     Info:
+      description: Basic information describing the document validation algorithm.
       type: object
       required:
         - AlgorithmName
@@ -91,85 +97,83 @@ components:
         - TechnicalContactEmail
       properties:
         AlgorithmName:
-          description: Algorithm name
+          description: Name of the algorithm.
           type: string
           example: Docvalidate
         AlgorithmVersion:
-          description: Algorithm version identifier
+          description: Algorithm version identifier.
           type: string
           example: 1.0.0
         CompanyName:
-          description: Company name
+          description: Name of the company that produced the algorithm.
           type: string
           example: IDSL
         Event:
-          description: The name of the test event
+          description: The name of the test event.
           type: string
           enum: [2023 Document Validation Demonstration]
         RecommendedCPUs:
-          description: The recommended allocation of CPUs for the deployed docker container
+          description: The recommended allocation of CPUs for the deployed docker container.
           type: number
           format: int64
           example: 4
         RecommendedMem:
-          description: >-
-            The recommended allocation of memory (MB) for the deployed docker
-            container
+          description: The recommended allocation of memory (MB) for the deployed docker container.
           type: number
           format: int64
           example: 256
         TechnicalContactEmail:
-          description: Email of the technical contact
+          description: The email address of an engineer or other technical resource to contact in the event of an error running your service.
           type: string
           example: info@mdtf.org
 
     CapturedDocument:
-      description: Object representation of a document. Consists of an image of the front and back
+      description: Object representation of a document. Consists of an image of the front and back of a document.
       type: object
       required:
         - DocumentFront
         - DocumentBack
       properties:
         DocumentFront:
-          description: Image of front of document; base64 encoded bytes
+          description: Image of front of document; base64 encoded bytes.
           type: string
           format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
         DocumentBack:
-          description: Image of back of document; base64 encoded bytes
+          description: Image of back of document; base64 encoded bytes.
           type: string
           format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
     ValidityProperty:
+      description: Key value pair object.
       type: object
       properties:
         Property:
-          description: Name of the property
+          description: Name of the property.
           type: string
+          example: InformationFormatCorrect
         Value:
-          description: Value for the property
+          description: Value for the property.
           type: string
+          example: true
     ValidationResponse:
+      description: Validation response object.
       type: object
       required:
         - ValidityOutcome
       properties:
         ValidityOutcome:
-          description: >-
-            Whether the document is determined to be valid (True) or invalid
-            (False)
+          description: Whether the input document is determined to be valid (True) or invalid (False).
           type: boolean
           example: true
         ValidityScore:
-          description: >-
-            A score corresponding to the level of confidence that the document  is valid ranging between 0 and 1 (optional)
+          description: A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
           type: number
           format: double
           example: 0.8
         ValidityProperties:
-          description: >-
-            Key value pairs describing document properties and their
-            relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+          description: Key value pairs describing document properties and their relationship to the validity decision. 
+            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
             more context. (optional)
           type: array
           items:
@@ -196,10 +200,11 @@ components:
             - Property: DataFieldsTampered
               Value: Age changed
     ValidationErrorResponse:
+      description: Validation error response object.
       type: object
       required:
         - error
       properties:
         error:
-          description: Descriptive error string
+          description: Descriptive error string.
           type: string
