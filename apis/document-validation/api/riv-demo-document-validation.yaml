@@ -114,12 +114,12 @@ components:
           enum: [2023 Document Validation Demonstration]
         RecommendedCPUs:
           description: The recommended allocation of CPUs for the deployed docker container.
-          type: number
+          type: integer
           format: int64
           example: 4
         RecommendedMem:
           description: The recommended allocation of memory (MB) for the deployed docker container.
-          type: number
+          type: integer
           format: int64
           example: 256
         TechnicalContactEmail:
