@@ -1,4 +1,4 @@
-# Documentation for The Maryland Test Facility Match-to-Document Interface
+# Documentation for The Maryland Test Facility Match-to-ID Interface
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints

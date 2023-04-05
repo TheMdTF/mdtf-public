@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Match-to-Document Interface
+  title: The Maryland Test Facility Match-to-ID Interface
   description: This document specifies the API requirements for MdTF testing of algorithms that match facial biometric samples to identity document images (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the Department of Homeland Security, Science and Technology Directorate (DHS S&T) as part of the Remote Identity Validation Technology Demonstration (RIVTD).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
   version: 0.0.1
   contact:
