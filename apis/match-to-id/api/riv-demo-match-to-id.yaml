@@ -27,6 +27,7 @@ components:
       properties:
         ImageData:
           type: string
+          format: byte
           description: The captured image data in PNG or JPG format, encoded as a base64 string.
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
@@ -41,6 +42,7 @@ components:
         Template:
           description: The template data, encoded as a base64 string.
           type: string
+          format: byte
           example: dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K
           x-nullable: false
       required:
