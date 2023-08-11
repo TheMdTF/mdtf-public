@@ -1,0 +1,171 @@
+---
+openapi: 3.0.3
+
+info:
+  title: The Maryland Test Facility Presentation Attack Detection Acquisition System
+  description: Application Programming Interface for sending presentation attack data to the MdTF Backend.
+  version: 2.0.0
+  contact:
+    name: The MdTF
+    url: https://mdtf.org
+    email: rally@mdtf.org
+  license:
+    name: Copyright (c) 2022, The Maryland Test Facility
+
+servers:
+  - url: https://api.mdtf.org/
+    variables:
+      host:
+        default: mdtf.org
+      port:
+        enum:
+          - '8080'
+        default: '8080'
+
+tags:
+  - name: Image Submission
+    description: Endpoints for submitting images to an ongoing transaction.
+
+paths:
+  /v1/pad-capture:
+    post:
+      summary: Associate a PAD data capture with the ongoing transaction.
+      description: |
+        PAD Acquisition system providers may submit PAD data through this endpoint. Submitted PAD data will be stored and associated with the ongoing transaction.
+      tags:
+        - PAD Data Submission
+      requestBody:
+        $ref: '#/components/requestBodies/pad_capture'
+      responses:
+        200:
+          description: Successfully associated the pad data with the ongoing transaction.
+        400:
+          $ref: '#/components/responses/400'
+        404:
+          $ref: '#/components/responses/404'
+        410:
+          $ref: '#/components/responses/410'
+        429:
+          $ref: '#/components/responses/429'
+        500:
+          $ref: '#/components/responses/500'
+          
+components:
+  schemas:
+    ValidityProperty:
+      description: Key value pair object.
+      type: object
+      properties:
+        Property:
+          description: Name of the property.
+          type: string
+          example: InformationFormatCorrect
+        Value:
+          description: Value for the property.
+          type: string
+          example: true
+    PresentationAttackDataCapture:
+      description: Data transfer object for presentation attack information.
+      type: object
+      required:
+        - PresentationAttackSampleData
+        - PresentationAttackOutcome
+        - PresentationAttackScore
+      properties:
+        PresentationAttackSampleData:
+          type: string
+          description: The captured presentation attack sample, encoded as a base64 string.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          x-nullable: false
+        PresentationAttackOutcome:
+          description: Whether a presentation attack was determined to be detected (True) or not detected (False).
+          type: boolean
+          example: true
+        PresentationAttackScore:
+          description: A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+          type: number
+          format: double
+          example: 0.8
+        PresentationAttackProperties:
+          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
+            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+            more context. (optional)
+          type: array
+          items:
+            $ref: '#/components/schemas/PresentationAttackProperty'
+          example:
+            - Property: EyesMoving
+              Value: true
+            - Property: MouthMoving
+              Value: true
+            - Property: PupilsResponsive
+              Value: true
+            - Property: DifferentialReflectanceDetected
+              Value: true
+            - Property: MoirePatternDetected
+              Value: true
+    PresentationAttackErrorResponse:
+      description: Presentation attack error response object.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          description: Descriptive error string.
+          type: string
+   
+
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: The error code.
+        Message:
+          type: string
+          description: A description of the returned code.
+        ErrorString:
+          type: string
+          description: A detailed description of the error that occurred.
+
+  requestBodies:
+    pad_capture:
+      description: PAD data collected as part of a transaction.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PresentationAttackDataCapture'
+
+  responses:
+    400:
+      description: The request is malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    404:
+      description: No ongoing transaction was found for the specified StationID.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    410:
+      description: The test volunteer has exited the station and the transaction has ended.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    429:
+      description: Too many requests for the ongoing transaction.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500:
+      description: This capture failed because of a server side issue.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
