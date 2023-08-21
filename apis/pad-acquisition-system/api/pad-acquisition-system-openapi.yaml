@@ -52,7 +52,7 @@ paths:
           
 components:
   schemas:
-    ValidityProperty:
+    PresentationAttackProperty:
       description: Key value pair object.
       type: object
       properties:
