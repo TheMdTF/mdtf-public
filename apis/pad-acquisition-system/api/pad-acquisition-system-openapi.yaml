@@ -2,13 +2,13 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Presentation Attack Detection Acquisition System
+  title: The Maryland Test Facility Presentation Attack Detection Acquisition System Interface
   description: Application Programming Interface for sending presentation attack data to the MdTF Backend.
   version: 2.0.0
   contact:
     name: The MdTF
     url: https://mdtf.org
-    email: rally@mdtf.org
+    email: rivtd@mdtf.org
   license:
     name: Copyright (c) 2022, The Maryland Test Facility
 
@@ -38,7 +38,7 @@ paths:
         $ref: '#/components/requestBodies/pad_capture'
       responses:
         200:
-          description: Successfully associated the pad data with the ongoing transaction.
+          description: Successfully associated the PAD data with the ongoing transaction.
         400:
           $ref: '#/components/responses/400'
         404:
@@ -52,47 +52,47 @@ paths:
           
 components:
   schemas:
-    PresentationAttackProperty:
+    PADProperty:
       description: Key value pair object.
       type: object
       properties:
         Property:
           description: Name of the property.
           type: string
-          example: InformationFormatCorrect
+          example: EyesMoving
         Value:
           description: Value for the property.
           type: string
           example: true
-    PresentationAttackDataCapture:
+    PADDataCapture:
       description: Data transfer object for presentation attack information.
       type: object
       required:
-        - PresentationAttackSampleData
-        - PresentationAttackOutcome
-        - PresentationAttackScore
+        - PADSampleData
+        - PADOutcome
+        - PADScore
       properties:
-        PresentationAttackSampleData:
+        PADSampleData:
           type: string
           description: The captured presentation attack sample, encoded as a base64 string.
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
-        PresentationAttackOutcome:
+        PADOutcome:
           description: Whether a presentation attack was determined to be detected (True) or not detected (False).
           type: boolean
           example: true
-        PresentationAttackScore:
+        PADScore:
           description: A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
           type: number
           format: double
           example: 0.8
-        PresentationAttackProperties:
+        PADProperties:
           description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
             There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
             more context. (optional)
           type: array
           items:
-            $ref: '#/components/schemas/PresentationAttackProperty'
+            $ref: '#/components/schemas/PADProperty'
           example:
             - Property: EyesMoving
               Value: true
@@ -104,7 +104,7 @@ components:
               Value: true
             - Property: MoirePatternDetected
               Value: true
-    PresentationAttackErrorResponse:
+    PADErrorResponse:
       description: Presentation attack error response object.
       type: object
       required:
@@ -114,7 +114,6 @@ components:
           description: Descriptive error string.
           type: string
    
-
     Error:
       type: object
       properties:
@@ -135,7 +134,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PresentationAttackDataCapture'
+            $ref: '#/components/schemas/PADDataCapture'
 
   responses:
     400:
@@ -168,4 +167,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-
