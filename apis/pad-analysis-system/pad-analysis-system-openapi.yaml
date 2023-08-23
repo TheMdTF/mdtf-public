@@ -2,8 +2,8 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Presentation Attack Detection Acquisition System Interface
-  description: Application Programming Interface for sending presentation attack data to the MdTF Backend.
+  title: The Maryland Test Facility Presentation Attack Detection Analysis System Interface
+  description: Application Programming Interface for analyzing a sample for a presentation attack and reporting that information to the MdTF Backend.
   version: 2.0.0
   contact:
     name: The MdTF
@@ -23,22 +23,22 @@ servers:
         default: '8080'
 
 tags:
-  - name: PAD Data Submission
-    description: Endpoints for submitting data about a PAD effort to an ongoing transaction.
+  - name: PAD Analysis 
+    description: Endpoints that analyze a sample for a presentation attack.
 
 paths:
-  /v1/pad-capture:
+  /v1/analyze-pad:
     post:
-      summary: Associate a PAD data capture with the ongoing transaction.
+      summary: Analyze a sample for a presentation attack.
       description: |
-        PAD Acquisition system providers may submit PAD data through this endpoint. Submitted PAD data will be stored and associated with the ongoing transaction.
+        PAD Analysis system providers will be provided samples through this endpoint.
       tags:
-        - PAD Data Submission
+        - PAD Analysis
       requestBody:
-        $ref: '#/components/requestBodies/pad_capture'
+        $ref: '#/components/requestBodies/image'
       responses:
         200:
-          description: Successfully associated the PAD data with the ongoing transaction.
+          description: Successfully analyzed the provided sample for a presentation attack.
         400:
           $ref: '#/components/responses/400'
         404:
@@ -52,6 +52,19 @@ paths:
           
 components:
   schemas:
+    Image:
+      type: object
+      description: |
+        Data transfer object for an image.
+      properties:
+        ImageData:
+          type: string
+          format: byte
+          description: The captured image data in PNG or JPG format, encoded as a base64 string.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          x-nullable: false
+      required:
+        - ImageData
     PADProperty:
       description: Key value pair object.
       type: object
@@ -64,19 +77,13 @@ components:
           description: Value for the property.
           type: string
           example: true
-    PADDataCapture:
-      description: Data transfer object for presentation attack information.
+    PADAnalysis:
+      description: Data transfer object for the analysis of a sample for a presentation attack.
       type: object
       required:
-        - PADSampleData
         - PADOutcome
         - PADScore
       properties:
-        PADSampleData:
-          type: string
-          description: The captured presentation attack sample, encoded as a base64 string.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
         PADOutcome:
           description: Whether a presentation attack was determined to be detected (True) or not detected (False).
           type: boolean
@@ -128,15 +135,24 @@ components:
           description: A detailed description of the error that occurred.
 
   requestBodies:
-    pad_capture:
-      description: PAD data collected as part of a transaction.
+    image:
+      description: |
+        The facial biometric sample or identity document that is being submitted.  Note there is no request body information
+        to distinguish between the submission of these two types (facial sample vs. ID document).  Algorithm providers must 
+        make this distinction using internal logic.
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PADDataCapture'
+            $ref: '#/components/schemas/Image'
 
   responses:
+    padAnalysisResponse:
+      description: PAD Analysis response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PADAnalysis'
     400:
       description: The request is malformed.
       content:
