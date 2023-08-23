@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Presentation Attack Detection Analysis System Interface
+  title: The Maryland Test Facility Presentation Attack Detection (PAD) Analysis System Interface
   description: Application Programming Interface for analyzing a sample for a presentation attack and reporting that information to the MdTF Backend.
   version: 2.0.0
   contact:
@@ -60,7 +60,7 @@ components:
         ImageData:
           type: string
           format: byte
-          description: The captured image data in PNG or JPG format, encoded as a base64 string.
+          description: Image data in PNG or JPG format, encoded as a base64 string.
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
       required:
@@ -137,9 +137,7 @@ components:
   requestBodies:
     image:
       description: |
-        The facial biometric sample or identity document that is being submitted.  Note there is no request body information
-        to distinguish between the submission of these two types (facial sample vs. ID document).  Algorithm providers must 
-        make this distinction using internal logic.
+        The facial biometric sample to be analyzed for evidence of a presentation attack.
       required: true
       content:
         application/json:
