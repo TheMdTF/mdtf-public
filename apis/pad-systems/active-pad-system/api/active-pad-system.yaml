@@ -2,8 +2,13 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Presentation Attack Detection (PAD) Analysis System Interface
-  description: Application Programming Interface for analyzing a sample for a presentation attack and reporting that information to the MdTF Backend.
+  title: The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
+  description: This document describes an application programming interface for a PAD system in which
+               the PAD Subsystem is logically located within the Data Capture Subsystem.  This allows
+               for what ISO/IEC 30107-1:2023 refers to as "through data capture subsystem" PAD methods.
+               It also allows for what the standard refers to as "challenge-response" concepts when the
+               capture subject is in a feedback loop with the Data Capture and PAD Subsystems.  We 
+               collectively refer to these kinds of systems as "active" PAD or A-PAD systems.
   version: 2.0.0
   contact:
     name: The MdTF
@@ -23,22 +28,22 @@ servers:
         default: '8080'
 
 tags:
-  - name: PAD Analysis 
-    description: Endpoints that analyze a sample for a presentation attack.
+  - name: Data Submission
+    description: Endpoints for submitting data about a biometric capture that has PAD enabled.
 
 paths:
-  /v1/analyze-pad:
+  /v1/capture-data-with-pad:
     post:
-      summary: Analyze a sample for a presentation attack.
+      summary: Create a biometric data capture with associated PAD information.
       description: |
-        PAD Analysis system providers will be provided samples through this endpoint.
+        Active PAD systems may submit data through this endpoint.
       tags:
-        - PAD Analysis
+        - Data Submission
       requestBody:
-        $ref: '#/components/requestBodies/image'
+        $ref: '#/components/requestBodies/pad_data_capture'
       responses:
         200:
-          description: Successfully analyzed the provided sample for a presentation attack.
+          description: Successfully submitted the biometric data capture and PAD information.
         400:
           $ref: '#/components/responses/400'
         404:
@@ -52,38 +57,20 @@ paths:
           
 components:
   schemas:
-    Image:
-      type: object
-      description: |
-        Data transfer object for an image.
-      properties:
-        ImageData:
-          type: string
-          format: byte
-          description: Image data in PNG or JPG format, encoded as a base64 string.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-      required:
-        - ImageData
-    PADProperty:
-      description: Key value pair object.
-      type: object
-      properties:
-        Property:
-          description: Name of the property.
-          type: string
-          example: EyesMoving
-        Value:
-          description: Value for the property.
-          type: string
-          example: true
-    PADAnalysis:
-      description: Data transfer object for the analysis of a sample for a presentation attack.
+    PADDataCapture:
+      description: Data transfer object for biometric data capture and presentation attack information.
       type: object
       required:
+        - BiometricCaptureData
         - PADOutcome
         - PADScore
       properties:
+        BiometricCaptureData:
+          type: string
+          description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
+                       or a short video, encoded as a MOV.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          x-nullable: false
         PADOutcome:
           description: Whether a presentation attack was determined to be detected (True) or not detected (False).
           type: boolean
@@ -95,8 +82,8 @@ components:
           example: 0.8
         PADProperties:
           description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
-            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. (optional)
+            There are no strictly defined properties. The inclusion of descriptive properties is encouraged to provide
+            more context (optional).
           type: array
           items:
             $ref: '#/components/schemas/PADProperty'
@@ -111,6 +98,18 @@ components:
               Value: true
             - Property: MoirePatternDetected
               Value: true
+    PADProperty:
+      description: Key value pair object.
+      type: object
+      properties:
+        Property:
+          description: Name of the property.
+          type: string
+          example: EyesMoving
+        Value:
+          description: Value for the property.
+          type: string
+          example: true
     PADErrorResponse:
       description: Presentation attack error response object.
       type: object
@@ -135,22 +134,15 @@ components:
           description: A detailed description of the error that occurred.
 
   requestBodies:
-    image:
-      description: |
-        The facial biometric sample to be analyzed for evidence of a presentation attack.
+    pad_data_capture:
+      description: PAD data collected as part of a transaction.
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Image'
+            $ref: '#/components/schemas/PADDataCapture'
 
   responses:
-    padAnalysisResponse:
-      description: PAD Analysis response object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PADAnalysis'
     400:
       description: The request is malformed.
       content:
