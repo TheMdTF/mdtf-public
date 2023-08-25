@@ -68,7 +68,7 @@ components:
         BiometricCaptureData:
           type: string
           description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                       or a short video, encoded as a MOV.
+                       or a short (<15s) video, encoded as a MOV.
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
         PADOutcome:
@@ -94,9 +94,11 @@ components:
               Value: true
             - Property: PupilsResponsive
               Value: true
-            - Property: DifferentialReflectanceDetected
+            - Property: NonconformantIlluminationDetected
               Value: true
             - Property: MoirePatternDetected
+              Value: true
+            - Property: ObsscurationDetected
               Value: true
     PADProperty:
       description: Key value pair object.
@@ -135,7 +137,7 @@ components:
 
   requestBodies:
     pad_data_capture:
-      description: PAD data collected as part of a transaction.
+      description: PAD data collected as part of a biometric data capture process.
       required: true
       content:
         application/json:
