@@ -3,7 +3,11 @@ openapi: 3.0.3
 
 info:
   title: The Maryland Test Facility Passive Presentation Attack Detection (P-PAD) System Interface
-  description: Application Programming Interface for analyzing a sample for a presentation attack and reporting that information to the MdTF Backend.
+  description: This document describes an application programming interface for a PAD system in which
+               the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows
+               for what ISO/IEC 30107-1:2023 refers to as presentation attack detection "non-stimulated
+               observation" of presentation attacks.  The standard and this document refer to these
+               kinds of systems as "passive" PAD or P-PAD systems.
   version: 2.0.0
   contact:
     name: The MdTF
@@ -23,19 +27,19 @@ servers:
         default: '8080'
 
 tags:
-  - name: PAD Analysis 
-    description: Endpoints that analyze a sample for a presentation attack.
+  - name: Data Analysis 
+  - name: Algorithm Information
 
 paths:
   /v1/analyze-data-for-pad:
     post:
-      summary: Analyze a sample for a presentation attack.
+      summary: Analyze biometric capture data for a presentation attack.
       description: |
-        PAD Analysis system providers will be provided samples through this endpoint.
+        Passive PAD systems receive data through this endpoint
       tags:
-        - PAD Analysis
+        - Data Analysis
       requestBody:
-        $ref: '#/components/requestBodies/image'
+        $ref: '#/components/requestBodies/biometric_capture_data'
       responses:
         200:
           description: Successfully analyzed the provided sample for a presentation attack.
@@ -49,36 +53,30 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
+  /v1/info:
+    get:
+      summary: Returns basic information for the algorithm.
+      description: |
+        This endpoint returns some basic information about the algorithm.
+      tags:
+        - Algorithm Information
+      operationId: GetInfo
+      responses:
+        200:
+          $ref: '#/components/responses/info_response'
+        500:
+          $ref: '#/components/responses/Error'
           
 components:
   schemas:
-    Image:
-      type: object
-      description: |
-        Data transfer object for an image.
-      properties:
-        ImageData:
-          type: string
-          format: byte
-          description: Image data in PNG or JPG format, encoded as a base64 string.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-      required:
-        - ImageData
-    PADProperty:
-      description: Key value pair object.
-      type: object
-      properties:
-        Property:
-          description: Name of the property.
-          type: string
-          example: EyesMoving
-        Value:
-          description: Value for the property.
-          type: string
-          example: true
+    BiometricSample:
+      type: string
+      description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
+                   or a short (<15s) video, encoded as a MOV.
+      example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+      x-nullable: false
     PADAnalysis:
-      description: Data transfer object for the analysis of a sample for a presentation attack.
+      description: Data transfer object for presentation attack information.
       type: object
       required:
         - PADOutcome
@@ -107,10 +105,24 @@ components:
               Value: true
             - Property: PupilsResponsive
               Value: true
-            - Property: DifferentialReflectanceDetected
+            - Property: NonconformantIlluminationDetected
               Value: true
             - Property: MoirePatternDetected
               Value: true
+            - Property: ObsscurationDetected
+              Value: true
+    PADProperty:
+      description: Key value pair object.
+      type: object
+      properties:
+        Property:
+          description: Name of the property.
+          type: string
+          example: EyesMoving
+        Value:
+          description: Value for the property.
+          type: string
+          example: true
     PADErrorResponse:
       description: Presentation attack error response object.
       type: object
@@ -135,36 +147,29 @@ components:
           description: A detailed description of the error that occurred.
 
   requestBodies:
-    image:
-      description: |
-        The facial biometric sample to be analyzed for evidence of a presentation attack.
+    biometric_capture_data:
+      description: Biometric capture data to be analyzed for evidence of a presentation attack.
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Image'
+            $ref: '#/components/schemas/BiometricSample'
 
   responses:
-    padAnalysisResponse:
-      description: PAD Analysis response object
+    pad_aalysis_response:
+      description: The result of an analysis of a biometric sample for a presentation attack.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/PADAnalysis'
+    info_response:
+      description: info response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Info'
     400:
       description: The request is malformed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    404:
-      description: No ongoing transaction was found for the specified StationID.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    410:
-      description: The test volunteer has exited the station and the transaction has ended.
       content:
         application/json:
           schema:

@@ -29,7 +29,6 @@ servers:
 
 tags:
   - name: Data Submission
-    description: Endpoints for submitting data about a biometric capture that has PAD enabled.
 
 paths:
   /v1/capture-data-with-pad:
@@ -61,11 +60,11 @@ components:
       description: Data transfer object for biometric data capture and presentation attack information.
       type: object
       required:
-        - BiometricCaptureData
+        - BiometricSample
         - PADOutcome
         - PADScore
       properties:
-        BiometricCaptureData:
+        BiometricSample:
           type: string
           description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
                        or a short (<15s) video, encoded as a MOV.
