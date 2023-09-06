@@ -4,11 +4,11 @@ openapi: 3.0.3
 info:
   title: The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
   description: This document describes an application programming interface for a PAD system in which
-               the PAD Subsystem is logically located within the Data Capture Subsystem.  This allows
-               for what ISO/IEC 30107-1:2023 refers to as "through data capture subsystem" PAD methods.
-               It also allows for what the standard refers to as "challenge-response" concepts when the
-               capture subject is in a feedback loop with the Data Capture and PAD Subsystems.  We 
-               collectively refer to these kinds of systems as "active" PAD or A-PAD systems.
+               the PAD Subsystem is logically located within or tightly coupled with the Data Capture
+               Subsystem.  This allows for what ISO/IEC 30107-1:2023 refers to as "through data capture
+               subsystem" PAD methods (Table 2). It also allows for what the standard refers to as
+               "challenge-response" actions (Subsection 5.2.1).  We collectively refer to these kinds
+               of systems as "active" PAD or A-PAD systems.
   version: 2.0.0
   contact:
     name: The MdTF
