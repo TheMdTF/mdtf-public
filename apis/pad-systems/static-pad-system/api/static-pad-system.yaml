@@ -33,22 +33,16 @@ paths:
     post:
       summary: Analyze biometric capture data for a presentation attack.
       description: |
-        Passive PAD systems receive data through this endpoint
+        Static PAD systems receive data through this endpoint
       tags:
         - Data Analysis
       requestBody:
         $ref: '#/components/requestBodies/biometric_capture_data'
       responses:
         200:
-          description: Successfully analyzed the provided sample for a presentation attack.
+          $ref: '#/components/responses/pad_analysis_response'
         400:
           $ref: '#/components/responses/400'
-        404:
-          $ref: '#/components/responses/404'
-        410:
-          $ref: '#/components/responses/410'
-        429:
-          $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
   /v1/info:
@@ -63,7 +57,7 @@ paths:
         200:
           $ref: '#/components/responses/info_response'
         500:
-          $ref: '#/components/responses/Error'
+          $ref: '#/components/responses/500'
           
 components:
   schemas:
@@ -121,15 +115,6 @@ components:
           description: Value for the property.
           type: string
           example: true
-    PADErrorResponse:
-      description: Presentation attack error response object.
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          description: Descriptive error string.
-          type: string
     Info:
       type: object
       description: Basic information describing the PAD algorithm.
@@ -209,7 +194,6 @@ components:
             1:1e4: '9321'
             1:1e5: '9863'
             1:1e6: '9972'
-      required:
     Error:
       type: object
       properties:
@@ -233,7 +217,7 @@ components:
             $ref: '#/components/schemas/BiometricSample'
 
   responses:
-    pad_aalysis_response:
+    pad_analysis_response:
       description: The result of an analysis of a biometric sample for a presentation attack.
       content:
         application/json:
@@ -251,14 +235,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    429:
-      description: Too many requests for the ongoing transaction.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     500:
-      description: This capture failed because of a server side issue.
+      description: This request failed because of a server side issue.
       content:
         application/json:
           schema:
