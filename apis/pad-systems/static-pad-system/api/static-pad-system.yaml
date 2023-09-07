@@ -37,7 +37,7 @@ paths:
       tags:
         - Data Analysis
       requestBody:
-        $ref: '#/components/requestBodies/biometric_capture_data'
+        $ref: '#/components/requestBodies/biometric_sample'
       responses:
         200:
           $ref: '#/components/responses/pad_analysis_response'
@@ -134,7 +134,7 @@ components:
           description: A string enum describing the type of biometric modality the algorithm is meant to process.
         CompanyName:
           type: string
-          description: Name of the Company which produced the algorithm.
+          description: Name of the company which produced the algorithm.
           example: MdTF
         TechnicalContactEmail:
           type: string
@@ -208,8 +208,8 @@ components:
           description: A detailed description of the error that occurred.
 
   requestBodies:
-    biometric_capture_data:
-      description: Biometric capture data to be analyzed for evidence of a presentation attack.
+    biometric_sample:
+      description: A biometric sample to be analyzed for evidence of a presentation attack.
       required: true
       content:
         application/json:

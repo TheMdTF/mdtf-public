@@ -29,6 +29,7 @@ servers:
 
 tags:
   - name: Data Submission
+  - name: Algorithm Information
 
 paths:
   /v1/capture-data-with-pad:
@@ -74,8 +75,7 @@ components:
       type: object
       required:
         - BiometricSample
-        - PADOutcome
-        - PADScore
+        - PADAnalysis
       properties:
         BiometricSample:
           type: string
@@ -83,6 +83,15 @@ components:
                        or a short (<15s) video, encoded as a MOV.
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
+        PADAnalysis:
+          $ref: '#/components/schemas/PADAnalysis'
+    PADAnalysis:
+      description: Data transfer object for presentation attack information.
+      type: object
+      required:
+        - PADOutcome
+        - PADScore
+      properties:
         PADOutcome:
           description: Whether a presentation attack was determined to be detected (True) or not detected (False).
           type: boolean
@@ -94,8 +103,8 @@ components:
           example: 0.8
         PADProperties:
           description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
-            There are no strictly defined properties. The inclusion of descriptive properties is encouraged to provide
-            more context (optional).
+            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+            more context. (optional)
           type: array
           items:
             $ref: '#/components/schemas/PADProperty'
@@ -153,7 +162,7 @@ components:
           description: A string enum describing the type of biometric modality the algorithm is meant to process.
         CompanyName:
           type: string
-          description: Name of the Company which produced the algorithm.
+          description: Name of the company which produced the algorithm.
           example: MdTF
         TechnicalContactEmail:
           type: string
