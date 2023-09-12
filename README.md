@@ -13,7 +13,12 @@ This directory has all the APIs developed for events at the MdTF
 #### document-validation
 * api
 
-    Contains the OAS3 Spec and generated [README.md](apis/document-validation/api/README.md) for a identity document validation system. Document validation providers will implement this API to validate documents. 
+    Contains the OAS3 Spec and generated [README.md](apis/document-validation/api/README.md) for an identity document validation system. Document validation providers will implement this API to validate documents.
+#### match-to-id
+* api
+
+    Contains the OAS3 Spec and generated [README.md](apis/match-to-id/api/README.md) for systems that match face images to ID documents.  Matching system providers will implement this API to verify identities based on documents.
+  
 #### image-analysis
 * api
 
