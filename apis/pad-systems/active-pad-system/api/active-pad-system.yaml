@@ -1,0 +1,184 @@
+---
+openapi: 3.0.3
+
+info:
+  title: The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
+  description: This document describes an application programming interface for a PAD system in which
+               the PAD Subsystem is logically located within or tightly coupled with the Data Capture
+               Subsystem.  This allows for what ISO/IEC 30107-1:2023 refers to as "through data capture
+               subsystem" PAD methods (Table 2). It also allows for what the standard refers to as
+               "challenge-response" actions (Subsection 5.2.1).  We collectively refer to these kinds
+               of systems as "active" PAD or A-PAD systems.
+  version: 2.0.0
+  contact:
+    name: The MdTF
+    url: https://mdtf.org
+    email: rivtd@mdtf.org
+  license:
+    name: Copyright (c) 2023, The Maryland Test Facility
+
+servers:
+  - url: https://api.mdtf.org/
+    variables:
+      host:
+        default: mdtf.org
+      port:
+        enum:
+          - '8080'
+        default: '8080'
+
+tags:
+  - name: Data Submission
+
+paths:
+  /v1/capture-data-with-pad:
+    post:
+      summary: Create a biometric data capture with associated PAD information.
+      description: |
+        Active PAD systems may submit data through this endpoint.
+      tags:
+        - Data Submission
+      requestBody:
+        $ref: '#/components/requestBodies/pad_data_capture'
+      responses:
+        200:
+          description: Successfully submitted the biometric data capture and PAD information.
+        400:
+          $ref: '#/components/responses/400'
+        404:
+          $ref: '#/components/responses/404'
+        410:
+          $ref: '#/components/responses/410'
+        429:
+          $ref: '#/components/responses/429'
+        500:
+          $ref: '#/components/responses/500'
+          
+components:
+  schemas:
+    PADDataCapture:
+      description: Data transfer object for biometric data capture and presentation attack information.
+      type: object
+      required:
+        - BiometricSample
+        - PADAnalysis
+      properties:
+        BiometricSample:
+          type: string
+          description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
+                       or a short (<15s) video, encoded as a MOV.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          x-nullable: false
+        PADAnalysis:
+          $ref: '#/components/schemas/PADAnalysis'
+    PADAnalysis:
+      description: Data transfer object for presentation attack information.
+      type: object
+      required:
+        - PADOutcome
+        - PADScore
+      properties:
+        PADOutcome:
+          description: Whether a presentation attack was determined to be detected (True) or not detected (False).
+          type: boolean
+          example: true
+        PADScore:
+          description: A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+          type: number
+          format: double
+          example: 0.8
+        PADProperties:
+          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
+            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+            more context. (optional)
+          type: array
+          items:
+            $ref: '#/components/schemas/PADProperty'
+          example:
+            - Property: EyesMoving
+              Value: true
+            - Property: MouthMoving
+              Value: true
+            - Property: PupilsResponsive
+              Value: true
+            - Property: NonconformantIlluminationDetected
+              Value: true
+            - Property: MoirePatternDetected
+              Value: true
+            - Property: ObsscurationDetected
+              Value: true
+    PADProperty:
+      description: Key value pair object.
+      type: object
+      properties:
+        Property:
+          description: Name of the property.
+          type: string
+          example: EyesMoving
+        Value:
+          description: Value for the property.
+          type: string
+          example: true
+    PADErrorResponse:
+      description: Presentation attack error response object.
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          description: Descriptive error string.
+          type: string
+   
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: The error code.
+        Message:
+          type: string
+          description: A description of the returned code.
+        ErrorString:
+          type: string
+          description: A detailed description of the error that occurred.
+
+  requestBodies:
+    pad_data_capture:
+      description: PAD data collected as part of a biometric data capture process.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PADDataCapture'
+
+  responses:
+    400:
+      description: The request is malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    404:
+      description: No ongoing transaction was found for the specified StationID.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    410:
+      description: The test volunteer has exited the station and the transaction has ended.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    429:
+      description: Too many requests for the ongoing transaction.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500:
+      description: This capture failed because of a server side issue.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

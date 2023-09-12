@@ -1,0 +1,238 @@
+---
+openapi: 3.0.3
+
+info:
+  title: The Maryland Test Facility Passive Presentation Attack Detection (P-PAD) System Interface
+  description: This document describes an application programming interface for a PAD system in which
+               the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows
+               for offline processing of PAD data.
+  version: 2.0.0
+  contact:
+    name: The MdTF
+    url: https://mdtf.org
+    email: rivtd@mdtf.org
+  license:
+    name: Copyright (c) 2023, The Maryland Test Facility
+
+servers:
+  - url: https://api.mdtf.org/
+    variables:
+      host:
+        default: mdtf.org
+      port:
+        enum:
+          - '8080'
+        default: '8080'
+
+tags:
+  - name: Data Analysis 
+  - name: Algorithm Information
+
+paths:
+  /v1/analyze-data-for-pad:
+    post:
+      summary: Analyze biometric capture data for a presentation attack.
+      description: |
+        Passive PAD systems receive data through this endpoint
+      tags:
+        - Data Analysis
+      requestBody:
+        $ref: '#/components/requestBodies/biometric_sample'
+      responses:
+        200:
+          $ref: '#/components/responses/pad_analysis_response'
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'
+  /v1/info:
+    get:
+      summary: Returns basic information for the algorithm.
+      description: |
+        This endpoint returns some basic information about the algorithm.
+      tags:
+        - Algorithm Information
+      operationId: GetInfo
+      responses:
+        200:
+          $ref: '#/components/responses/info_response'
+        500:
+          $ref: '#/components/responses/500'
+          
+components:
+  schemas:
+    BiometricSample:
+      type: string
+      description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
+                   or a short (<15s) video, encoded as a MOV.
+      example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+      x-nullable: false
+    PADAnalysis:
+      description: Data transfer object for presentation attack information.
+      type: object
+      required:
+        - PADOutcome
+        - PADScore
+      properties:
+        PADOutcome:
+          description: Whether a presentation attack was determined to be detected (True) or not detected (False).
+          type: boolean
+          example: true
+        PADScore:
+          description: A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+          type: number
+          format: double
+          example: 0.8
+        PADProperties:
+          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
+            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
+            more context. (optional)
+          type: array
+          items:
+            $ref: '#/components/schemas/PADProperty'
+          example:
+            - Property: EyesMoving
+              Value: true
+            - Property: MouthMoving
+              Value: true
+            - Property: PupilsResponsive
+              Value: true
+            - Property: NonconformantIlluminationDetected
+              Value: true
+            - Property: MoirePatternDetected
+              Value: true
+            - Property: ObsscurationDetected
+              Value: true
+    PADProperty:
+      description: Key value pair object.
+      type: object
+      properties:
+        Property:
+          description: Name of the property.
+          type: string
+          example: EyesMoving
+        Value:
+          description: Value for the property.
+          type: string
+          example: true
+    Info:
+      type: object
+      description: Basic information describing the PAD algorithm.
+      properties:
+        AlgorithmName:
+          type: string
+          description: Name of algorithm.
+          example: EyeDetector
+        AlgorithmVersion:
+          type: string
+          description: Algorithm version identifier.
+          example: 1.0.1
+        AlgorithmModality:
+          type: string
+          enum:
+            - Face
+          description: A string enum describing the type of biometric modality the algorithm is meant to process.
+        CompanyName:
+          type: string
+          description: Name of the company which produced the algorithm.
+          example: MdTF
+        TechnicalContactEmail:
+          type: string
+          description: |
+            The email address of an engineer or other technical resource to contact in the event of
+            an error running your service.
+          example: john@mdtf.org
+        RecommendedCPUs:
+          type: number
+          format: float
+          description: The recommended allocation of CPUs for the deployed docker container.
+          example: .5
+          maximum: 8
+        RecommendedMem:
+          type: integer
+          description: The recommended allocation of memory (MB) for the deployed docker container.
+          example: 512
+          maximum: 8192
+        Test:
+          description: A string enum describing which collection event the algorithm is being submitted for.
+          type: string
+          enum:
+            - MDTF_RIVTD_TRACK3
+        Thresholds:
+          description: |
+            A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values. PADScore values optionally returned from calls to
+            /v1/analyze-data-for-pad indicate a presentation attack is occuring is if they are greater than the provided threshold value at the respective BPCER.
+            Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
+            Note 2: There are 4 required thresholds.
+          maxProperties: 4
+          type: object
+          properties:
+            1:500:
+              type: string
+              maxLength: 10
+            1:1e3:
+              type: string
+              maxLength: 10
+            1:1e4:
+              type: string
+              maxLength: 10
+            1:1e5:
+              type: string
+              maxLength: 10
+          required:
+            - 1:500
+            - 1:1e3
+            - 1:1e4
+            - 1:1e5
+          example:
+            1:500: '7543'
+            1:1e3: '8730'
+            1:1e4: '9321'
+            1:1e5: '9863'
+    Error:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: The error code.
+        Message:
+          type: string
+          description: A description of the returned code.
+        ErrorString:
+          type: string
+          description: A detailed description of the error that occurred.
+
+  requestBodies:
+    biometric_sample:
+      description: A biometric sample to be analyzed for evidence of a presentation attack.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BiometricSample'
+
+  responses:
+    pad_analysis_response:
+      description: The result of an analysis of a biometric sample for a presentation attack.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PADAnalysis'
+    info_response:
+      description: info response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Info'
+    400:
+      description: The request is malformed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500:
+      description: This request failed because of a server side issue.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
