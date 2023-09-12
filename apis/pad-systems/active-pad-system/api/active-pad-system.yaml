@@ -15,7 +15,7 @@ info:
     url: https://mdtf.org
     email: rivtd@mdtf.org
   license:
-    name: Copyright (c) 2022, The Maryland Test Facility
+    name: Copyright (c) 2023, The Maryland Test Facility
 
 servers:
   - url: https://api.mdtf.org/
