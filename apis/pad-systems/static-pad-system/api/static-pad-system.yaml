@@ -187,13 +187,11 @@ components:
             - 1:1e3
             - 1:1e4
             - 1:1e5
-            - 1:1e6
           example:
             1:500: '7543'
             1:1e3: '8730'
             1:1e4: '9321'
             1:1e5: '9863'
-            1:1e6: '9972'
     Error:
       type: object
       properties:
