@@ -1,6 +1,14 @@
 # Documentation for The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
 
 <a name="documentation-for-api-endpoints"></a>
+## Call for Contributions
+
+This API is currently available in DRAFT form.  We are seeking comments from parties interested in PAD testing, specifically on the following items:
+
+* Any additional endpoints or PAD capabilities that would be needed to evaluate modern PAD systems
+* Appropriate video formats (.mov, .mp4, etc.)
+* Communication or classification of PAD techniques
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.mdtf.org*
