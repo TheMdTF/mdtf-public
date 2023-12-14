@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Passive Presentation Attack Detection (P-PAD) System Interface
+  title: The Maryland Test Facility Passive Presentation Attack Detection System Interface
   description: This document describes an application programming interface for a PAD system in which
                the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows
                for offline processing of PAD data.
