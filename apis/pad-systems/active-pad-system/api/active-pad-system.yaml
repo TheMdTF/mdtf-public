@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
+  title: The Maryland Test Facility Active Presentation Attack Detection System Interface
   description: This document describes an application programming interface for a PAD system in which
                the PAD Subsystem is logically located within or tightly coupled with the Data Capture
                Subsystem.  This allows for what ISO/IEC 30107-1:2023 refers to as "through data capture
