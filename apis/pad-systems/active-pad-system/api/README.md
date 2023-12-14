@@ -1,4 +1,4 @@
-# Documentation for The Maryland Test Facility Active Presentation Attack Detection (A-PAD) System Interface
+# Documentation for The Maryland Test Facility Active Presentation Attack Detection System Interface
 
 <a name="documentation-for-api-endpoints"></a>
 
