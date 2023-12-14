@@ -1,4 +1,4 @@
-# Documentation for The Maryland Test Facility Passive Presentation Attack Detection (P-PAD) System Interface
+# Documentation for The Maryland Test Facility Passive Presentation Attack Detection System Interface
 
 <a name="documentation-for-api-endpoints"></a>
 
