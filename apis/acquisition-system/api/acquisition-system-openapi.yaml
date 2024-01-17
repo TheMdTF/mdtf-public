@@ -11,7 +11,6 @@ info:
     email: rally@mdtf.org
   license:
     name: Copyright (c) 2022, The Maryland Test Facility
-
 servers:
   - url: https://api.mdtf.org/
     variables:
@@ -21,28 +20,71 @@ servers:
         enum:
           - '8080'
         default: '8080'
-
 tags:
   - name: Image Submission
     description: Endpoints for submitting images to an ongoing transaction.
-
+  - name: Video Submission
+    description: Endpoints for submitting videos to an ongoing transaction.
 components:
   schemas:
     FaceCapture:
       type: object
-      required: [StationID, FaceImageData]
+      required:
+        - StationID
+        - FaceImageData
       properties:
         StationID:
+          description: The unique identifier for the station that the artifact was captured at.
           type: string
-          description: The unique identifier for the station that the image was captured at.
           example: Station_A
-          x-nullable: false
         FaceImageData:
-          type: string
           description: The captured face image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.
+          type: string
+          format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
-          x-nullable: false
-
+        PADResult:
+          $ref: '#/components/schemas/PADResult'
+    VideoCapture:
+      type: object
+      required:
+        - StationID
+        - VideoData
+      properties:
+        StationID:
+          description: The unique identifier for the station that the artifact was captured at.
+          type: string
+          example: Station_A
+        VideoData:
+          description: base64 encoded bytes of the video data.
+          type: string
+          format: byte
+        PADResult:
+          $ref: '#/components/schemas/PADResult'
+    PADResult:
+      description: The result data from a PAD interaction
+      type: object
+      required:
+        - outcome
+        - score
+        - properties
+      properties:
+        Outcome:
+          description: The result of the interaction, whether a sample is bona-fide (true) or a presentation attack (false)
+          type: boolean
+        Score:
+          description: The level of confidence that the sample is a presentation attack. If the score is 0.0, then there is 0% certainty the sample is a PA. If the score is a 1.0, then there is 100% certainty the sample is a PA.
+          type: number
+          format: double
+        Properties:
+          description: A list of key:value string pairs that provide further information or details about the response.
+          type: array
+          items:
+            type: object
+            properties:
+              Property:
+                type: string
+              Value:
+                type: string
     Error:
       type: object
       properties:
@@ -55,7 +97,6 @@ components:
         ErrorString:
           type: string
           description: A detailed description of the error that occurred.
-
   requestBodies:
     face_capture:
       description: Face image collected as part of a transaction.
@@ -64,7 +105,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/FaceCapture'
-
   responses:
     400:
       description: The request is malformed.
@@ -96,7 +136,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-
 paths:
   /v1/face-captures:
     post:
@@ -106,6 +145,30 @@ paths:
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
+      requestBody:
+        $ref: '#/components/requestBodies/face_capture'
+      responses:
+        200:
+          description: Successfully associated the image capture with the ongoing transaction.
+        400:
+          $ref: '#/components/responses/400'
+        404:
+          $ref: '#/components/responses/404'
+        410:
+          $ref: '#/components/responses/410'
+        429:
+          $ref: '#/components/responses/429'
+        500:
+          $ref: '#/components/responses/500'
+  /v1/video-captures:
+    post:
+      summary: Associate a video capture with the ongoing transaction.
+      description: |
+        Acquisition system providers may submit video data through this endpoint. Submitted video captures will be
+        stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
+      operationId: AssociateVideoCaptures
+      tags:
+        - Video Submission
       requestBody:
         $ref: '#/components/requestBodies/face_capture'
       responses:
