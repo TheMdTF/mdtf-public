@@ -60,9 +60,9 @@ components:
       description: Data transfer object for biometric data capture and presentation attack information.
       type: object
       required:
+        - StationID
         - BiometricSample
         - PADAnalysis
-        - StationID
       properties:
         StationID:
           type: string
