@@ -60,9 +60,14 @@ components:
       description: Data transfer object for biometric data capture and presentation attack information.
       type: object
       required:
+        - StationID
         - BiometricSample
         - PADAnalysis
       properties:
+        StationID:
+          type: string
+          description: ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
+          example: Station_A
         BiometricSample:
           type: string
           description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
