@@ -75,7 +75,7 @@ components:
         - PADScore
       properties:
         PADOutcome:
-          description: Whether a presentation attack was determined to be detected (True) or not detected (False).
+          description: Whether a presentation attack was determined to be detected (True) or not detected (False).  The outcome should be calibrated to produce a BPCER of 0.01.
           type: boolean
           example: true
         PADScore:
@@ -167,7 +167,10 @@ components:
           maxProperties: 4
           type: object
           properties:
-            1:500:
+            1:10:
+              type: string
+              maxLength: 10
+            1:1e2:
               type: string
               maxLength: 10
             1:1e3:
@@ -176,19 +179,16 @@ components:
             1:1e4:
               type: string
               maxLength: 10
-            1:1e5:
-              type: string
-              maxLength: 10
           required:
-            - 1:500
+            - 1:10
+            - 1:1e2
             - 1:1e3
             - 1:1e4
-            - 1:1e5
           example:
-            1:500: '7543'
-            1:1e3: '8730'
-            1:1e4: '9321'
-            1:1e5: '9863'
+            1:10: '0.75'
+            1:1e2: '0.87'
+            1:1e3: '0.93'
+            1:1e4: '0.98'
     Error:
       type: object
       properties:
