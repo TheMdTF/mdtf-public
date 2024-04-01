@@ -180,10 +180,10 @@ components:
               type: string
               maxLength: 10
           required:
-            - 1:10
-            - 1:1e2
-            - 1:1e3
-            - 1:1e4
+            - "1:10"
+            - "1:1e2"
+            - "1:1e3"
+            - "1:1e4"
           example:
             1:10: '0.75'
             1:1e2: '0.87'
