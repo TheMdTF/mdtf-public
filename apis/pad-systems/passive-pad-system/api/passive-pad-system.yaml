@@ -64,7 +64,7 @@ components:
     BiometricSample:
       type: string
       description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                   or a short (<15s) video, encoded as a MOV.
+                   or a short (<15s) video, encoded as a MOV or MP4.
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
       x-nullable: false
     PADAnalysis:
