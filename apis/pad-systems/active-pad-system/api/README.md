@@ -1,9 +1,6 @@
 # Documentation for The Maryland Test Facility Active Presentation Attack Detection System Interface
 
 <a name="documentation-for-api-endpoints"></a>
-
-![Active PAD](PAD%20API%20Diagrams%20-%20Active.png)
-
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.mdtf.org*
