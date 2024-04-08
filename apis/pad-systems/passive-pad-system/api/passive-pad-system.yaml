@@ -167,7 +167,7 @@ components:
           maxProperties: 4
           type: object
           properties:
-            1:10:
+            1:ten:
               type: string
               maxLength: 10
             1:1e2:
@@ -180,12 +180,12 @@ components:
               type: string
               maxLength: 10
           required:
-            - "1:10"
+            - "1:ten"
             - "1:1e2"
             - "1:1e3"
             - "1:1e4"
           example:
-            1:10: '0.75'
+            1:ten: '0.75'
             1:1e2: '0.87'
             1:1e3: '0.93'
             1:1e4: '0.98'

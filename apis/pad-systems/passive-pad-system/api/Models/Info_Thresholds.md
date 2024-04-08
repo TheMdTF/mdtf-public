@@ -3,7 +3,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **70** | **String** |  | [optional] [default to null] |
+| **1:ten** | **String** |  | [default to null] |
 | **1:1e2** | **String** |  | [default to null] |
 | **1:1e3** | **String** |  | [default to null] |
 | **1:1e4** | **String** |  | [default to null] |
