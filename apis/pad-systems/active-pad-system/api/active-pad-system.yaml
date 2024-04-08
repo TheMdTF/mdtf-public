@@ -35,7 +35,7 @@ paths:
     post:
       summary: Create a biometric data capture with associated PAD information.
       description: |
-        Active PAD systems may submit data through this endpoint.  This request cannot exceed 1000 Megabytes in size.
+        Active PAD systems may submit data through this endpoint.  This request cannot exceed 100 Megabytes in size.
       tags:
         - Data Submission
       requestBody:

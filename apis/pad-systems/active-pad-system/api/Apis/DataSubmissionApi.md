@@ -13,7 +13,7 @@ All URIs are relative to *https://api.mdtf.org*
 
 Create a biometric data capture with associated PAD information.
 
-    Active PAD systems may submit data through this endpoint.  This request cannot exceed 1000 Megabytes in size. 
+    Active PAD systems may submit data through this endpoint.  This request cannot exceed 100 Megabytes in size. 
 
 ### Parameters
 
