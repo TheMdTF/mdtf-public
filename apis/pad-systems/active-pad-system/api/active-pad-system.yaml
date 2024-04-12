@@ -9,7 +9,7 @@ info:
                subsystem" PAD methods (Table 2). It also allows for what the standard refers to as
                "challenge-response" actions (Subsection 5.2.1).  We collectively refer to these kinds
                of systems as "active" PAD or A-PAD systems.
-  version: 2.0.0
+  version: 2.0.1
   contact:
     name: The MdTF
     url: https://mdtf.org
@@ -35,7 +35,7 @@ paths:
     post:
       summary: Create a biometric data capture with associated PAD information.
       description: |
-        Active PAD systems may submit data through this endpoint.
+        Active PAD systems may submit data through this endpoint.  This request cannot exceed 100 Megabytes in size.
       tags:
         - Data Submission
       requestBody:
@@ -57,10 +57,11 @@ paths:
 components:
   schemas:
     PADDataCapture:
-      description: Data transfer object for biometric data capture and presentation attack information.
+      description: Data transfer object for biometric data capture and presentation attack information.  
       type: object
       required:
         - StationID
+        - MobilePlatform
         - BiometricSample
         - PADAnalysis
       properties:
@@ -68,10 +69,15 @@ components:
           type: string
           description: ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
           example: Station_A
+        MobilePlatform:
+          type: string
+          enum:
+            - iOS
+            - Android
         BiometricSample:
           type: string
           description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                       or a short (<15s) video, encoded as a MOV.
+                       or a short (<10s) video, encoded as a MOV or a MP4.  
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
         PADAnalysis:
@@ -101,17 +107,17 @@ components:
             $ref: '#/components/schemas/PADProperty'
           example:
             - Property: EyesMoving
-              Value: true
+              Value: "true"
             - Property: MouthMoving
-              Value: true
+              Value: "true"
             - Property: PupilsResponsive
-              Value: true
+              Value: "true"
             - Property: NonconformantIlluminationDetected
-              Value: true
+              Value: "true"
             - Property: MoirePatternDetected
-              Value: true
+              Value: "true"
             - Property: ObsscurationDetected
-              Value: true
+              Value: "true"
     PADProperty:
       description: Key value pair object.
       type: object

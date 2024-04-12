@@ -13,7 +13,7 @@ All URIs are relative to *https://api.mdtf.org*
 
 Analyze biometric capture data for a presentation attack.
 
-    Passive PAD systems receive data through this endpoint 
+    Passive PAD systems receive data through this endpoint.  This request cannot exceed 100 Megabytes in size. 
 
 ### Parameters
 

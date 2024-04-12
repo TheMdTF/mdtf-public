@@ -33,7 +33,7 @@ paths:
     post:
       summary: Analyze biometric capture data for a presentation attack.
       description: |
-        Passive PAD systems receive data through this endpoint
+        Passive PAD systems receive data through this endpoint.  This request cannot exceed 100 Megabytes in size.
       tags:
         - Data Analysis
       requestBody:
@@ -64,7 +64,7 @@ components:
     BiometricSample:
       type: string
       description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                   or a short (<15s) video, encoded as a MOV.
+                   or a short (<10s) video, encoded as a MOV or MP4.
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
       x-nullable: false
     PADAnalysis:
@@ -92,17 +92,17 @@ components:
             $ref: '#/components/schemas/PADProperty'
           example:
             - Property: EyesMoving
-              Value: true
+              Value: "true"
             - Property: MouthMoving
-              Value: true
+              Value: "true"
             - Property: PupilsResponsive
-              Value: true
+              Value: "true"
             - Property: NonconformantIlluminationDetected
-              Value: true
+              Value: "true"
             - Property: MoirePatternDetected
-              Value: true
+              Value: "true"
             - Property: ObsscurationDetected
-              Value: true
+              Value: "true"
     PADProperty:
       description: Key value pair object.
       type: object
@@ -167,7 +167,7 @@ components:
           maxProperties: 4
           type: object
           properties:
-            1:10:
+            1:ten:
               type: string
               maxLength: 10
             1:1e2:
@@ -180,12 +180,12 @@ components:
               type: string
               maxLength: 10
           required:
-            - 1:10
-            - 1:1e2
-            - 1:1e3
-            - 1:1e4
+            - "1:ten"
+            - "1:1e2"
+            - "1:1e3"
+            - "1:1e4"
           example:
-            1:10: '0.75'
+            1:ten: '0.75'
             1:1e2: '0.87'
             1:1e3: '0.93'
             1:1e4: '0.98'
