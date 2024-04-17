@@ -9,7 +9,7 @@ All URIs are relative to *https://api.mdtf.org*
 
 <a name="v1AnalyzeDataForPadPost"></a>
 # **v1AnalyzeDataForPadPost**
-> PADAnalysis v1AnalyzeDataForPadPost(body)
+> PADAnalysis v1AnalyzeDataForPadPost(BiometricSample)
 
 Analyze biometric capture data for a presentation attack.
 
@@ -19,7 +19,7 @@ Analyze biometric capture data for a presentation attack.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **String**| A biometric sample to be analyzed for evidence of a presentation attack. | |
+| **BiometricSample** | **String**| A biometric sample to be analyzed for evidence of a presentation attack. | |
 
 ### Return type
 
