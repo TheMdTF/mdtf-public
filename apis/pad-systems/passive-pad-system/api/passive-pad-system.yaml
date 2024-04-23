@@ -63,6 +63,7 @@ components:
   schemas:
     BiometricSample:
       type: string
+      format: byte
       description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
                    or a short (<10s) video, encoded as a MOV or MP4.
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
@@ -207,7 +208,7 @@ components:
       description: A biometric sample to be analyzed for evidence of a presentation attack.
       required: true
       content:
-        application/json:
+        application/octet-stream:
           schema:
             $ref: '#/components/schemas/BiometricSample'
 

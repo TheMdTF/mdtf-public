@@ -19,7 +19,7 @@ Analyze biometric capture data for a presentation attack.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **String**| A biometric sample to be analyzed for evidence of a presentation attack. | |
+| **body** | **byte[]**| A biometric sample to be analyzed for evidence of a presentation attack. | |
 
 ### Return type
 
@@ -31,6 +31,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: application/octet-stream
 - **Accept**: application/json
 
