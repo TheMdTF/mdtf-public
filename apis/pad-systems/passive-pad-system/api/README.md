@@ -3,7 +3,7 @@
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.mdtf.org*
+All URIs are relative to *https://pad-demo.mdtf.org*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|

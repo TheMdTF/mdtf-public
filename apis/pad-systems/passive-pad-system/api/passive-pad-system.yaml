@@ -15,7 +15,7 @@ info:
     name: Copyright (c) 2023, The Maryland Test Facility
 
 servers:
-  - url: https://api.mdtf.org/
+  - url: https://pad-demo.mdtf.org/
     variables:
       host:
         default: mdtf.org

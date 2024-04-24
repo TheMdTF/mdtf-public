@@ -1,6 +1,6 @@
 # AlgorithmInformationApi
 
-All URIs are relative to *https://api.mdtf.org*
+All URIs are relative to *https://pad-demo.mdtf.org*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
