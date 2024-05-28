@@ -77,4 +77,11 @@ Has the acquisition system and matching system for the 2022 Biometric Rally.
   * tests
 
     Contains examples of some tests used to validate the functionality of a matching system.
+
+### INSTALLATION
+
+You need to install the OpenAPI Tools in order to generate the documentation:
+
+   npm install @openapitools/openapi-generator-cli -g
+
    

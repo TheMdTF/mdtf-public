@@ -9,7 +9,7 @@ All URIs are relative to *https://api.mdtf.org*
 
 <a name="v1AnalyzeDataForPadPost"></a>
 # **v1AnalyzeDataForPadPost**
-> PADAnalysis v1AnalyzeDataForPadPost(body)
+> PADAnalysis v1AnalyzeDataForPadPost(BiometricSampleRequest)
 
 Analyze biometric capture data for a presentation attack.
 
@@ -19,7 +19,7 @@ Analyze biometric capture data for a presentation attack.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **byte[]**| A biometric sample to be analyzed for evidence of a presentation attack. | |
+| **BiometricSampleRequest** | [**BiometricSampleRequest**](../Models/BiometricSampleRequest.md)|  | |
 
 ### Return type
 
@@ -31,6 +31,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/octet-stream
+- **Content-Type**: application/json
 - **Accept**: application/json
 

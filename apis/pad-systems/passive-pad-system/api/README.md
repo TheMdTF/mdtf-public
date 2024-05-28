@@ -14,6 +14,7 @@ All URIs are relative to *https://api.mdtf.org*
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [BiometricSampleRequest](./Models/BiometricSampleRequest.md)
  - [Error](./Models/Error.md)
  - [Info](./Models/Info.md)
  - [Info_Thresholds](./Models/Info_Thresholds.md)
