@@ -1,19 +1,14 @@
----
 openapi: 3.0.3
-
 info:
   title: The Maryland Test Facility Passive Presentation Attack Detection System Interface
-  description: This document describes an application programming interface for a PAD system in which
-               the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows
-               for offline processing of PAD data.
-  version: 2.0.0
+  description: This document describes an application programming interface for a PAD system in which the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows for offline processing of PAD data.  This supports both image and video biometric sample inputs.
+  version: 2.0.1
   contact:
     name: The MdTF
     url: https://mdtf.org
     email: rivtd@mdtf.org
   license:
-    name: Copyright (c) 2023, The Maryland Test Facility
-
+    name: Copyright (c) 2024, The Maryland Test Facility
 servers:
   - url: https://api.mdtf.org/
     variables:
@@ -23,11 +18,9 @@ servers:
         enum:
           - '8080'
         default: '8080'
-
 tags:
   - name: Data Analysis 
   - name: Algorithm Information
-
 paths:
   /v1/analyze-data-for-pad:
     post:
@@ -37,7 +30,11 @@ paths:
       tags:
         - Data Analysis
       requestBody:
-        $ref: '#/components/requestBodies/biometric_sample'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BiometricSampleRequest'
       responses:
         200:
           $ref: '#/components/responses/pad_analysis_response'
@@ -58,15 +55,18 @@ paths:
           $ref: '#/components/responses/info_response'
         500:
           $ref: '#/components/responses/500'
-          
 components:
   schemas:
     BiometricSample:
       type: string
-      description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                   or a short (<10s) video, encoded as a MOV or MP4.
+      description: The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or MP4.
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
       x-nullable: false
+    BiometricSampleRequest:
+      type: object
+      properties:
+        BiometricSample:
+          $ref: '#/components/schemas/BiometricSample'
     PADAnalysis:
       description: Data transfer object for presentation attack information.
       type: object
@@ -84,9 +84,7 @@ components:
           format: double
           example: 0.8
         PADProperties:
-          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
-            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. (optional)
+          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context.  (optional)
           type: array
           items:
             $ref: '#/components/schemas/PADProperty'
@@ -139,8 +137,7 @@ components:
         TechnicalContactEmail:
           type: string
           description: |
-            The email address of an engineer or other technical resource to contact in the event of
-            an error running your service.
+            The email address of an engineer or other technical resource to contact in the event of an error running your service.
           example: john@mdtf.org
         RecommendedCPUs:
           type: number
@@ -160,7 +157,7 @@ components:
             - MDTF_RIVTD_TRACK3
         Thresholds:
           description: |
-            A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values. PADScore values optionally returned from calls to
+            A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values.  PADScore values optionally returned from calls to
             /v1/analyze-data-for-pad indicate a presentation attack is occuring is if they are greater than the provided threshold value at the respective BPCER.
             Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
             Note 2: There are 4 required thresholds.
@@ -201,7 +198,6 @@ components:
         ErrorString:
           type: string
           description: A detailed description of the error that occurred.
-
   requestBodies:
     biometric_sample:
       description: A biometric sample to be analyzed for evidence of a presentation attack.
@@ -209,8 +205,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BiometricSample'
-
+            $ref: '#/components/schemas/BiometricSampleRequest'
   responses:
     pad_analysis_response:
       description: The result of an analysis of a biometric sample for a presentation attack.
@@ -236,3 +231,4 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+
