@@ -1,0 +1,23 @@
+{
+  "metadata_version": "1.0",
+  "images": [
+    {
+      "filename": "1.png",
+      "image_type": "Face",
+      "capture_datetime": "2024-06-21T10:15:30Z",
+      "station_id": "Station_A"
+    },
+    {
+      "filename": "2.png",
+      "image_type": "Face",
+      "capture_datetime": "2024-06-21T10:20:45Z",
+      "station_id": "Station_A"
+    },
+    {
+      "filename": "3.png",
+      "image_type": "Face",
+      "capture_datetime": "2024-06-21T10:25:00Z",
+      "station_id": "Station_A"
+    }
+  ]
+}
