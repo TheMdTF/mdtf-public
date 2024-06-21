@@ -39,19 +39,19 @@ Here is an example of the JSON log file:
   "metadata_version": "1.0",
   "images": [
     {
-      "filename": "image_001.jpg",
+      "filename": "1.png",
       "image_type": "Face",
       "capture_datetime": "2024-06-21T10:15:30Z",
       "station_id": "Station_A"
     },
     {
-      "filename": "image_002.jpg",
+      "filename": "2.png",
       "image_type": "Face",
       "capture_datetime": "2024-06-21T10:20:45Z",
       "station_id": "Station_A"
     },
     {
-      "filename": "image_003.jpg",
+      "filename": "3.png",
       "image_type": "Face",
       "capture_datetime": "2024-06-21T10:25:00Z",
       "station_id": "Station_A"
@@ -63,6 +63,7 @@ Here is an example of the JSON log file:
 ## Image Storage
 
 All image files referenced in the JSON log file should be stored together in a single folder. 
+Images may be bmp, png, or jpg format.
 
 ### Example Directory Structure
 
@@ -82,6 +83,8 @@ The following is an example of how to structure your log and image files:
 - \`/project-directory\`: The root directory of your project.
 - \`images/\`: A folder containing all the image files referenced in the \`metadata.json\` file.
 - \`metadata.json\`: The JSON log file containing metadata for each image.
+
+An example is found under project directory [`example`](https://github.com/TheMdTF/mdtf-public/tree/acquisition-log-file/logging/example)
 
 ## Usage
 
