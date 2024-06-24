@@ -96,6 +96,7 @@ paths:
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
+      operationId: Capture
       requestBody:
         $ref: '#/components/requestBodies/capture'
       responses:
