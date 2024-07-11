@@ -1,26 +1,22 @@
 ---
-openapi: 3.0.3
+openapi: 3.1.0
 
 info:
   title: The Maryland Test Facility Acquisition System Interface
   description: Application Programming Interface for sending acquisition records to the MdTF Backend.
-  version: 2.0.0
+  version: 2.1.0
   contact:
     name: The MdTF
     url: https://mdtf.org
     email: rally@mdtf.org
   license:
-    name: Copyright (c) 2022, The Maryland Test Facility
+    name: Copyright (c) 2024, The Maryland Test Facility
 
 servers:
-  - url: https://api.mdtf.org/
-    variables:
-      host:
-        default: ids.lab
-      port:
-        enum:
-          - '8080'
-        default: '8080'
+  - url:
+      http://idsl-blackops09.idslabs.net/acquisition
+  - url:
+      https://acquisition-demo.mdtf.org
 
 tags:
   - name: Image Submission
@@ -28,23 +24,29 @@ tags:
 
 components:
   schemas:
-    FaceCapture:
+    Capture:
       type: object
-      required: [StationID, FaceImageData]
+      required: [StationID, Data]
       properties:
         StationID:
           type: string
           description: The unique identifier for the station that the image was captured at.
-          example: Station_A
+          examples:
+            - Station_A
+            - Station_B
+            - Station_C
           x-nullable: false
-        FaceImageData:
+        Data:
           type: string
-          description: The captured face image data in PNG format, encoded as a base64 string. The data string shall not exceed 1MB.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          format: byte
+          description: The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+          examples:
+            - "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
           x-nullable: false
 
     Error:
       type: object
+      required: [Code, Message, ErrorString]
       properties:
         Code:
           type: integer
@@ -57,40 +59,28 @@ components:
           description: A detailed description of the error that occurred.
 
   requestBodies:
-    face_capture:
+    capture:
       description: Face image collected as part of a transaction.
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FaceCapture'
+            $ref: '#/components/schemas/Capture'
 
   responses:
-    400:
+    '400':
       description: The request is malformed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    404:
+    '404':
       description: No ongoing transaction was found for the specified StationID.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    410:
-      description: The test volunteer has exited the station and the transaction has ended.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    429:
-      description: Too many requests for the ongoing transaction.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    500:
+    '500':
       description: This capture failed because of a server side issue.
       content:
         application/json:
@@ -98,26 +88,23 @@ components:
             $ref: '#/components/schemas/Error'
 
 paths:
-  /v1/face-captures:
+  /v1/capture:
     post:
-      summary: Associate a face image capture with the ongoing transaction.
+      summary: Associate a capture with the ongoing transaction.
       description: |
-        Acquisition system providers may submit face image data through this endpoint. Submitted image captures will be
+        Acquisition system providers may submit image data through this endpoint. Submitted image captures will be
         stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
       tags:
         - Image Submission
+      operationId: Capture
       requestBody:
-        $ref: '#/components/requestBodies/face_capture'
+        $ref: '#/components/requestBodies/capture'
       responses:
-        200:
+        '200':
           description: Successfully associated the image capture with the ongoing transaction.
-        400:
+        '400':
           $ref: '#/components/responses/400'
-        404:
+        '404':
           $ref: '#/components/responses/404'
-        410:
-          $ref: '#/components/responses/410'
-        429:
-          $ref: '#/components/responses/429'
-        500:
+        '500':
           $ref: '#/components/responses/500'
