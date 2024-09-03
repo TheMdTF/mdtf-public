@@ -14,9 +14,9 @@ info:
 
 servers:
   - url:
-      http://idsl-blackops09.idslabs.net/acquisition
+      http://idsl-blackops09.idslabs.net/public-api
   - url:
-      https://acquisition-demo.mdtf.org
+      http://acquisition-demo.mdtf.org
 
 tags:
   - name: Image Submission
