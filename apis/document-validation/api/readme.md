@@ -1,3 +1,21 @@
+---
+title: The Maryland Test Facility Document Validation Interface v0.0.1
+language_tabs:
+  - shell: Shell
+  - javascript: JavaScript
+  - go: Go
+language_clients:
+  - shell: ""
+  - javascript: ""
+  - go: ""
+toc_footers: []
+includes: []
+search: true
+highlight_theme: darkula
+headingLevel: 2
+
+---
+
 <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="the-maryland-test-facility-document-validation-interface">The Maryland Test Facility Document Validation Interface v0.0.1</h1>
@@ -13,7 +31,7 @@ License: <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Copyright (c
 
 Return validation decision based on images of an identity document
 
-## ValidateDocument
+## Validate an identity document based on images.
 
 <a id="opIdValidateDocument"></a>
 
@@ -27,9 +45,57 @@ curl -X POST /v1/validate \
 
 ```
 
-`POST /v1/validate`
+```javascript
+const inputBody = '{
+  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
+  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
 
-*Validate an identity document based on images.*
+fetch('/v1/validate',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/v1/validate", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /v1/validate`
 
 Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.
 
@@ -42,7 +108,7 @@ Receive base64 encoded PNG or JPEG images of the front and back of a document. V
 }
 ```
 
-<h3 id="validatedocument-parameters">Parameters</h3>
+<h3 id="validate-an-identity-document-based-on-images.-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -101,7 +167,7 @@ Receive base64 encoded PNG or JPEG images of the front and back of a document. V
 }
 ```
 
-<h3 id="validatedocument-responses">Responses</h3>
+<h3 id="validate-an-identity-document-based-on-images.-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -115,7 +181,7 @@ This operation does not require authentication
 
 <h1 id="the-maryland-test-facility-document-validation-interface-algorithm-information">Algorithm Information</h1>
 
-## Info
+## Return information about the document validation algorithm.
 
 <a id="opIdInfo"></a>
 
@@ -128,9 +194,52 @@ curl -X GET /v1/info \
 
 ```
 
-`GET /v1/info`
+```javascript
 
-*Return information about the document validation algorithm.*
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('/v1/info',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/v1/info", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /v1/info`
 
 This endpoint returns information about the validation algorithm.
 
@@ -150,7 +259,7 @@ This endpoint returns information about the validation algorithm.
 }
 ```
 
-<h3 id="info-responses">Responses</h3>
+<h3 id="return-information-about-the-document-validation-algorithm.-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -193,8 +302,8 @@ Basic information describing the document validation algorithm.
 |AlgorithmVersion|string|true|none|Algorithm version identifier.|
 |CompanyName|string|true|none|Name of the company that produced the algorithm.|
 |Event|string|true|none|The name of the test event.|
-|RecommendedCPUs|number(int64)|true|none|The recommended allocation of CPUs for the deployed docker container.|
-|RecommendedMem|number(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
+|RecommendedCPUs|integer(int64)|true|none|The recommended allocation of CPUs for the deployed docker container.|
+|RecommendedMem|integer(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
 |TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
 
 #### Enumerated Values
