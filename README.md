@@ -5,12 +5,12 @@ Public API specifications and code examples from the [Maryland Test Facility](ht
 ## Definitions
 
 The following categories of systems are supported:
-- **Acquisition** systems are systems that arrive on-site, collect or process data, and must communicate with an API during the span of a collection event. These systems often have an opportunity to test against a demo version of the API they will talk to on-site. You can think of these systems as client systems to the APIs.
+- **Acquisition** systems are systems that arrive on-site, collect or process data, and must communicate with an API during the span of a collection event. These systems often have an opportunity to test against a demo version of the API before they arrive on-site. You can think of these systems as client systems to the APIs.
 - **Analysis** systems must implement an API and be submitted to process an analysis workflow. These systems will run in a controlled environment and be orchestrated as part of an analysis workflow. They must pass a validation process in order to be accepted for collaboration for testing. You can think of these systems as server implementations of the APIs.
 
 ## APIs
 
-This directory catalogs all supported APIs for analysis and acquisition systems.
+This directory catalogs all supported APIs for acquisition and analysis systems.
 
 - **acquisition-system** [\[Acquisition\]](#Definitions)  
   This is the default API for acquisition systems that arrive at our facilities. Acquisition systems must be able to submit acquired data to this API when arriving at the facility for respective test events.
@@ -24,9 +24,9 @@ This directory catalogs all supported APIs for analysis and acquisition systems.
   This is the default API for matching systems that are submitted for analysis. It supports images producing biometric templates and the comparison of those templates.
 - **pad-systems**
   - **active-pad-system** [\[Acquisition\]](#Definitions)  
-    This API supports acquisition for RIVTD/RIVR Track 3 systems that arrive at our facilities. Systems must submit collected data as well as performance attack detection results and analysis parameters.
+    This API supports acquisition for RIVTD/RIVR Track 3 systems that arrive at our facilities. Systems must submit acquired data as well as presentation attack detection results and analysis parameters.
   - **passive-pad-system** [\[Analysis\]](#Definitions)  
-    This API supports RIVTD/RIVR Track 3 systems that are submitted for analysis. These systems must produce performance attack detection results and analysis parameters when sent biometric data.
+    This API supports RIVTD/RIVR Track 3 systems that are submitted for analysis. These systems must produce presentation attack detection results and analysis parameters when sent biometric data.
 
 ## Datasets
 
