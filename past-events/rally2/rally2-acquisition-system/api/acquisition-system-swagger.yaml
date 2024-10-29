@@ -90,15 +90,14 @@ definitions:
         items:
           $ref: '#/definitions/FingerImage'
         example: [
-        {
-          "FingerType": "RightIndexFinger",
-          "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
-        },
-        {
-          "FingerType": "RightMiddleFinger",
-          "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
-        }
-        ]
+          {
+            "FingerType": "RightIndexFinger",
+            "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+          },
+          {
+            "FingerType": "RightMiddleFinger",
+            "FingerImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+          }]
 
   FingerImage:
     type: object
