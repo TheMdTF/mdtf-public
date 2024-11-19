@@ -14,8 +14,6 @@ info:
 
 servers:
   - url:
-      http://idsl-blackops09.idslabs.net/public-api
-  - url:
       http://acquisition-demo.mdtf.org
 
 tags:
@@ -90,10 +88,9 @@ components:
 paths:
   /v1/capture:
     post:
-      summary: Associate a capture with the ongoing transaction.
+      summary: Submit a captured image.
       description: |
-        Acquisition system providers may submit image data through this endpoint. Submitted image captures will be
-        stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
+        Acquisition system providers may submit image data through this endpoint.
       tags:
         - Image Submission
       operationId: Capture

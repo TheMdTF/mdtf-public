@@ -302,7 +302,6 @@ Basic information describing the algorithm.
 |AlgorithmType|Finger|
 |AlgorithmType|Iris|
 |ImageDataset|NIST_MEDS|
-|ImageDataset|MDTF_RALLY2_ENROLLMENT|
 
 <h2 id="tocS_AnalysisResult">AnalysisResult</h2>
 <!-- backwards compatibility -->

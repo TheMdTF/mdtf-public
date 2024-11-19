@@ -26,8 +26,6 @@ Application Programming Interface for sending acquisition records to the MdTF Ba
 
 Base URLs:
 
-* <a href="http://idsl-blackops09.idslabs.net/public-api">http://idsl-blackops09.idslabs.net/public-api</a>
-
 * <a href="http://acquisition-demo.mdtf.org">http://acquisition-demo.mdtf.org</a>
 
 Email: <a href="mailto:rally@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
@@ -37,7 +35,7 @@ Email: <a href="mailto:rally@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.o
 
 Endpoints for submitting images to an ongoing transaction.
 
-## Associate a capture with the ongoing transaction.
+## Submit a captured image.
 
 <a id="opIdCapture"></a>
 
@@ -45,7 +43,7 @@ Endpoints for submitting images to an ongoing transaction.
 
 ```shell
 # You can also use wget
-curl -X POST http://idsl-blackops09.idslabs.net/public-api/v1/capture \
+curl -X POST http://acquisition-demo.mdtf.org/v1/capture \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
@@ -61,7 +59,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('http://idsl-blackops09.idslabs.net/public-api/v1/capture',
+fetch('http://acquisition-demo.mdtf.org/v1/capture',
 {
   method: 'POST',
   body: inputBody,
@@ -91,7 +89,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://idsl-blackops09.idslabs.net/public-api/v1/capture", data)
+    req, err := http.NewRequest("POST", "http://acquisition-demo.mdtf.org/v1/capture", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -103,8 +101,7 @@ func main() {
 
 `POST /v1/capture`
 
-Acquisition system providers may submit image data through this endpoint. Submitted image captures will be
-stored and associated with the ongoing transaction. Multiple images may be submitted during a transaction.
+Acquisition system providers may submit image data through this endpoint.
 
 > Body parameter
 
@@ -115,7 +112,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 }
 ```
 
-<h3 id="associate-a-capture-with-the-ongoing-transaction.-parameters">Parameters</h3>
+<h3 id="submit-a-captured-image.-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -133,7 +130,7 @@ stored and associated with the ongoing transaction. Multiple images may be submi
 }
 ```
 
-<h3 id="associate-a-capture-with-the-ongoing-transaction.-responses">Responses</h3>
+<h3 id="submit-a-captured-image.-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|

@@ -245,7 +245,6 @@ This endpoint returns some basic information about the algorithm.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_RIVTD_TRACK3",
   "Thresholds": {
     "1:ten": "0.75",
     "1:1e2": "0.87",
@@ -399,7 +398,6 @@ Key value pair object.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_RIVTD_TRACK3",
   "Thresholds": {
     "1:ten": "0.75",
     "1:1e2": "0.87",
@@ -423,7 +421,6 @@ Basic information describing the PAD algorithm.
 |TechnicalContactEmail|string|false|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
 |RecommendedCPUs|number(float)|false|none|The recommended allocation of CPUs for the deployed docker container.|
 |RecommendedMem|integer|false|none|The recommended allocation of memory (MB) for the deployed docker container.|
-|Test|string|false|none|A string enum describing which collection event the algorithm is being submitted for.|
 |Thresholds|object|false|none|A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values.  PADScore values optionally returned from calls to<br>/v1/analyze-data-for-pad indicate a presentation attack is occuring is if they are greater than the provided threshold value at the respective BPCER.<br>Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.<br>Note 2: There are 4 required thresholds.|
 |» 1:ten|string|true|none|none|
 |» 1:1e2|string|true|none|none|
@@ -435,7 +432,6 @@ Basic information describing the PAD algorithm.
 |Property|Value|
 |---|---|
 |AlgorithmModality|Face|
-|Test|MDTF_RIVTD_TRACK3|
 
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
