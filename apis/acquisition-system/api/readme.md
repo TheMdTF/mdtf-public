@@ -29,7 +29,7 @@ Base URLs:
 * <a href="http://acquisition-demo.mdtf.org">http://acquisition-demo.mdtf.org</a>
 
 Email: <a href="mailto:rally@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
- License: Copyright (c) 2024, The Maryland Test Facility
+License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-acquisition-system-interface-image-submission">Image Submission</h1>
 
