@@ -8,18 +8,13 @@ info:
     name: The MdTF
     url: https://mdtf.org
     email: rally@mdtf.org
-  # the license of the swagger documentation
   license:
-    name: Copyright (c) 2021, The Maryland Test Facility
-# the domain of the service
-# host: 172.17.0.2:8080
-# array of all schemes that your API supports
+    name: IDSL API License
+    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
 schemes:
   - http
-# format of bodies a client can send (Content-Type)
 consumes:
   - application/json
-# format of the responses to the client (Accepts)
 produces:
   - application/json
 

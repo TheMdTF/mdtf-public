@@ -51,3 +51,5 @@ Contains older APIs from past collection events.
 
 README Documentation from OpenAPI Specifications has been generated with [Widdershins](https://github.com/Mermade/widdershins). Installation instructions can be found on their GitHub page.
 
+
+#### [LICENSE](./LICENSE)

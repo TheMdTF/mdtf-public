@@ -15,7 +15,8 @@ info:
     url: https://mdtf.org
     email: rivtd@mdtf.org
   license:
-    name: Copyright (c) 2023, The Maryland Test Facility
+    name: IDSL API License
+    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
 
 servers:
   - url: https://pad-demo.mdtf.org/
