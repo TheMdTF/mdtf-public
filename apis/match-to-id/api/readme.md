@@ -25,7 +25,7 @@ headingLevel: 2
 This document specifies the API requirements for MdTF testing of algorithms that match facial biometric samples to identity document images (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the Department of Homeland Security, Science and Technology Directorate (DHS S&T) as part of the Remote Identity Validation Technology Demonstration (RIVTD).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
 
 Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
- License: Copyright (c) 2023, The Maryland Test Facility
+License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-match-to-id-interface-biometric-operations">Biometric Operations</h1>
 

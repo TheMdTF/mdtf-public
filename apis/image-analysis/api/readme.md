@@ -29,7 +29,7 @@ Base URLs:
 * <a href="http://172.17.0.2:8080">http://172.17.0.2:8080</a>
 
 Email: <a href="mailto:info@mdtf.org">MdTF</a> Web: <a href="https://mdtf.org">MdTF</a> 
- License: Copyright (c) 2019, The Maryland Test Facility
+License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-image-analysis-interface-analysis-operations">Analysis Operations</h1>
 

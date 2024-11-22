@@ -36,7 +36,7 @@ Base URLs:
         * 8080
 
 Email: <a href="mailto:rivtd@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
- License: Copyright (c) 2023, The Maryland Test Facility
+License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-active-presentation-attack-detection-system-interface-data-submission">Data Submission</h1>
 

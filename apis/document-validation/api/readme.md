@@ -25,7 +25,7 @@ headingLevel: 2
 This documents the API requirements for MdTF testing of document validation algorithms.  Document validation testing at the MdTF is supported by the Department of Homeland Security Science and Technology Directorate (DHS S&T).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
 
 Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
-License: <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Copyright (c) 2022, The Maryland Test Facility</a>
+License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-document-validation-interface-validate">Validate</h1>
 

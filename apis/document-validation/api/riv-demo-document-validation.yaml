@@ -14,8 +14,8 @@ info:
     url: https://mdtf.org
     email: info@mdtf.org
   license:
-    name: Copyright (c) 2022, The Maryland Test Facility
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
+    name: IDSL API License
+    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
   version: 0.0.1
 
 tags:
