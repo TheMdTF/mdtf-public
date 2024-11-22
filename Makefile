@@ -1,5 +1,5 @@
 EXTENSION := .yaml
-COMMAND := widdershins --language_tabs='shell:Shell' 'javascript:JavaScript' 'go:Go' --summary --outfile readme.md
+COMMAND := widdershins --omitHeader --language_tabs='shell:Shell' 'javascript:JavaScript' 'go:Go' --summary --outfile readme.md
 
 # Ensure npm and widdershins are installed
 .PHONY: install

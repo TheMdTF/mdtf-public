@@ -1,22 +1,3 @@
----
-title: The Maryland Test Facility Active Presentation Attack Detection System
-  Interface v2.0.1
-language_tabs:
-  - shell: Shell
-  - javascript: JavaScript
-  - go: Go
-language_clients:
-  - shell: ""
-  - javascript: ""
-  - go: ""
-toc_footers: []
-includes: []
-search: true
-highlight_theme: darkula
-headingLevel: 2
-
----
-
 <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="the-maryland-test-facility-active-presentation-attack-detection-system-interface">The Maryland Test Facility Active Presentation Attack Detection System Interface v2.0.1</h1>
