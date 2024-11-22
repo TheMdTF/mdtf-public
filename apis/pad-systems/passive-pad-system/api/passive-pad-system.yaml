@@ -150,11 +150,6 @@ components:
           description: The recommended allocation of memory (MB) for the deployed docker container.
           example: 512
           maximum: 8192
-        Test:
-          description: A string enum describing which collection event the algorithm is being submitted for.
-          type: string
-          enum:
-            - MDTF_RIVTD_TRACK3
         Thresholds:
           description: |
             A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values.  PADScore values optionally returned from calls to
