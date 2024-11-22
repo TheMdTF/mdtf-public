@@ -1,21 +1,3 @@
----
-title: The Maryland Test Facility Matching System Interface v1.1.1
-language_tabs:
-  - shell: Shell
-  - javascript: JavaScript
-  - go: Go
-language_clients:
-  - shell: ""
-  - javascript: ""
-  - go: ""
-toc_footers: []
-includes: []
-search: true
-highlight_theme: darkula
-headingLevel: 2
-
----
-
 <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="the-maryland-test-facility-matching-system-interface">The Maryland Test Facility Matching System Interface v1.1.1</h1>

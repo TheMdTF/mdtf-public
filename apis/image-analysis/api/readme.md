@@ -1,21 +1,3 @@
----
-title: The Maryland Test Facility Image Analysis Interface v1.0.0
-language_tabs:
-  - shell: Shell
-  - javascript: JavaScript
-  - go: Go
-language_clients:
-  - shell: ""
-  - javascript: ""
-  - go: ""
-toc_footers: []
-includes: []
-search: true
-highlight_theme: darkula
-headingLevel: 2
-
----
-
 <!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="the-maryland-test-facility-image-analysis-interface">The Maryland Test Facility Image Analysis Interface v1.0.0</h1>
