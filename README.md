@@ -32,21 +32,6 @@ This directory catalogs all supported APIs for acquisition and analysis systems.
 
 Contains example datasets for providers to test their systems.
 
-## Past Events
-
-Contains older APIs from past collection events.
-
-- **rally2**
-  - **rally2-acquisition-system** [\[Acquisition\]](#Definitions)  
-    The API definition for acquisition systems that participated in the 2019 Biometric Technology Rally.
-  - **rally2-matching-system** [\[Analysis\]](#Definitions)  
-    The API definition for matching systems that participated in the 2019 Biometric Technology Rally.
-- **rally5**
-  - **acquisition-system** [\[Acquisition\]](#Definitions)  
-    The API definition for acquisition systems that participated in the 2022 Biometric Technology Rally.
-  - **matching-system** [\[Analysis\]](#Definitions)  
-    The API definition for matching systems that participated in the 2022 Biometric Technology Rally.
-
 ## Tools
 
 README Documentation from OpenAPI Specifications has been generated with [Widdershins](https://github.com/Mermade/widdershins). Installation instructions can be found on their GitHub page.
