@@ -37,4 +37,4 @@ Contains example datasets for providers to test their systems.
 README Documentation from OpenAPI Specifications has been generated with [Widdershins](https://github.com/Mermade/widdershins). Installation instructions can be found on their GitHub page.
 
 
-#### [LICENSE](./LICENSE)
+#### [LICENSE](./LICENSE.md)
