@@ -80,7 +80,7 @@ func main() {
 
 `POST /v1/create-template`
 
-This endpoint accepts a base64 encoded PNG and attempts to perform a feature extraction operation producing a
+This endpoint accepts a base64 encoded PNG or JPG and attempts to perform a feature extraction operation producing a
 single template.
 
 > Body parameter
@@ -198,7 +198,7 @@ func main() {
 This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the
 provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
 The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
-of templates.
+of templates.  Up to 10,000 target templates should be supported in the list of templates.
 
 > Body parameter
 
@@ -379,7 +379,7 @@ Data transfer object for an image.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|ImageData|string|true|none|The captured image data in PNG format, encoded as a base64 string.|
+|ImageData|string|true|none|The captured image data in PNG or JPG format, encoded as a base64 string.|
 
 <h2 id="tocS_Template">Template</h2>
 <!-- backwards compatibility -->
@@ -418,6 +418,10 @@ Data transfer object for a template.
 ```
 
 A similarity score for a single (1:1) template comparison operation.
+Scores should be, but are not required to be, consistent (unchanged)
+for existing templates if additional templates are added, that is, each
+score for a template should be independent of the presence or absence
+of other templates in the target set.
 
 ### Properties
 
@@ -521,7 +525,7 @@ Basic information describing the algorithm.
 <a id="tocsrequesterror"></a>
 
 ```json
-"Unable to decode image data as a PNG."
+"Unable to decode image data as a PNG or JPG."
 
 ```
 
