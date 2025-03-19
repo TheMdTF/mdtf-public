@@ -278,7 +278,7 @@ paths:
         This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the
         provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
         The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
-        of templates.  Up to 10,000 target templates should be supported in the list of templates.
+        of templates.  Up to 2,500 target templates should be supported in the list of templates.
       tags:
         - Biometric Operations
       operationId: CompareTemplateList
