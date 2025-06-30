@@ -77,7 +77,7 @@ func main() {
 `POST /v1/create-template`
 
 This endpoint accepts a base64 encoded PNG or JPG and attempts to perform a feature extraction operation producing a
-single template.
+single template.  Up to four concurrent generate template requests should be processed by the algorithm without error.
 
 > Body parameter
 
@@ -196,7 +196,8 @@ func main() {
 This endpoint accepts a template and a list of templates. It compares the single template to every target template in the
 provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
 The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
-of templates.
+of templates.  Up to 2,500 target templates should be supported in the list of templates.
+Up to four concurrent compare list requests should be processed by the algorithm without error.
 
 > Body parameter
 
@@ -416,6 +417,10 @@ Data transfer object for a template.
 ```
 
 A similarity score for a template comparison operation.
+Scores should be, but are not required to be, consistent (unchanged)
+for existing templates if additional templates are added, that is, each
+score for a template should be independent of the presence or absence
+of other templates in the target set.
 
 ### Properties
 
