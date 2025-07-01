@@ -1,10 +1,16 @@
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="the-maryland-test-facility-document-validation-interface">The Maryland Test Facility Document Validation Interface v0.0.1</h1>
+<h1 id="the-maryland-test-facility-document-validation-interface">The Maryland Test Facility Document Validation Interface
+ v0.0.1</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-This documents the API requirements for MdTF testing of document validation algorithms.  Document validation testing at the MdTF is supported by the Department of Homeland Security Science and Technology Directorate (DHS S&T).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
+This documents the API requirements for MdTF testing of document validation
+algorithms.  Document validation testing at the MdTF is supported by the
+Department of Homeland Security Science and Technology Directorate (DHS
+S&T).  For more information please visit
+[https://mdtf.org](https://mdtf.org) and
+[https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
 
 Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
 License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
@@ -29,8 +35,8 @@ curl -X POST /v1/validate \
 
 ```javascript
 const inputBody = '{
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n",
+  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -79,14 +85,18 @@ func main() {
 
 `POST /v1/validate`
 
-Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.
+Receive base64 encoded PNG or JPEG images of the front and back of a
+document.  Validation requires that the document is judged to be
+authentic.  See [NIST SP
+800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/)
+Section A.10.2: Identity Validation for recommended best practices.
 
 > Body parameter
 
 ```json
 {
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n",
+  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n"
 }
 ```
 
@@ -284,9 +294,9 @@ Basic information describing the document validation algorithm.
 |AlgorithmVersion|string|true|none|Algorithm version identifier.|
 |CompanyName|string|true|none|Name of the company that produced the algorithm.|
 |Event|string|true|none|The name of the test event.|
-|RecommendedCPUs|integer(int64)|true|none|The recommended allocation of CPUs for the deployed docker container.|
-|RecommendedMem|integer(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
-|TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
+|RecommendedCPUs|integer(int64)|true|none|The recommended allocation of CPUs for the deployed docker<br>container.|
+|RecommendedMem|integer(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker<br>container.|
+|TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to<br>contact in the event of an error running your service.|
 
 #### Enumerated Values
 
@@ -303,13 +313,14 @@ Basic information describing the document validation algorithm.
 
 ```json
 {
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n",
+  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=\n"
 }
 
 ```
 
-Object representation of a document. Consists of an image of the front and back of a document.
+Object representation of a document. Consists of an image of the front
+and back of a document.
 
 ### Properties
 
@@ -405,9 +416,9 @@ Validation response object.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|ValidityOutcome|boolean|true|none|Whether the input document is determined to be valid (True) or invalid (False).|
-|ValidityScore|number(double)|false|none|A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).|
-|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. (optional)|
+|ValidityOutcome|boolean|true|none|Whether the input document is determined to be valid (True) or<br>invalid (False).|
+|ValidityScore|number(double)|false|none|A score corresponding to the level of confidence that the document<br>is valid ranging between 0 and 1 (optional).|
+|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their<br>relationship to the validity decision.  There are no strictly<br>defined  properties. The inclusion of descriptive properties is<br>encouraged to provide more context. (optional)|
 
 <h2 id="tocS_ValidationErrorResponse">ValidationErrorResponse</h2>
 <!-- backwards compatibility -->

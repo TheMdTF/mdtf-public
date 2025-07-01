@@ -2,21 +2,26 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Active Presentation Attack Detection System Interface
-  description: This document describes an application programming interface for a PAD system in which
-               the PAD Subsystem is logically located within or tightly coupled with the Data Capture
-               Subsystem.  This allows for what ISO/IEC 30107-1:2023 refers to as "through data capture
-               subsystem" PAD methods (Table 2). It also allows for what the standard refers to as
-               "challenge-response" actions (Subsection 5.2.1).  We collectively refer to these kinds
-               of systems as "active" PAD or A-PAD systems.
+  title: |
+    The Maryland Test Facility Active Presentation Attack Detection System
+    Interface
+  description: |
+    This document describes an application programming interface for a PAD
+    system in which the PAD Subsystem is logically located within or tightly
+    coupled with the Data Capture Subsystem.  This allows for what ISO/IEC
+    30107-1:2023 refers to as "through data capture subsystem" PAD methods
+    (Table 2). It also allows for what the standard refers to as
+    "challenge-response" actions (Subsection 5.2.1).  We collectively refer to
+    these kinds of systems as "active" PAD or A-PAD systems.
   version: 2.0.1
   contact:
     name: The MdTF
     url: https://mdtf.org
-    email: rivtd@mdtf.org
+    email: info@mdtf.org
   license:
     name: IDSL API License
-    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
+    url: |
+      https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
 
 servers:
   - url: https://pad-demo.mdtf.org/
@@ -36,14 +41,17 @@ paths:
     post:
       summary: Create a biometric data capture with associated PAD information.
       description: |
-        Active PAD systems may submit data through this endpoint.  This request cannot exceed 100 Megabytes in size.
+        Active PAD systems may submit data through this endpoint.  This request
+        cannot exceed 100 Megabytes in size.
       tags:
         - Data Submission
       requestBody:
         $ref: '#/components/requestBodies/pad_data_capture'
       responses:
         200:
-          description: Successfully submitted the biometric data capture and PAD information.
+          description: |
+            Successfully submitted the biometric data capture and PAD
+            information.
         400:
           $ref: '#/components/responses/400'
         404:
@@ -54,11 +62,12 @@ paths:
           $ref: '#/components/responses/429'
         500:
           $ref: '#/components/responses/500'
-          
 components:
   schemas:
     PADDataCapture:
-      description: Data transfer object for biometric data capture and presentation attack information.  
+      description: |
+        Data transfer object for biometric data capture and presentation attack
+        information.
       type: object
       required:
         - StationID
@@ -68,7 +77,9 @@ components:
       properties:
         StationID:
           type: string
-          description: ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
+          description: |
+            ID of the station who is submitting this image. IDs will be
+            provided to vendors upon installation for the test event.
           example: Station_A
         MobilePlatform:
           type: string
@@ -77,9 +88,12 @@ components:
             - Android
         BiometricSample:
           type: string
-          description: The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG
-                       or a short (<10s) video, encoded as a MOV or a MP4.  
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          description: |
+            The captured biometric sample, encoded as a base64 string.  This
+            can be an image, encoded as a PNG or JPEG or a short (<10s) video,
+            encoded as a MOV or a MP4.
+          example: |
+            iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
         PADAnalysis:
           $ref: '#/components/schemas/PADAnalysis'
@@ -91,18 +105,24 @@ components:
         - PADScore
       properties:
         PADOutcome:
-          description: Whether a presentation attack was determined to be detected (True) or not detected (False).
+          description: |
+            Whether a presentation attack was determined to be detected (True)
+            or not detected (False).
           type: boolean
           example: true
         PADScore:
-          description: A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+          description: |
+            A score corresponding to the level of confidence that a
+            presentation attack was detected ranging between 0 and 1.
           type: number
           format: double
           example: 0.8
         PADProperties:
-          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. 
-            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. (optional)
+          description: |
+            Key value pairs describing presentation attack properties and their
+            relationship to the presentation attack outcome/score.  There are
+            no strictly defined  properties. The inclusion of descriptive
+            properties is encouraged to provide more context. (optional)
           type: array
           items:
             $ref: '#/components/schemas/PADProperty'
@@ -140,7 +160,6 @@ components:
         error:
           description: Descriptive error string.
           type: string
-   
     Error:
       type: object
       properties:
@@ -156,7 +175,8 @@ components:
 
   requestBodies:
     pad_data_capture:
-      description: PAD data collected as part of a biometric data capture process.
+      description: |
+        PAD data collected as part of a biometric data capture process.
       required: true
       content:
         application/json:
@@ -177,7 +197,9 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     410:
-      description: The test volunteer has exited the station and the transaction has ended.
+      description: |
+        The test volunteer has exited the station and the transaction has
+        ended.
       content:
         application/json:
           schema:

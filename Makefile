@@ -12,3 +12,7 @@ install:
 .PHONY: generate
 generate: install
 	-find . -type f -name "*$(EXTENSION)" -execdir sh -c '$(COMMAND) "{}" > /dev/null || exit 1' \;
+
+.PHONY: lint
+lint:
+	-find . -iname *.yaml | xargs yamllint
