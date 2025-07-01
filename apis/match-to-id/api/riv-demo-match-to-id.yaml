@@ -3,7 +3,16 @@ openapi: 3.0.3
 
 info:
   title: The Maryland Test Facility Match-to-ID Interface
-  description: This document specifies the API requirements for MdTF testing of algorithms that match facial biometric samples to identity document images (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the Department of Homeland Security, Science and Technology Directorate (DHS S&T) as part of the Remote Identity Validation Technology Demonstration (RIVTD).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
+  description: |
+    This document specifies the API requirements for MdTF testing of algorithms
+    that match facial biometric samples to identity document images
+    (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the
+    Department of Homeland Security, Science and Technology Directorate (DHS
+    S&T) as part of the Remote Identity Validation Technology Demonstration
+    (RIVTD).  For more information please visit
+    [https://mdtf.org](https://mdtf.org) and
+    [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
+
   version: 0.0.1
   contact:
     name: The MdTF
@@ -29,8 +38,11 @@ components:
         ImageData:
           type: string
           format: byte
-          description: The captured image data in PNG or JPG format, encoded as a base64 string.
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          description: |
+            The captured image data in PNG or JPG format, encoded as a base64
+            string.
+          example: |
+            iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
           x-nullable: false
       required:
         - ImageData
@@ -41,7 +53,9 @@ components:
         Data transfer object for a template.
       properties:
         Template:
-          description: The template data, encoded as a base64 string.
+          description: |
+            The template data, encoded as a base64 string.  The data string
+            shall not exceed 1 MB.
           type: string
           format: byte
           example: dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K
@@ -52,11 +66,13 @@ components:
     Comparison:
       type: object
       description: |
-        A similarity score for a template comparison operation.
-        Scores should be, but are not required to be, consistent (unchanged)
-        for existing templates if additional templates are added, that is, each
-        score for a template should be independent of the presence or absence
-        of other templates in the target set.
+        A similarity score for a template comparison operation.  Scores should
+        be, but are not required to be, consistent (unchanged) for existing
+        templates if additional templates are added, that is, each score for a
+        template should be independent of the presence or absence of other
+        templates in the target set.  Individual comparison scores should
+        reflect (1:1) comparisons and should not be changed by the addition or
+        removal of target templates in the list.
       properties:
         Score:
           type: number
@@ -69,13 +85,17 @@ components:
 
     CompareListRequest:
       description: |
-        A single probe template object and a list of target templates that it will be compared to.
+        A single probe template object and a list of target templates that it
+        will be compared to.
       type: object
       properties:
         SingleTemplate:
           $ref: '#/components/schemas/Template'
         TargetTemplateList:
           type: array
+          minItems: 1
+          maxItems: 2500
+          uniqueItems: false
           items:
             $ref: '#/components/schemas/Template'
           x-nullable: false
@@ -99,7 +119,9 @@ components:
           type: string
           enum:
             - Face
-          description: A string enum describing the type of biometric images the algorithm is meant to process.
+          description: |
+            A string enum describing the type of biometric images the algorithm
+            is meant to process.
         CompanyName:
           type: string
           description: Name of the Company which produced the algorithm.
@@ -107,32 +129,41 @@ components:
         TechnicalContactEmail:
           type: string
           description: |
-            The email address of an engineer or other technical resource to contact in the event of
-            an error running your service.
+            The email address of an engineer or other technical resource to
+            contact in the event of an error running your service.
           example: john@mdtf.org
         RecommendedCPUs:
           type: number
           format: float
-          description: The recommended allocation of CPUs for the deployed docker container.
+          description: |
+            The recommended allocation of CPUs for the deployed docker
+            container.
           example: .5
           maximum: 8
         RecommendedMem:
           type: integer
-          description: The recommended allocation of memory (MB) for the deployed docker container.
+          description: |
+            The recommended allocation of memory (MB) for the deployed docker
+            container.
           example: 512
           maximum: 8192
         Test:
-          description: A string enum describing which collection event the algorithm is being submitted for.
+          description: |
+            A string enum describing which collection event the algorithm is
+            being submitted for.
           type: string
           enum:
             - MDTF_RIVTD_TRACK2
         Thresholds:
           description: |
-            A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to
-            v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold
-            value at the respective FMR.
-            Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.
-            There are 5 required thresholds.
+            A map of preset False Match Rates (FMR) to vendor-provided
+            threshold values. Score values returned from calls to
+            v1/compare-list indicate a matching determination by the algorithm
+            if they are greater than the provided threshold value at the
+            respective FMR.  Note that threshold values are floats stored as
+            strings and cannot exceed a length of 10 characters.  There are 5
+            required thresholds.
+          minProperties: 5
           maxProperties: 5
           type: object
           properties:
@@ -177,23 +208,25 @@ components:
     RequestError:
       type: string
       description: |
-        Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid
-        image encoding).
+        Relevant and concise diagnostic information in the event of a client
+        side error (e.g. malformed requests, or invalid image encoding).
       example: Unable to decode image data as a PNG or JPG.
 
     ServerError:
       type: string
       description: |
-        Relevant and concise diagnostic information in the event of a server side error
-        (e.g. invalid license, or failure to generate a template).
+        Relevant and concise diagnostic information in the event of a server
+        side error (e.g. invalid license, or failure to generate a template).
       example: The internal license has expired.
 
   requestBodies:
     image:
       description: |
-        The facial biometric sample or identity document that is being submitted.  Note there is no request body information
-        to distinguish between the submission of these two types (facial sample vs. ID document).  Algorithm providers must 
-        make this distinction using internal logic.
+        The facial biometric sample or identity document that is being
+        submitted.  Note there is no request body information to distinguish
+        between the submission of these two types (facial sample vs. ID
+        document).  Algorithm providers must make this distinction using
+        internal logic.
       required: true
       content:
         application/json:
@@ -201,7 +234,9 @@ components:
             $ref: '#/components/schemas/Image'
 
     compare_list_request:
-      description: A single template object and a list of templates that it will be compared to.
+      description: |
+        A single template object and a list of templates that it will be
+        compared to.
       required: true
       content:
         application/json:
@@ -231,8 +266,9 @@ components:
           schema:
             type: array
             description: |
-              An array of comparison results. This list MUST contain the same number of elements AND be in
-              the same order as the provided list of templates.
+              An array of comparison results. This list MUST contain the same
+              number of elements AND be in the same order as the provided list
+              of templates.
             items:
               $ref: '#/components/schemas/Comparison'
 
@@ -254,10 +290,14 @@ paths:
 
   /v1/create-template:
     post:
-      summary: Generate a template from the provided facial biometric sample or the identity document image.
+      summary: |
+        Generate a template from the provided facial biometric sample or the
+        identity document image.
       description: |
-        This endpoint accepts a base64 encoded PNG or JPG and attempts to perform a feature extraction operation producing a
-        single template.  Up to four concurrent generate template requests should be processed by the algorithm without error.
+        This endpoint accepts a base64 encoded PNG or JPG and attempts to
+        perform a feature extraction operation producing a single template.  Up
+        to four concurrent generate template requests should be processed by
+        the algorithm without error.
       tags:
         - Biometric Operations
       operationId: GenerateTemplate
@@ -275,11 +315,14 @@ paths:
     post:
       summary: Compare a single template to a list of target templates.
       description: |
-        This endpoint accepts a template and a list of templates. It compares the single template to every target template in the
-        provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
-        The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
-        of templates.  Up to 2,500 target templates should be supported in the list of templates.
-        Up to four concurrent compare list requests should be processed by the algorithm without error.
+        This endpoint accepts a template and a list of templates. It compares
+        the single template to every target template in the provided list. The
+        result is a list of Comparison objects that holds a similarity score
+        for each comparison.  The returned list of comparisons MUST contain the
+        same number of elements AND be in the same order as the provided list
+        of templates.  Up to 2,500 target templates should be supported in
+        the list of templates.  Up to four concurrent compare list requests
+        should be processed by the algorithm without error.
       tags:
         - Biometric Operations
       operationId: CompareTemplateList

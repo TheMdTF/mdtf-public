@@ -4,7 +4,13 @@
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Application Programming Interface for receiving matching system requests from the MdTF Backend.
+This document specifies the API requirements for MdTF testing of algorithms
+that match facial biometric samples to identity document images
+(``matching-system'').  Matching system testing at the MdTF is supported by
+the Department of Homeland Security, Science and Technology Directorate
+(DHS S&T).  For more information please visit
+[https://mdtf.org](https://mdtf.org) and
+[https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
 
 Base URLs:
 
@@ -31,7 +37,7 @@ curl -X POST http://localhost:8080/v1/create-template \
 
 ```javascript
 const inputBody = '{
-  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -80,14 +86,16 @@ func main() {
 
 `POST /v1/create-template`
 
-This endpoint accepts a base64 encoded PNG or JPG and attempts to perform a feature extraction operation producing a
-single template.  Up to four concurrent generate template requests should be processed by the algorithm without error.
+This endpoint accepts a base64 encoded PNG or JPG and attempts to
+perform a feature extraction operation producing a single template.  Up
+to four concurrent generate template requests should be processed by
+the algorithm without error.
 
 > Body parameter
 
 ```json
 {
-  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }
 ```
 
@@ -195,11 +203,14 @@ func main() {
 
 `POST /v1/compare-list`
 
-This endpoint accepts a template and a list of templates. It compares the probe template to every target template in the
-provided list. The result is a list of Comparison objects that holds a similarity score for each comparison. 
-The returned list of comparisons MUST contain the same number of elements AND be in the same order as the provided list
-of templates.  Up to 2,500 target templates should be supported in the list of templates.
-Up to four concurrent compare list requests should be processed by the algorithm without error.
+This endpoint accepts a template and a list of templates. It compares
+the probe template to every target template in the provided list. The
+result is a list of Comparison objects that holds a similarity score
+for each comparison.  The returned list of comparisons MUST contain the
+same number of elements AND be in the same order as the provided list
+of templates.  Up to 2,500 target templates should be supported in
+the list of templates.  Up to four concurrent compare list requests
+should be processed by the algorithm without error.
 
 > Body parameter
 
@@ -220,7 +231,12 @@ Up to four concurrent compare list requests should be processed by the algorithm
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|[CompareListRequest](#schemacomparelistrequest)|true|A single template object and a list of templates that it will be compared to.|
+|body|body|[CompareListRequest](#schemacomparelistrequest)|true|A single template object and a list of templates that it will be|
+
+#### Detailed descriptions
+
+**body**: A single template object and a list of templates that it will be
+compared to.
 
 > Example responses
 
@@ -246,13 +262,14 @@ Up to four concurrent compare list requests should be processed by the algorithm
 
 Status Code **200**
 
-*An array of comparison results. This list MUST contain the same number of elements AND be in
-the same order as the provided list of templates.
+*An array of comparison results. This list MUST contain the same
+number of elements AND be in the same order as the provided list
+of templates.
 *
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[[Comparison](#schemacomparison)]|false|none|An array of comparison results. This list MUST contain the same number of elements AND be in<br>the same order as the provided list of templates.|
+|*anonymous*|[[Comparison](#schemacomparison)]|false|none|An array of comparison results. This list MUST contain the same<br>number of elements AND be in the same order as the provided list<br>of templates.|
 |» Score|number(float)|true|none|A similarity score, as produced by the algorithm.|
 
 <aside class="success">
@@ -369,7 +386,7 @@ This operation does not require authentication
 
 ```json
 {
-  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "ImageData": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }
 
 ```
@@ -380,7 +397,7 @@ Data transfer object for an image.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|ImageData|string|true|none|The captured image data in PNG or JPG format, encoded as a base64 string.|
+|ImageData|string|true|none|The captured image data in PNG or JPG format, encoded as a base64<br>string.|
 
 <h2 id="tocS_Template">Template</h2>
 <!-- backwards compatibility -->
@@ -402,7 +419,7 @@ Data transfer object for a template.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|Template|string|true|none|The template data, encoded as a base64 string.  The data string shall not exceed 1 MB.|
+|Template|string|true|none|The template data, encoded as a base64 string.  The data string<br>shall not exceed 1 MB.|
 
 <h2 id="tocS_Comparison">Comparison</h2>
 <!-- backwards compatibility -->
@@ -422,7 +439,9 @@ A similarity score for a single (1:1) template comparison operation.
 Scores should be, but are not required to be, consistent (unchanged)
 for existing templates if additional templates are added, that is, each
 score for a template should be independent of the presence or absence
-of other templates in the target set.
+of other templates in the target set.  Individual comparison scores
+should reflect (1:1) comparisons and should not be changed by the
+addition or removal of target templates in the list.
 
 ### Properties
 
@@ -451,7 +470,8 @@ of other templates in the target set.
 
 ```
 
-A single probe template object and a list of target templates that it will be compared to.
+A single probe template object and a list of target templates that it
+will be compared to.
 
 ### Properties
 
@@ -496,13 +516,13 @@ Basic information describing the algorithm.
 |---|---|---|---|---|
 |AlgorithmName|string|true|none|Name of algorithm.|
 |AlgorithmVersion|string|true|none|Algorithm version identifier.|
-|AlgorithmModality|string|true|none|A string enum describing the type of biometric images the algorithm is meant to process.|
+|AlgorithmModality|string|true|none|A string enum describing the type of biometric images the algorithm<br>is meant to process.|
 |CompanyName|string|true|none|Name of the Company which produced the algorithm.|
-|TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to contact in the event of<br>an error running your service.|
-|RecommendedCPUs|number(float)|true|none|The recommended allocation of CPUs for the deployed docker container.|
-|RecommendedMem|integer|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
-|Test|string|true|none|A string enum describing which collection event the algorithm is being submitted for.|
-|Thresholds|object|true|none|A map of preset False Match Rates (FMR) to vendor-provided threshold values. Score values returned from calls to<br>v1/compare-list indicate a matching determination by the algorithm if they are greater than the provided threshold<br>value at the respective FMR.<br>Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.<br>There are 5 required thresholds.|
+|TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to<br>contact in the event of an error running your service.|
+|RecommendedCPUs|number(float)|true|none|The recommended allocation of CPUs for the deployed docker<br>container.|
+|RecommendedMem|integer|true|none|The recommended allocation of memory (MB) for the deployed docker<br>container.|
+|Test|string|true|none|A string enum describing which collection event the algorithm is<br>being submitted for.|
+|Thresholds|object|true|none|A map of preset False Match Rates (FMR) to vendor-provided<br>threshold values. Score values returned from calls to<br>v1/compare-list indicate a matching determination by the algorithm<br>if they are greater than the provided threshold value at the<br>respective FMR.  Note that threshold values are floats stored as<br>strings and cannot exceed a length of 10 characters.  There are 5<br>required thresholds.|
 |» 1:500|string|true|none|none|
 |» 1:1e3|string|true|none|none|
 |» 1:1e4|string|true|none|none|
@@ -530,14 +550,14 @@ Basic information describing the algorithm.
 
 ```
 
-Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid
-image encoding).
+Relevant and concise diagnostic information in the event of a client
+side error (e.g. malformed requests, or invalid image encoding).
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid<br>image encoding).|
+|*anonymous*|string|false|none|Relevant and concise diagnostic information in the event of a client<br>side error (e.g. malformed requests, or invalid image encoding).|
 
 <h2 id="tocS_ServerError">ServerError</h2>
 <!-- backwards compatibility -->
@@ -551,12 +571,12 @@ image encoding).
 
 ```
 
-Relevant and concise diagnostic information in the event of a server side error
-(e.g. invalid license, or failure to generate a template).
+Relevant and concise diagnostic information in the event of a server
+side error (e.g. invalid license, or failure to generate a template).
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|Relevant and concise diagnostic information in the event of a server side error<br>(e.g. invalid license, or failure to generate a template).|
+|*anonymous*|string|false|none|Relevant and concise diagnostic information in the event of a server<br>side error (e.g. invalid license, or failure to generate a template).|
 
