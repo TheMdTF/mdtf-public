@@ -1,10 +1,15 @@
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="the-maryland-test-facility-passive-presentation-attack-detection-system-interface">The Maryland Test Facility Passive Presentation Attack Detection System Interface v2.0.1</h1>
+<h1 id="the-maryland-test-facility-passive-presentation-attack-detection-system-interface">The Maryland Test Facility Passive Presentation Attack Detection System
+Interface
+ v2.0.1</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-This document describes an application programming interface for a PAD system in which the PAD subsystem is logically distinct from the Data Capture Subsystem.  This allows for offline processing of PAD data.  This supports both image and video biometric sample inputs.
+This document describes an application programming interface for a PAD
+system in which the PAD subsystem is logically distinct from the Data
+Capture Subsystem.  This allows for offline processing of PAD data.  This
+supports both image and video biometric sample inputs.
 
 Base URLs:
 
@@ -16,7 +21,7 @@ Base URLs:
 
         * 8080
 
-Email: <a href="mailto:rivtd@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
+Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
 License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-passive-presentation-attack-detection-system-interface-data-analysis">Data Analysis</h1>
@@ -35,7 +40,7 @@ curl -X POST https://api.mdtf.org/v1/analyze-data-for-pad \
 
 ```javascript
 const inputBody = '{
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -84,13 +89,14 @@ func main() {
 
 `POST /v1/analyze-data-for-pad`
 
-Passive PAD systems receive data through this endpoint.  This request cannot exceed 100 Megabytes in size.
+Passive PAD systems receive data through this endpoint.  This request
+cannot exceed 100 Megabytes in size.
 
 > Body parameter
 
 ```json
 {
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }
 ```
 
@@ -141,7 +147,8 @@ Passive PAD systems receive data through this endpoint.  This request cannot exc
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The result of an analysis of a biometric sample for a presentation attack.|[PADAnalysis](#schemapadanalysis)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The result of an analysis of a biometric sample for a presentation
+attack.|[PADAnalysis](#schemapadanalysis)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request is malformed.|[Error](#schemaerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|This request failed because of a server side issue.|[Error](#schemaerror)|
 
@@ -256,17 +263,19 @@ This operation does not require authentication
 <a id="tocsbiometricsample"></a>
 
 ```json
-"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 
 ```
 
-The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or MP4.
+The biometric sample, encoded as a base64 string.  This can be an
+image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a
+MOV or MP4.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or MP4.|
+|*anonymous*|string|false|none|The biometric sample, encoded as a base64 string.  This can be an<br>image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a<br>MOV or MP4.|
 
 <h2 id="tocS_BiometricSampleRequest">BiometricSampleRequest</h2>
 <!-- backwards compatibility -->
@@ -277,7 +286,7 @@ The biometric sample, encoded as a base64 string.  This can be an image, encoded
 
 ```json
 {
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==\n"
 }
 
 ```
@@ -286,7 +295,7 @@ The biometric sample, encoded as a base64 string.  This can be an image, encoded
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|BiometricSample|[BiometricSample](#schemabiometricsample)|false|none|The biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or MP4.|
+|BiometricSample|[BiometricSample](#schemabiometricsample)|false|none|The biometric sample, encoded as a base64 string.  This can be an<br>image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a<br>MOV or MP4.|
 
 <h2 id="tocS_PADAnalysis">PADAnalysis</h2>
 <!-- backwards compatibility -->
@@ -335,9 +344,9 @@ Data transfer object for presentation attack information.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|PADOutcome|boolean|true|none|Whether a presentation attack was determined to be detected (True) or not detected (False).  The outcome should be calibrated to produce a BPCER of 0.01.|
-|PADScore|number(double)|true|none|A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.|
-|PADProperties|[[PADProperty](#schemapadproperty)]|false|none|Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context.  (optional)|
+|PADOutcome|boolean|true|none|Whether a presentation attack was determined to be detected (True)<br>or not detected (False).  The outcome should be calibrated to<br>produce a BPCER of 0.01.|
+|PADScore|number(double)|true|none|A score corresponding to the level of confidence that a<br>presentation attack was detected ranging between 0 and 1.|
+|PADProperties|[[PADProperty](#schemapadproperty)]|false|none|Key value pairs describing presentation attack properties and their<br>relationship to the presentation attack outcome/score.  There are<br>no strictly defined properties.  The inclusion of descriptive<br>properties is encouraged to provide more context.  (optional)|
 
 <h2 id="tocS_PADProperty">PADProperty</h2>
 <!-- backwards compatibility -->
@@ -397,12 +406,12 @@ Basic information describing the PAD algorithm.
 |---|---|---|---|---|
 |AlgorithmName|string|false|none|Name of algorithm.|
 |AlgorithmVersion|string|false|none|Algorithm version identifier.|
-|AlgorithmModality|string|false|none|A string enum describing the type of biometric modality the algorithm is meant to process.|
+|AlgorithmModality|string|false|none|A string enum describing the type of biometric modality the<br>algorithm is meant to process.|
 |CompanyName|string|false|none|Name of the company which produced the algorithm.|
-|TechnicalContactEmail|string|false|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
-|RecommendedCPUs|number(float)|false|none|The recommended allocation of CPUs for the deployed docker container.|
-|RecommendedMem|integer|false|none|The recommended allocation of memory (MB) for the deployed docker container.|
-|Thresholds|object|false|none|A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided threshold values.  PADScore values optionally returned from calls to<br>/v1/analyze-data-for-pad indicate a presentation attack is occuring is if they are greater than the provided threshold value at the respective BPCER.<br>Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.<br>Note 2: There are 4 required thresholds.|
+|TechnicalContactEmail|string|false|none|The email address of an engineer or other technical resource to<br>contact in the event of an error running your service.|
+|RecommendedCPUs|number(float)|false|none|The recommended allocation of CPUs for the deployed docker<br>container.|
+|RecommendedMem|integer|false|none|The recommended allocation of memory (MB) for the deployed docker<br>container.|
+|Thresholds|object|false|none|A map of specific Bona-fide Classification Error Rates (BPCERs) to<br>vendor-provided threshold values.  PADScore values optionally<br>returned from calls to /v1/analyze-data-for-pad indicate a<br>presentation attack is occuring is if they are greater than the<br>provided threshold value at the respective BPCER.  Note 1:<br>Threshold values are floats stored as strings and cannot exceed a<br>length of 10 characters.  Note 2: There are 4 required thresholds.|
 |» 1:ten|string|true|none|none|
 |» 1:1e2|string|true|none|none|
 |» 1:1e3|string|true|none|none|

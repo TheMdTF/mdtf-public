@@ -2,8 +2,10 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Document Validation Interface
-  description: This documents the API requirements for MdTF testing of document validation
+  title: |
+    The Maryland Test Facility Document Validation Interface
+  description: |
+    This documents the API requirements for MdTF testing of document validation
     algorithms.  Document validation testing at the MdTF is supported by the
     Department of Homeland Security Science and Technology Directorate (DHS
     S&T).  For more information please visit
@@ -22,7 +24,8 @@ tags:
   - name: Info
     description: Return information about the document validation algorithm
   - name: Validate
-    description: Return validation decision based on images of an identity document
+    description: |
+      Return validation decision based on images of an identity document
 
 paths:
   /v1/info:
@@ -30,7 +33,8 @@ paths:
       tags:
         - Algorithm Information
       summary: Return information about the document validation algorithm.
-      description: This endpoint returns information about the validation algorithm.
+      description: |
+        This endpoint returns information about the validation algorithm.
       operationId: Info
       responses:
         '200':
@@ -50,11 +54,12 @@ paths:
       tags:
         - Validate
       summary: Validate an identity document based on images.
-      description: >-
-        Receive base64 encoded PNG or JPEG images of the front and back of a document.
-        Validation requires that the document is judged to be authentic.
-        See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended
-        best practices.
+      description: |
+        Receive base64 encoded PNG or JPEG images of the front and back of a
+        document.  Validation requires that the document is judged to be
+        authentic.  See [NIST SP
+        800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/)
+        Section A.10.2: Identity Validation for recommended best practices.
       operationId: ValidateDocument
       requestBody:
         content:
@@ -85,7 +90,8 @@ paths:
 components:
   schemas:
     Info:
-      description: Basic information describing the document validation algorithm.
+      description: |
+        Basic information describing the document validation algorithm.
       type: object
       required:
         - AlgorithmName
@@ -113,22 +119,30 @@ components:
           type: string
           enum: [2023 Document Validation Demonstration]
         RecommendedCPUs:
-          description: The recommended allocation of CPUs for the deployed docker container.
+          description: |
+            The recommended allocation of CPUs for the deployed docker
+            container.
           type: integer
           format: int64
           example: 4
         RecommendedMem:
-          description: The recommended allocation of memory (MB) for the deployed docker container.
+          description: |
+            The recommended allocation of memory (MB) for the deployed docker
+            container.
           type: integer
           format: int64
           example: 256
         TechnicalContactEmail:
-          description: The email address of an engineer or other technical resource to contact in the event of an error running your service.
+          description: |
+            The email address of an engineer or other technical resource to
+            contact in the event of an error running your service.
           type: string
           example: info@mdtf.org
 
     CapturedDocument:
-      description: Object representation of a document. Consists of an image of the front and back of a document.
+      description: |
+        Object representation of a document. Consists of an image of the front
+        and back of a document.
       type: object
       required:
         - DocumentFront
@@ -138,12 +152,14 @@ components:
           description: Image of front of document; base64 encoded bytes.
           type: string
           format: byte
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
+          example: |
+            iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
         DocumentBack:
           description: Image of back of document; base64 encoded bytes.
           type: string
           format: byte
-          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
+          example: |
+            iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
     ValidityProperty:
       description: Key value pair object.
       type: object
@@ -163,18 +179,24 @@ components:
         - ValidityOutcome
       properties:
         ValidityOutcome:
-          description: Whether the input document is determined to be valid (True) or invalid (False).
+          description: |
+            Whether the input document is determined to be valid (True) or
+            invalid (False).
           type: boolean
           example: true
         ValidityScore:
-          description: A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
+          description: |
+            A score corresponding to the level of confidence that the document
+            is valid ranging between 0 and 1 (optional).
           type: number
           format: double
           example: 0.8
         ValidityProperties:
-          description: Key value pairs describing document properties and their relationship to the validity decision. 
-            There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. (optional)
+          description: |
+            Key value pairs describing document properties and their
+            relationship to the validity decision.  There are no strictly
+            defined  properties. The inclusion of descriptive properties is
+            encouraged to provide more context. (optional)
           type: array
           items:
             $ref: '#/components/schemas/ValidityProperty'

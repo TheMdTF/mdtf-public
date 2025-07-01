@@ -15,18 +15,18 @@ This directory catalogs all supported APIs for acquisition and analysis systems.
 - **acquisition-system** [\[Acquisition\]](#Definitions)  
   This is the default API for acquisition systems that arrive at our facilities. Acquisition systems must be able to submit acquired data to this API when arriving at the facility for respective test events.
 - **document-validation** [\[Analysis\]](#Definitions)  
-  This API supports RIVTD/RIVR Track 1 systems. These analysis systems will be presented with documents and tasked with determining their validity, providing any additional data used to make that decision.
+  This API supports document validation systems. These analysis systems will be presented with documents and tasked with determining their validity, providing any additional data used to make that decision.
 - **match-to-id** [\[Analysis\]](#Definitions)  
-  This API supports RIVTD/RIVR Track 2 systems. These analysis systems will be presented with face images and document images and tasked with comparison of the two artifacts to determine identity.
+  This API supports match to ID systems. These analysis systems will be presented with face images and document images and tasked with comparison of the two artifacts to determine identity.
 - **image-analysis** [\[Analysis\]](#Definitions)  
   This API is intended to support generic analysis workflows with image inputs.
 - **matching-system** [\[Analysis\]](#Definitions)  
   This is the default API for matching systems that are submitted for analysis. It supports images producing biometric templates and the comparison of those templates.
 - **pad-systems**
   - **active-pad-system** [\[Acquisition\]](#Definitions)  
-    This API supports acquisition for RIVTD/RIVR Track 3 systems that arrive at our facilities. Systems must submit acquired data as well as presentation attack detection results and analysis parameters.
+    This API supports acquisition for active PAD systems that arrive at our facilities. Systems must submit acquired data as well as presentation attack detection results and analysis parameters.
   - **passive-pad-system** [\[Analysis\]](#Definitions)  
-    This API supports RIVTD/RIVR Track 3 systems that are submitted for analysis. These systems must produce presentation attack detection results and analysis parameters when sent biometric data.
+    This API supports passive PAD systems that are submitted for analysis. These systems must produce presentation attack detection results and analysis parameters when sent biometric data.
 
 ## Datasets
 

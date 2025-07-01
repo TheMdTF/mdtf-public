@@ -3,7 +3,9 @@ openapi: 3.1.0
 
 info:
   title: The Maryland Test Facility Acquisition System Interface
-  description: Application Programming Interface for sending acquisition records to the MdTF Backend.
+  description: |
+    Application Programming Interface for sending acquisition records to the
+    MdTF Backend.
   version: 2.1.0
   contact:
     name: The MdTF
@@ -29,7 +31,9 @@ components:
       properties:
         StationID:
           type: string
-          description: The unique identifier for the station that the image was captured at.
+          description: |
+            The unique identifier for the station that the image was captured
+            at.
           examples:
             - Station_A
             - Station_B
@@ -38,7 +42,10 @@ components:
         Data:
           type: string
           format: byte
-          description: The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+          description: |
+            The raw bytes of the image data. The supported formats are jpeg and
+            png. This data should be marshaled in this object as a base64
+            encoded string.
           examples:
             - "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
           x-nullable: false
@@ -74,7 +81,8 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     '404':
-      description: No ongoing transaction was found for the specified StationID.
+      description: |
+        No ongoing transaction was found for the specified StationID.
       content:
         application/json:
           schema:
@@ -91,7 +99,8 @@ paths:
     post:
       summary: Submit a captured image.
       description: |
-        Acquisition system providers may submit image data through this endpoint.
+        Acquisition system providers may submit image data through this
+        endpoint.
       tags:
         - Image Submission
       operationId: Capture
@@ -99,7 +108,9 @@ paths:
         $ref: '#/components/requestBodies/capture'
       responses:
         '200':
-          description: Successfully associated the image capture with the ongoing transaction.
+          description: |
+            Successfully associated the image capture with the ongoing
+            transaction.
         '400':
           $ref: '#/components/responses/400'
         '404':

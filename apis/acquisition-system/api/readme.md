@@ -4,7 +4,8 @@
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Application Programming Interface for sending acquisition records to the MdTF Backend.
+Application Programming Interface for sending acquisition records to the
+MdTF Backend.
 
 Base URLs:
 
@@ -83,7 +84,8 @@ func main() {
 
 `POST /v1/capture`
 
-Acquisition system providers may submit image data through this endpoint.
+Acquisition system providers may submit image data through this
+endpoint.
 
 > Body parameter
 
@@ -116,7 +118,8 @@ Acquisition system providers may submit image data through this endpoint.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successfully associated the image capture with the ongoing transaction.|None|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successfully associated the image capture with the ongoing
+transaction.|None|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request is malformed.|[Error](#schemaerror)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|No ongoing transaction was found for the specified StationID.|[Error](#schemaerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|This capture failed because of a server side issue.|[Error](#schemaerror)|
@@ -146,8 +149,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|StationID|string|true|none|The unique identifier for the station that the image was captured at.|
-|Data|string(byte)|true|none|The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.|
+|StationID|string|true|none|The unique identifier for the station that the image was captured<br>at.|
+|Data|string(byte)|true|none|The raw bytes of the image data. The supported formats are jpeg and<br>png. This data should be marshaled in this object as a base64<br>encoded string.|
 
 <h2 id="tocS_Error">Error</h2>
 <!-- backwards compatibility -->
