@@ -8,8 +8,7 @@ info:
     that match facial biometric samples to identity document images
     (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the
     Department of Homeland Security, Science and Technology Directorate (DHS
-    S&T) as part of the Remote Identity Validation Technology Demonstration
-    (RIVTD).  For more information please visit
+    S&T).  For more information please visit
     [https://mdtf.org](https://mdtf.org) and
     [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
 
@@ -149,11 +148,9 @@ components:
           maximum: 8192
         Test:
           description: |
-            A string enum describing which collection event the algorithm is
-            being submitted for.
+            A string describing which collection event the algorithm is being
+            submitted for.
           type: string
-          enum:
-            - MDTF_RIVTD_TRACK2
         Thresholds:
           description: |
             A map of preset False Match Rates (FMR) to vendor-provided

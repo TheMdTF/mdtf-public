@@ -8,8 +8,7 @@ This document specifies the API requirements for MdTF testing of algorithms
 that match facial biometric samples to identity document images
 (``match-to-id'').  Match-to-ID testing at the MdTF is supported by the
 Department of Homeland Security, Science and Technology Directorate (DHS
-S&T) as part of the Remote Identity Validation Technology Demonstration
-(RIVTD).  For more information please visit
+S&T).  For more information please visit
 [https://mdtf.org](https://mdtf.org) and
 [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC)
 
@@ -359,7 +358,7 @@ This endpoint returns some basic information about the algorithm.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_RIVTD_TRACK2",
+  "Test": "string",
   "Thresholds": {
     "1:500": "7543",
     "1:1e3": "8730",
@@ -502,7 +501,7 @@ will be compared to.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_RIVTD_TRACK2",
+  "Test": "string",
   "Thresholds": {
     "1:500": "7543",
     "1:1e3": "8730",
@@ -527,7 +526,7 @@ Basic information describing the algorithm.
 |TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to<br>contact in the event of an error running your service.|
 |RecommendedCPUs|number(float)|true|none|The recommended allocation of CPUs for the deployed docker<br>container.|
 |RecommendedMem|integer|true|none|The recommended allocation of memory (MB) for the deployed docker<br>container.|
-|Test|string|true|none|A string enum describing which collection event the algorithm is<br>being submitted for.|
+|Test|string|true|none|A string describing which collection event the algorithm is being<br>submitted for.|
 |Thresholds|object|true|none|A map of preset False Match Rates (FMR) to vendor-provided<br>threshold values. Score values returned from calls to<br>v1/compare-list indicate a matching determination by the algorithm<br>if they are greater than the provided threshold value at the<br>respective FMR.  Note that threshold values are floats stored as<br>strings and cannot exceed a length of 10 characters.  There are 5<br>required thresholds.|
 |» 1:500|string|true|none|none|
 |» 1:1e3|string|true|none|none|
@@ -540,7 +539,6 @@ Basic information describing the algorithm.
 |Property|Value|
 |---|---|
 |AlgorithmModality|Face|
-|Test|MDTF_RIVTD_TRACK2|
 
 <h2 id="tocS_RequestError">RequestError</h2>
 <!-- backwards compatibility -->

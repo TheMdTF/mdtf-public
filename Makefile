@@ -1,6 +1,7 @@
 EXTENSION := .yaml
 COMMAND := widdershins --omitHeader --language_tabs='shell:Shell' 'javascript:JavaScript' 'go:Go' --summary --outfile readme.md
 
+# Recommended to run yamllint first and correct any errors to ensure proper output
 # Ensure npm and widdershins are installed
 .PHONY: install
 install:

@@ -151,11 +151,9 @@ components:
           maximum: 8192
         Test:
           description: |
-            A string enum describing which collection event the algorithm is
-            being submitted for.
+            A string describing which collection event the algorithm is being
+            submitted for.
           type: string
-          enum:
-            - MDTF_2022_RALLY
         Thresholds:
           description: |
             A map of preset False Match Rates (FMR) to vendor-provided

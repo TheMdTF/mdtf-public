@@ -353,7 +353,7 @@ This endpoint returns some basic information about the algorithm.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_2022_RALLY",
+  "Test": "string",
   "Thresholds": {
     "1:500": "7543",
     "1:1e3": "8730",
@@ -496,7 +496,7 @@ will be compared to.
   "TechnicalContactEmail": "john@mdtf.org",
   "RecommendedCPUs": 0.5,
   "RecommendedMem": 512,
-  "Test": "MDTF_2022_RALLY",
+  "Test": "string",
   "Thresholds": {
     "1:500": "7543",
     "1:1e3": "8730",
@@ -521,7 +521,7 @@ Basic information describing the algorithm.
 |TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to<br>contact in the event of an error running your service.|
 |RecommendedCPUs|number(float)|true|none|The recommended allocation of CPUs for the deployed docker<br>container.|
 |RecommendedMem|integer|true|none|The recommended allocation of memory (MB) for the deployed docker<br>container.|
-|Test|string|true|none|A string enum describing which collection event the algorithm is<br>being submitted for.|
+|Test|string|true|none|A string describing which collection event the algorithm is being<br>submitted for.|
 |Thresholds|object|true|none|A map of preset False Match Rates (FMR) to vendor-provided<br>threshold values. Score values returned from calls to<br>v1/compare-list indicate a matching determination by the algorithm<br>if they are greater than the provided threshold value at the<br>respective FMR.  Note that threshold values are floats stored as<br>strings and cannot exceed a length of 10 characters.  There are 5<br>required thresholds.|
 |» 1:500|string|true|none|none|
 |» 1:1e3|string|true|none|none|
@@ -536,7 +536,6 @@ Basic information describing the algorithm.
 |AlgorithmModality|Face|
 |AlgorithmModality|Finger|
 |AlgorithmModality|Iris|
-|Test|MDTF_2022_RALLY|
 
 <h2 id="tocS_RequestError">RequestError</h2>
 <!-- backwards compatibility -->
