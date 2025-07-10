@@ -1,0 +1,421 @@
+openapi: 3.0.3
+
+info:
+  title: The Maryland Test Facility Matching System Interface
+  description: |
+    Application Programming Interface for receiving matching system requests from the MdTF Backend.
+    In version 1.4.0, `/v1/compare-list` was renamed to `/v1/verify`, and `/v1/info` expanded to advertise SupportedOperations, SupportedModalities, and SupportedImageTypes.
+  version: 1.4.0
+  contact:
+    name: The MdTF
+    url: https://mdtf.org
+    email: rally@mdtf.org
+  license:
+    name: IDSL API License
+    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
+
+servers:
+  - url: http://localhost:8080/
+
+tags:
+  - name: Biometric Operations
+  - name: Algorithm Information
+
+components:
+
+  schemas:
+
+    Operation:
+      type: string
+      description: |
+        An operation supported by the server.
+      enum:
+        - CreateTemplate
+        - Verify
+      example: Verify
+
+    Modality:
+      type: string
+      description: |
+        Type of biometric modality processed.
+      enum:
+        - Face
+        - Finger
+        - Iris
+        - Palm
+        - Unknown
+      example: Finger
+
+    ImageType:
+      type: string
+      description: |
+        Type of biometric image.
+      enum:
+        - EjiOrTip
+        - Face
+        - FlatLeftAndRightThumbs
+        - FlatLeftFourFingers
+        - FlatLeftThumb
+        - FlatRightFourFingers
+        - FlatRightThumb
+        - Iris
+        - LeftExtraDigit
+        - LeftIndexAndMiddle
+        - LeftIndexFinger
+        - LeftIris
+        - LeftLittleFinger
+        - LeftMiddleFinger
+        - LeftPalm
+        - LeftRingAndLittle
+        - LeftRingFinger
+        - LeftThumb
+        - RightExtraDigit
+        - RightIndexAndMiddle
+        - RightIndexFinger
+        - RightIris
+        - RightLittleFinger
+        - RightMiddleFinger
+        - RightPalm
+        - RightRingAndLittle
+        - RightRingFinger
+        - RightThumb
+        - RightTwo
+        - RolledLeftExtraDigit
+        - RolledLeftIndexFinger
+        - RolledLeftLittleFinger
+        - RolledLeftMiddleFinger
+        - RolledLeftRingFinger
+        - RolledLeftThumb
+        - RolledRightExtraDigit
+        - RolledRightIndexFinger
+        - RolledRightLittleFinger
+        - RolledRightMiddleFinger
+        - RolledRightRingFinger
+        - RolledRightThumb
+        - Unknown
+        - UnknownFinger
+        - UnknownFrictionRidge
+      example: FlatLeftThumb
+
+    BiometricData:
+      type: object
+      description: |
+        Base object for biometric data, including modality and image type.
+      properties:
+        Modality:
+          $ref: '#/components/schemas/Modality'
+        ImageType:
+          $ref: '#/components/schemas/ImageType'
+      required:
+        - Modality
+        - ImageType
+
+    Image:
+      allOf:
+        - $ref: '#/components/schemas/BiometricData'
+        - type: object
+          properties:
+            ImageId:
+              type: string
+              description: |
+                Optional client-provided ID for the image, used to correlate multiple templates from the same image.
+              example: image-abc123
+            ImageData:
+              type: string
+              format: byte
+              description: |
+                The image data, encoded in base64 PNG format.
+              example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          required:
+            - ImageData
+
+    Template:
+      allOf:
+        - $ref: '#/components/schemas/BiometricData'
+        - type: object
+          properties:
+            TemplateId:
+              type: string
+              description: Unique identifier for the template, assigned by the client.
+              example: target-001
+            Template:
+              type: string
+              format: byte
+              description: |
+                The template data encoded as a base64 string.
+                The data string shall not exceed 1 MB.
+              example: dGhpcyBzZW50ZW5jZSBpcyBhbiBleGFtcGxlIHRlbXBsYXRlLi4K
+            Error:
+              description: |
+                An error produced from creating the biometric data
+              type: string
+          required:
+            - TemplateId
+            - Template
+
+    Comparison:
+      type: object
+      description: |
+        A similarity score result tied to a specific target template.
+      properties:
+        TargetTemplateId:
+          type: string
+          description: Target TemplateId for which this comparison score applies.
+          example: target-001
+        Score:
+          type: number
+          format: float
+          description: Similarity score produced by the algorithm.
+          example: 8734
+        Error:
+          description: |
+            An error produced from creating the biometric data
+          type: string
+
+      required:
+        - TargetTemplateId
+        - Score
+
+    VerifyRequest:
+      type: object
+      description: A probe template and a list of target templates for verification.
+      properties:
+        ProbeTemplate:
+          $ref: '#/components/schemas/Template'
+        TargetTemplateList:
+          type: array
+          maxItems: 1000
+          items:
+            $ref: '#/components/schemas/Template'
+      required:
+        - ProbeTemplate
+        - TargetTemplateList
+
+    Info:
+      type: object
+      description: |
+        Information describing the algorithm and supported server capabilities.
+      properties:
+        AlgorithmName:
+          type: string
+          example: AlwaysTrue
+        AlgorithmVersion:
+          type: string
+          example: 1.0.1
+        CompanyName:
+          type: string
+          example: MdTF
+        TechnicalContactEmail:
+          type: string
+          example: john@mdtf.org
+        RecommendedCPUs:
+          type: number
+          format: float
+          example: 0.5
+          maximum: 8
+        RecommendedMem:
+          type: integer
+          example: 512
+          maximum: 8192
+        Thresholds:
+          type: object
+          description: Threshold values mapped to false match rates.
+          properties:
+            1:500:
+              type: string
+              maxLength: 10
+            1:1e3:
+              type: string
+              maxLength: 10
+            1:1e4:
+              type: string
+              maxLength: 10
+            1:1e5:
+              type: string
+              maxLength: 10
+            1:1e6:
+              type: string
+              maxLength: 10
+          required:
+            - 1:500
+            - 1:1e3
+            - 1:1e4
+            - 1:1e5
+            - 1:1e6
+          example:
+            1:500: 7543.0
+            1:1e3: 8730.5
+            1:1e4: 9321.2
+            1:1e5: 9863.7
+            1:1e6: 9972.8
+        SupportedOperations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        SupportedModalities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Modality'
+        SupportedImageTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageType'
+      required:
+        - AlgorithmName
+        - AlgorithmVersion
+        - AlgorithmModality
+        - CompanyName
+        - TechnicalContactEmail
+        - RecommendedCPUs
+        - RecommendedMem
+        - Test
+        - Thresholds
+        - SupportedOperations
+        - SupportedModalities
+        - SupportedImageTypes
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+
+  requestBodies:
+
+    image:
+      description: Biometric image to be submitted for template extraction.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Image'
+
+    verify_request:
+      description: A probe template and list of target templates for verification.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VerifyRequest'
+
+  responses:
+
+    InfoResponse:
+      description: Algorithm info response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Info'
+
+    TemplateResponse:
+      description: Template creation success response.
+      content:
+        application/json:
+          schema:
+            type: array
+            description: |
+              A list of templates generated from an input image.
+            items:
+              $ref: '#/components/schemas/Template'
+
+
+    VerifyResponse:
+      description: Verification success response.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comparison'
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message:  "Invalid request: missing required field TemplateId"
+
+    PayloadTooLarge:
+      description: Payload Too Large
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message:  "Request rejected: maximum templates exceeded (limit is 100)."
+
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: "Unprocessable entity: modality mismatch between probe and target."
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message:  "Internal server error: unexpected processing failure."
+
+paths:
+
+  /v1/create-template:
+    post:
+      summary: Generate templates from a provided image.
+      operationId: CreateTemplate
+      tags:
+        - Biometric Operations
+      requestBody:
+        $ref: '#/components/requestBodies/image'
+      responses:
+        200:
+          $ref: '#/components/responses/TemplateResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        413:
+          $ref: '#/components/responses/PayloadTooLarge'
+        422:
+          $ref: '#/components/responses/UnprocessableEntity'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/verify:
+    post:
+      summary: Verify a probe template against a list of target templates.
+      operationId: VerifyTemplates
+      tags:
+        - Biometric Operations
+      requestBody:
+        $ref: '#/components/requestBodies/verify_request'
+      responses:
+        200:
+          $ref: '#/components/responses/VerifyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        413:
+          $ref: '#/components/responses/PayloadTooLarge'
+        422:
+          $ref: '#/components/responses/UnprocessableEntity'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/info:
+    get:
+      summary: Retrieve server and algorithm information.
+      operationId: GetInfo
+      tags:
+        - Algorithm Information
+      responses:
+        200:
+          $ref: '#/components/responses/InfoResponse'
+        500:
+          $ref: '#/components/responses/InternalServerError'
