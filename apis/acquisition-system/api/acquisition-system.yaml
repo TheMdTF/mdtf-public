@@ -1,108 +1,252 @@
----
-openapi: 3.1.0
-
+openapi: 3.0.3
 info:
-  title: The Maryland Test Facility Acquisition System Interface
-  description: Application Programming Interface for sending acquisition records to the MdTF Backend.
-  version: 2.1.0
-  contact:
-    name: The MdTF
-    url: https://mdtf.org
-    email: rally@mdtf.org
-  license:
-    name: IDSL API License
-    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
+  title: MdTF Media Acquisition API
+  version: 3.0.0
+  description: |
+    API for submitting media (images, video, audio) with support for multiple modalities.
+    Each media type and modality combination has its own endpoint.
+    Clients must use a single POST request with multipart/form-data to submit both the media file and its metadata.
 
 servers:
-  - url:
-      http://acquisition-demo.mdtf.org
-
-tags:
-  - name: Image Submission
-    description: Endpoints for submitting images to an ongoing transaction.
+  - url: https://api.mdtf.org
 
 components:
   schemas:
-    Capture:
+    MediaFormat:
+      type: string
+      enum: [jpeg, png, wsq, bmp, mp4, mov, wav, mp3, flac]
+
+    ImageFormat:
+      type: string
+      enum: [jpeg, png, wsq, bmp]
+
+    VideoFormat:
+      type: string
+      enum: [mp4, mov]
+
+    AudioFormat:
+      type: string
+      enum: [wav, mp3, flac]
+
+    BiometricImageType:
+      type: string
+      description: The allowed string names for biometric image types.
+      x-oapi-codegen-extra-tags:
+        gorm: column:image_type;index
+        csv: ImageType
+      enum:
+        - Unknown
+        - UnknownFinger
+        - RightThumb
+        - RightIndexFinger
+        - RightMiddleFinger
+        - RightRingFinger
+        - RightLittleFinger
+        - RightTwo
+        - LeftThumb
+        - LeftIndexFinger
+        - LeftMiddleFinger
+        - LeftRingFinger
+        - LeftLittleFinger
+        - FlatRightThumb
+        - FlatLeftThumb
+        - FlatRightFourFingers
+        - FlatLeftFourFingers
+        - FlatLeftAndRightThumbs
+        - RightExtraDigit
+        - LeftExtraDigit
+        - UnknownFrictionRidge
+        - EjiOrTip
+        - Iris
+        - RightIris
+        - LeftIris
+        - Face
+        - RightIndexAndMiddle
+        - RolledRightThumb
+        - RolledRightIndexFinger
+        - RolledRightMiddleFinger
+        - RolledRightRingFinger
+        - RolledRightLittleFinger
+        - RolledLeftThumb
+        - RolledLeftIndexFinger
+        - RolledLeftMiddleFinger
+        - RolledLeftRingFinger
+        - RolledLeftLittleFinger
+        - RolledLeftExtraDigit
+        - RolledRightExtraDigit
+        - RightRingAndLittle
+        - LeftIndexAndMiddle
+        - LeftRingAndLittle
+
+    UploadMetadataBase:
       type: object
-      required: [StationID, Data]
+      required:
+        - StationID
+        - Format
+        - Modality
       properties:
         StationID:
           type: string
-          description: The unique identifier for the station that the image was captured at.
-          examples:
-            - Station_A
-            - Station_B
-            - Station_C
-          x-nullable: false
-        Data:
+        Timestamp:
           type: string
-          format: byte
-          description: The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+          format: date-time
+        Metadata:
+          type: object
+          additionalProperties: true
           examples:
-            - "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
-          x-nullable: false
+            - lighting: normal
+            - sleepy: yes
 
-    Error:
-      type: object
-      required: [Code, Message, ErrorString]
-      properties:
-        Code:
-          type: integer
-          description: The error code.
-        Message:
-          type: string
-          description: A description of the returned code.
-        ErrorString:
-          type: string
-          description: A detailed description of the error that occurred.
+    UploadImageMetadata:
+      allOf:
+        - $ref: '#/components/schemas/UploadMetadataBase'
+        - type: object
+          required:
+            - Format
+            - Modality
+          properties:
+            Format:
+              $ref: '#/components/schemas/ImageFormat'
+            ImageType:
+              $ref: '#/components/schemas/BiometricImageType'
+            Modality:
+              type: string
+              enum: [Palm, Face, Iris, Finger]
+
+    UploadVideoMetadata:
+      allOf:
+        - $ref: '#/components/schemas/UploadMetadataBase'
+        - type: object
+          required:
+            - Format
+            - Modality
+          properties:
+            Format:
+              $ref: '#/components/schemas/VideoFormat'
+            Modality:
+              type: string
+              enum: [Face]
+
+    UploadAudioMetadata:
+      allOf:
+        - $ref: '#/components/schemas/UploadMetadataBase'
+        - type: object
+          required:
+            - Format
+            - Modality
+          properties:
+            Format:
+              $ref: '#/components/schemas/AudioFormat'
+            Modality:
+              type: string
+              enum: [Voice]
 
   requestBodies:
-    capture:
-      description: Face image collected as part of a transaction.
+    MultipartUploadImage:
       required: true
       content:
-        application/json:
+        multipart/form-data:
           schema:
-            $ref: '#/components/schemas/Capture'
+            type: object
+            required: [file, metadata]
+            properties:
+              file:
+                type: string
+                format: binary
+              metadata:
+                $ref: '#/components/schemas/UploadImageMetadata'
 
-  responses:
-    '400':
-      description: The request is malformed.
+    MultipartUploadVideo:
+      required: true
       content:
-        application/json:
+        multipart/form-data:
           schema:
-            $ref: '#/components/schemas/Error'
-    '404':
-      description: No ongoing transaction was found for the specified StationID.
+            type: object
+            required: [file, metadata]
+            properties:
+              file:
+                type: string
+                format: binary
+              metadata:
+                $ref: '#/components/schemas/UploadVideoMetadata'
+
+    MultipartUploadAudio:
+      required: true
       content:
-        application/json:
+        multipart/form-data:
           schema:
-            $ref: '#/components/schemas/Error'
-    '500':
-      description: This capture failed because of a server side issue.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+            type: object
+            required: [file, metadata]
+            properties:
+              file:
+                type: string
+                format: binary
+              metadata:
+                $ref: '#/components/schemas/UploadAudioMetadata'
 
 paths:
-  /v1/capture:
+  /image/face:
     post:
-      summary: Submit a captured image.
-      description: |
-        Acquisition system providers may submit image data through this endpoint.
-      tags:
-        - Image Submission
-      operationId: Capture
+      summary: Upload face image
       requestBody:
-        $ref: '#/components/requestBodies/capture'
+        $ref: '#/components/requestBodies/MultipartUploadImage'
       responses:
         '200':
-          description: Successfully associated the image capture with the ongoing transaction.
+          description: Upload successful
         '400':
-          $ref: '#/components/responses/400'
-        '404':
-          $ref: '#/components/responses/404'
-        '500':
-          $ref: '#/components/responses/500'
+          description: Malformed request or metadata
+
+  /image/iris:
+    post:
+      summary: Upload iris image (left/right)
+      requestBody:
+        $ref: '#/components/requestBodies/MultipartUploadImage'
+      responses:
+        '200':
+          description: Upload successful
+        '400':
+          description: Malformed request or metadata
+
+  /image/finger:
+    post:
+      summary: Upload fingerprint image
+      requestBody:
+        $ref: '#/components/requestBodies/MultipartUploadImage'
+      responses:
+        '200':
+          description: Upload successful
+        '400':
+          description: Malformed request or metadata
+
+  /image/palm:
+    post:
+      summary: Upload palm image
+      requestBody:
+        $ref: '#/components/requestBodies/MultipartUploadImage'
+      responses:
+        '200':
+          description: Upload successful
+        '400':
+          description: Malformed request or metadata
+
+  /video/face:
+    post:
+      summary: Upload face video
+      requestBody:
+        $ref: '#/components/requestBodies/MultipartUploadVideo'
+      responses:
+        '200':
+          description: Upload successful
+        '400':
+          description: Malformed request or metadata
+
+  /audio/voice:
+    post:
+      summary: Upload voice audio
+      requestBody:
+        $ref: '#/components/requestBodies/MultipartUploadAudio'
+      responses:
+        '200':
+          description: Upload successful
+        '400':
+          description: Malformed request or metadata
