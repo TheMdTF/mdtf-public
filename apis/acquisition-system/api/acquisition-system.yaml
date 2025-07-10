@@ -28,12 +28,25 @@ components:
       type: string
       enum: [wav, mp3, flac]
 
+    Modality:
+      type: string
+      enum: [Palm, Face, Iris, Finger, Voice]
+
+    ImageModality:
+      type: string
+      enum: [Palm, Face, Iris, Finger]
+
+    VideoModality:
+      type: string
+      enum: [Face]
+
+    AudioModality:
+      type: string
+      enum: [Voice]
+
     BiometricImageType:
       type: string
       description: The allowed string names for biometric image types.
-      x-oapi-codegen-extra-tags:
-        gorm: column:image_type;index
-        csv: ImageType
       enum:
         - Unknown
         - UnknownFinger
@@ -61,6 +74,8 @@ components:
         - RightIris
         - LeftIris
         - Face
+        - RightPalm
+        - LeftPalm
         - RightIndexAndMiddle
         - RolledRightThumb
         - RolledRightIndexFinger
@@ -80,10 +95,7 @@ components:
 
     UploadMetadataBase:
       type: object
-      required:
-        - StationID
-        - Format
-        - Modality
+      required: [StationID, Timestamp]
       properties:
         StationID:
           type: string
@@ -93,7 +105,7 @@ components:
         Metadata:
           type: object
           additionalProperties: true
-          examples:
+          example:
             - lighting: normal
             - sleepy: yes
 
@@ -101,45 +113,36 @@ components:
       allOf:
         - $ref: '#/components/schemas/UploadMetadataBase'
         - type: object
-          required:
-            - Format
-            - Modality
+          required: [Format, Modality]
           properties:
             Format:
               $ref: '#/components/schemas/ImageFormat'
             ImageType:
               $ref: '#/components/schemas/BiometricImageType'
             Modality:
-              type: string
-              enum: [Palm, Face, Iris, Finger]
+              $ref: '#/components/schemas/ImageModality'
 
     UploadVideoMetadata:
       allOf:
         - $ref: '#/components/schemas/UploadMetadataBase'
         - type: object
-          required:
-            - Format
-            - Modality
+          required: [Format, Modality]
           properties:
             Format:
               $ref: '#/components/schemas/VideoFormat'
             Modality:
-              type: string
-              enum: [Face]
+              $ref: '#/components/schemas/VideoModality'
 
     UploadAudioMetadata:
       allOf:
         - $ref: '#/components/schemas/UploadMetadataBase'
         - type: object
-          required:
-            - Format
-            - Modality
+          required: [Format, Modality]
           properties:
             Format:
               $ref: '#/components/schemas/AudioFormat'
             Modality:
-              type: string
-              enum: [Voice]
+              $ref: '#/components/schemas/AudioModality'
 
   requestBodies:
     MultipartUploadImage:
