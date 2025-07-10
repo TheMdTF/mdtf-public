@@ -31,9 +31,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "jpeg",
     "ImageType": "Unknown",
     "Modality": "Palm"
@@ -92,7 +97,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: jpeg
   ImageType: Unknown
   Modality: Palm
@@ -108,12 +114,12 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[ImageFormat](#schemaimageformat)|true|none|
 |»»» ImageType|body|[BiometricImageType](#schemabiometricimagetype)|false|The allowed string names for biometric image types.|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[ImageModality](#schemaimagemodality)|true|none|
 
 #### Enumerated Values
 
@@ -149,6 +155,8 @@ metadata:
 |»»» ImageType|RightIris|
 |»»» ImageType|LeftIris|
 |»»» ImageType|Face|
+|»»» ImageType|RightPalm|
+|»»» ImageType|LeftPalm|
 |»»» ImageType|RightIndexAndMiddle|
 |»»» ImageType|RolledRightThumb|
 |»»» ImageType|RolledRightIndexFinger|
@@ -198,9 +206,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "jpeg",
     "ImageType": "Unknown",
     "Modality": "Palm"
@@ -259,7 +272,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: jpeg
   ImageType: Unknown
   Modality: Palm
@@ -275,12 +289,12 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[ImageFormat](#schemaimageformat)|true|none|
 |»»» ImageType|body|[BiometricImageType](#schemabiometricimagetype)|false|The allowed string names for biometric image types.|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[ImageModality](#schemaimagemodality)|true|none|
 
 #### Enumerated Values
 
@@ -316,6 +330,8 @@ metadata:
 |»»» ImageType|RightIris|
 |»»» ImageType|LeftIris|
 |»»» ImageType|Face|
+|»»» ImageType|RightPalm|
+|»»» ImageType|LeftPalm|
 |»»» ImageType|RightIndexAndMiddle|
 |»»» ImageType|RolledRightThumb|
 |»»» ImageType|RolledRightIndexFinger|
@@ -365,9 +381,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "jpeg",
     "ImageType": "Unknown",
     "Modality": "Palm"
@@ -426,7 +447,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: jpeg
   ImageType: Unknown
   Modality: Palm
@@ -442,12 +464,12 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[ImageFormat](#schemaimageformat)|true|none|
 |»»» ImageType|body|[BiometricImageType](#schemabiometricimagetype)|false|The allowed string names for biometric image types.|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[ImageModality](#schemaimagemodality)|true|none|
 
 #### Enumerated Values
 
@@ -483,6 +505,8 @@ metadata:
 |»»» ImageType|RightIris|
 |»»» ImageType|LeftIris|
 |»»» ImageType|Face|
+|»»» ImageType|RightPalm|
+|»»» ImageType|LeftPalm|
 |»»» ImageType|RightIndexAndMiddle|
 |»»» ImageType|RolledRightThumb|
 |»»» ImageType|RolledRightIndexFinger|
@@ -532,9 +556,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "jpeg",
     "ImageType": "Unknown",
     "Modality": "Palm"
@@ -593,7 +622,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: jpeg
   ImageType: Unknown
   Modality: Palm
@@ -609,12 +639,12 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[ImageFormat](#schemaimageformat)|true|none|
 |»»» ImageType|body|[BiometricImageType](#schemabiometricimagetype)|false|The allowed string names for biometric image types.|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[ImageModality](#schemaimagemodality)|true|none|
 
 #### Enumerated Values
 
@@ -650,6 +680,8 @@ metadata:
 |»»» ImageType|RightIris|
 |»»» ImageType|LeftIris|
 |»»» ImageType|Face|
+|»»» ImageType|RightPalm|
+|»»» ImageType|LeftPalm|
 |»»» ImageType|RightIndexAndMiddle|
 |»»» ImageType|RolledRightThumb|
 |»»» ImageType|RolledRightIndexFinger|
@@ -699,9 +731,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "mp4",
     "Modality": "Face"
   }
@@ -759,7 +796,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: mp4
   Modality: Face
 
@@ -774,11 +812,11 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[VideoFormat](#schemavideoformat)|true|none|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[VideoModality](#schemavideomodality)|true|none|
 
 #### Enumerated Values
 
@@ -816,9 +854,14 @@ const inputBody = '{
   "metadata": {
     "StationID": "string",
     "Timestamp": "2019-08-24T14:15:22Z",
-    "Metadata": {
-      "lighting": "normal"
-    },
+    "Metadata": [
+      {
+        "lighting": "normal"
+      },
+      {
+        "sleepy": "yes"
+      }
+    ],
     "Format": "wav",
     "Modality": "Voice"
   }
@@ -876,7 +919,8 @@ metadata:
   StationID: string
   Timestamp: 2019-08-24T14:15:22Z
   Metadata:
-    lighting: normal
+    - lighting: normal
+    - sleepy: yes
   Format: wav
   Modality: Voice
 
@@ -891,11 +935,11 @@ metadata:
 |» metadata|body|any|true|none|
 |»» *anonymous*|body|[UploadMetadataBase](#schemauploadmetadatabase)|false|none|
 |»»» StationID|body|string|true|none|
-|»»» Timestamp|body|string(date-time)|false|none|
+|»»» Timestamp|body|string(date-time)|true|none|
 |»»» Metadata|body|object|false|none|
 |»» *anonymous*|body|object|false|none|
 |»»» Format|body|[AudioFormat](#schemaaudioformat)|true|none|
-|»»» Modality|body|string|true|none|
+|»»» Modality|body|[AudioModality](#schemaaudiomodality)|true|none|
 
 #### Enumerated Values
 
@@ -1029,6 +1073,109 @@ This operation does not require authentication
 |*anonymous*|mp3|
 |*anonymous*|flac|
 
+<h2 id="tocS_Modality">Modality</h2>
+<!-- backwards compatibility -->
+<a id="schemamodality"></a>
+<a id="schema_Modality"></a>
+<a id="tocSmodality"></a>
+<a id="tocsmodality"></a>
+
+```json
+"Palm"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|Palm|
+|*anonymous*|Face|
+|*anonymous*|Iris|
+|*anonymous*|Finger|
+|*anonymous*|Voice|
+
+<h2 id="tocS_ImageModality">ImageModality</h2>
+<!-- backwards compatibility -->
+<a id="schemaimagemodality"></a>
+<a id="schema_ImageModality"></a>
+<a id="tocSimagemodality"></a>
+<a id="tocsimagemodality"></a>
+
+```json
+"Palm"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|Palm|
+|*anonymous*|Face|
+|*anonymous*|Iris|
+|*anonymous*|Finger|
+
+<h2 id="tocS_VideoModality">VideoModality</h2>
+<!-- backwards compatibility -->
+<a id="schemavideomodality"></a>
+<a id="schema_VideoModality"></a>
+<a id="tocSvideomodality"></a>
+<a id="tocsvideomodality"></a>
+
+```json
+"Face"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|Face|
+
+<h2 id="tocS_AudioModality">AudioModality</h2>
+<!-- backwards compatibility -->
+<a id="schemaaudiomodality"></a>
+<a id="schema_AudioModality"></a>
+<a id="tocSaudiomodality"></a>
+<a id="tocsaudiomodality"></a>
+
+```json
+"Voice"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|Voice|
+
 <h2 id="tocS_BiometricImageType">BiometricImageType</h2>
 <!-- backwards compatibility -->
 <a id="schemabiometricimagetype"></a>
@@ -1079,6 +1226,8 @@ The allowed string names for biometric image types.
 |*anonymous*|RightIris|
 |*anonymous*|LeftIris|
 |*anonymous*|Face|
+|*anonymous*|RightPalm|
+|*anonymous*|LeftPalm|
 |*anonymous*|RightIndexAndMiddle|
 |*anonymous*|RolledRightThumb|
 |*anonymous*|RolledRightIndexFinger|
@@ -1107,9 +1256,14 @@ The allowed string names for biometric image types.
 {
   "StationID": "string",
   "Timestamp": "2019-08-24T14:15:22Z",
-  "Metadata": {
-    "lighting": "normal"
-  }
+  "Metadata": [
+    {
+      "lighting": "normal"
+    },
+    {
+      "sleepy": "yes"
+    }
+  ]
 }
 
 ```
@@ -1119,7 +1273,7 @@ The allowed string names for biometric image types.
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |StationID|string|true|none|none|
-|Timestamp|string(date-time)|false|none|none|
+|Timestamp|string(date-time)|true|none|none|
 |Metadata|object|false|none|none|
 
 <h2 id="tocS_UploadImageMetadata">UploadImageMetadata</h2>
@@ -1133,9 +1287,14 @@ The allowed string names for biometric image types.
 {
   "StationID": "string",
   "Timestamp": "2019-08-24T14:15:22Z",
-  "Metadata": {
-    "lighting": "normal"
-  },
+  "Metadata": [
+    {
+      "lighting": "normal"
+    },
+    {
+      "sleepy": "yes"
+    }
+  ],
   "Format": "jpeg",
   "ImageType": "Unknown",
   "Modality": "Palm"
@@ -1158,16 +1317,7 @@ and
 |*anonymous*|object|false|none|none|
 |» Format|[ImageFormat](#schemaimageformat)|true|none|none|
 |» ImageType|[BiometricImageType](#schemabiometricimagetype)|false|none|The allowed string names for biometric image types.|
-|» Modality|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|Modality|Palm|
-|Modality|Face|
-|Modality|Iris|
-|Modality|Finger|
+|» Modality|[ImageModality](#schemaimagemodality)|true|none|none|
 
 <h2 id="tocS_UploadVideoMetadata">UploadVideoMetadata</h2>
 <!-- backwards compatibility -->
@@ -1180,9 +1330,14 @@ and
 {
   "StationID": "string",
   "Timestamp": "2019-08-24T14:15:22Z",
-  "Metadata": {
-    "lighting": "normal"
-  },
+  "Metadata": [
+    {
+      "lighting": "normal"
+    },
+    {
+      "sleepy": "yes"
+    }
+  ],
   "Format": "mp4",
   "Modality": "Face"
 }
@@ -1203,13 +1358,7 @@ and
 |---|---|---|---|---|
 |*anonymous*|object|false|none|none|
 |» Format|[VideoFormat](#schemavideoformat)|true|none|none|
-|» Modality|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|Modality|Face|
+|» Modality|[VideoModality](#schemavideomodality)|true|none|none|
 
 <h2 id="tocS_UploadAudioMetadata">UploadAudioMetadata</h2>
 <!-- backwards compatibility -->
@@ -1222,9 +1371,14 @@ and
 {
   "StationID": "string",
   "Timestamp": "2019-08-24T14:15:22Z",
-  "Metadata": {
-    "lighting": "normal"
-  },
+  "Metadata": [
+    {
+      "lighting": "normal"
+    },
+    {
+      "sleepy": "yes"
+    }
+  ],
   "Format": "wav",
   "Modality": "Voice"
 }
@@ -1245,11 +1399,5 @@ and
 |---|---|---|---|---|
 |*anonymous*|object|false|none|none|
 |» Format|[AudioFormat](#schemaaudioformat)|true|none|none|
-|» Modality|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|Modality|Voice|
+|» Modality|[AudioModality](#schemaaudiomodality)|true|none|none|
 
