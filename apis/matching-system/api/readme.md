@@ -511,6 +511,7 @@ Basic information describing the algorithm.
 |AlgorithmModality|Face|
 |AlgorithmModality|Finger|
 |AlgorithmModality|Iris|
+|AlgorithmModality|Palm|
 |Test|MDTF_2022_RALLY|
 
 <h2 id="tocS_RequestError">RequestError</h2>

@@ -97,6 +97,7 @@ components:
             - Face
             - Finger
             - Iris
+            - Palm
           description: A string enum describing the type of biometric images the algorithm is meant to process.
         CompanyName:
           type: string
