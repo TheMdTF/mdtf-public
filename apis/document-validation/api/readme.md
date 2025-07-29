@@ -409,7 +409,7 @@ Validation response object.
 |---|---|---|---|---|
 |ValidityOutcome|boolean|true|none|Whether the input document is determined to be valid (True) or invalid (False).|
 |ValidityScore|number(double)|false|none|A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).|
-|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information from the documents (optional)|
+|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information or image bytes from the documents in the properties. (optional)|
 
 <h2 id="tocS_ValidationErrorResponse">ValidationErrorResponse</h2>
 <!-- backwards compatibility -->

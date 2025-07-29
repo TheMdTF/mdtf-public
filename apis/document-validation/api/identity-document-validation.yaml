@@ -175,7 +175,7 @@ components:
         ValidityProperties:
           description: Key value pairs describing document properties and their relationship to the validity decision. 
             There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. Do not return any personally identifiable information from the documents (optional)
+            more context. Do not return any personally identifiable information or image bytes from the documents in the properties. (optional)
           type: array
           items:
             $ref: '#/components/schemas/ValidityProperty'
