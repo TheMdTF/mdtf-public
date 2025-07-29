@@ -6,7 +6,7 @@ info:
   contact:
     name: The MdTF
     url: https://mdtf.org
-    email: rivtd@mdtf.org
+    email: rivr@mdtf.org
   license:
     name: IDSL API License
     url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
@@ -85,7 +85,7 @@ components:
           format: double
           example: 0.8
         PADProperties:
-          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context.  (optional)
+          description: Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
           type: array
           items:
             $ref: '#/components/schemas/PADProperty'
