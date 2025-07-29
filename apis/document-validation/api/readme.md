@@ -1,15 +1,108 @@
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="the-maryland-test-facility-document-validation-interface">The Maryland Test Facility Document Validation Interface v0.0.1</h1>
+<h1 id="the-maryland-test-facility-identity-document-validation-interface">The Maryland Test Facility Identity Document Validation Interface v0.0.1</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-This documents the API requirements for MdTF testing of document validation algorithms.  Document validation testing at the MdTF is supported by the Department of Homeland Security Science and Technology Directorate (DHS S&T).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
+This documents the API requirements for MdTF testing of identity document validation algorithms.  Identity Document validation testing at the MdTF is supported by the Department of Homeland Security Science and Technology Directorate (DHS S&T).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
 
 Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
 License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
-<h1 id="the-maryland-test-facility-document-validation-interface-validate">Validate</h1>
+<h1 id="the-maryland-test-facility-identity-document-validation-interface-algorithm-information">Algorithm Information</h1>
+
+Return information about the identity document validation algorithm. Algorithm name and version will be used in validating your system
+
+## Return information about the document validation algorithm.
+
+<a id="opIdInfo"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /v1/info \
+  -H 'Accept: application/json'
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('/v1/info',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/v1/info", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /v1/info`
+
+This endpoint returns information about the validation algorithm.
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "AlgorithmName": "Docvalidate",
+  "AlgorithmVersion": "1.0.0",
+  "CompanyName": "IDSL",
+  "Event": "RIVR_IDV",
+  "RecommendedCPUs": 4,
+  "RecommendedMem": 256,
+  "TechnicalContactEmail": "info@mdtf.org"
+}
+```
+
+<h3 id="return-information-about-the-document-validation-algorithm.-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|[Info](#schemainfo)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Server error|[ValidationErrorResponse](#schemavalidationerrorresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="the-maryland-test-facility-identity-document-validation-interface-validate">Validate</h1>
 
 Return validation decision based on images of an identity document
 
@@ -79,7 +172,7 @@ func main() {
 
 `POST /v1/validate`
 
-Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.
+Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.  Image orientation is not guaranteed. Subsystem must distinguish and process accordingly. The expected request duration is less than 30 seconds.
 
 > Body parameter
 
@@ -161,97 +254,6 @@ Receive base64 encoded PNG or JPEG images of the front and back of a document. V
 This operation does not require authentication
 </aside>
 
-<h1 id="the-maryland-test-facility-document-validation-interface-algorithm-information">Algorithm Information</h1>
-
-## Return information about the document validation algorithm.
-
-<a id="opIdInfo"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X GET /v1/info \
-  -H 'Accept: application/json'
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json'
-};
-
-fetch('/v1/info',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/v1/info", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /v1/info`
-
-This endpoint returns information about the validation algorithm.
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "AlgorithmName": "Docvalidate",
-  "AlgorithmVersion": "1.0.0",
-  "CompanyName": "IDSL",
-  "Event": "2023 Document Validation Demonstration",
-  "RecommendedCPUs": 4,
-  "RecommendedMem": 256,
-  "TechnicalContactEmail": "info@mdtf.org"
-}
-```
-
-<h3 id="return-information-about-the-document-validation-algorithm.-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|[Info](#schemainfo)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Server error|[ValidationErrorResponse](#schemavalidationerrorresponse)|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
 # Schemas
 
 <h2 id="tocS_Info">Info</h2>
@@ -266,7 +268,7 @@ This operation does not require authentication
   "AlgorithmName": "Docvalidate",
   "AlgorithmVersion": "1.0.0",
   "CompanyName": "IDSL",
-  "Event": "2023 Document Validation Demonstration",
+  "Event": "RIVR_IDV",
   "RecommendedCPUs": 4,
   "RecommendedMem": 256,
   "TechnicalContactEmail": "info@mdtf.org"
@@ -283,7 +285,7 @@ Basic information describing the document validation algorithm.
 |AlgorithmName|string|true|none|Name of the algorithm.|
 |AlgorithmVersion|string|true|none|Algorithm version identifier.|
 |CompanyName|string|true|none|Name of the company that produced the algorithm.|
-|Event|string|true|none|The name of the test event.|
+|Event|string|true|none|The name of the test event. Please use RIVR_IDV.|
 |RecommendedCPUs|integer(int64)|true|none|The recommended allocation of CPUs for the deployed docker container.|
 |RecommendedMem|integer(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
 |TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
@@ -292,7 +294,7 @@ Basic information describing the document validation algorithm.
 
 |Property|Value|
 |---|---|
-|Event|2023 Document Validation Demonstration|
+|Event|RIVR_IDV|
 
 <h2 id="tocS_CapturedDocument">CapturedDocument</h2>
 <!-- backwards compatibility -->
@@ -407,7 +409,7 @@ Validation response object.
 |---|---|---|---|---|
 |ValidityOutcome|boolean|true|none|Whether the input document is determined to be valid (True) or invalid (False).|
 |ValidityScore|number(double)|false|none|A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).|
-|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. (optional)|
+|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information from the documents (optional)|
 
 <h2 id="tocS_ValidationErrorResponse">ValidationErrorResponse</h2>
 <!-- backwards compatibility -->

@@ -2,9 +2,9 @@
 openapi: 3.0.3
 
 info:
-  title: The Maryland Test Facility Document Validation Interface
-  description: This documents the API requirements for MdTF testing of document validation
-    algorithms.  Document validation testing at the MdTF is supported by the
+  title: The Maryland Test Facility Identity Document Validation Interface
+  description: This documents the API requirements for MdTF testing of identity document validation
+    algorithms.  Identity Document validation testing at the MdTF is supported by the
     Department of Homeland Security Science and Technology Directorate (DHS
     S&T).  For more information please visit
     [https://mdtf.org](https://mdtf.org) and
@@ -19,8 +19,8 @@ info:
   version: 0.0.1
 
 tags:
-  - name: Info
-    description: Return information about the document validation algorithm
+  - name:  Algorithm Information
+    description: Return information about the identity document validation algorithm. Algorithm name and version will be used in validating your system
   - name: Validate
     description: Return validation decision based on images of an identity document
 
@@ -54,7 +54,8 @@ paths:
         Receive base64 encoded PNG or JPEG images of the front and back of a document.
         Validation requires that the document is judged to be authentic.
         See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended
-        best practices.
+        best practices. 
+        Image orientation is not guaranteed. Subsystem must distinguish and process accordingly. The expected request duration is less than 30 seconds.
       operationId: ValidateDocument
       requestBody:
         content:
@@ -109,9 +110,9 @@ components:
           type: string
           example: IDSL
         Event:
-          description: The name of the test event.
+          description: The name of the test event. Please use RIVR_IDV.
           type: string
-          enum: [2023 Document Validation Demonstration]
+          enum: [RIVR_IDV]
         RecommendedCPUs:
           description: The recommended allocation of CPUs for the deployed docker container.
           type: integer
@@ -174,7 +175,7 @@ components:
         ValidityProperties:
           description: Key value pairs describing document properties and their relationship to the validity decision. 
             There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide
-            more context. (optional)
+            more context. Do not return any personally identifiable information from the documents (optional)
           type: array
           items:
             $ref: '#/components/schemas/ValidityProperty'
