@@ -16,7 +16,7 @@ Base URLs:
 
         * 8080
 
-Email: <a href="mailto:rivtd@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
+Email: <a href="mailto:rivr@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
 License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
 
 <h1 id="the-maryland-test-facility-passive-presentation-attack-detection-system-interface-data-analysis">Data Analysis</h1>
@@ -337,7 +337,7 @@ Data transfer object for presentation attack information.
 |---|---|---|---|---|
 |PADOutcome|boolean|true|none|Whether a presentation attack was determined to be detected (True) or not detected (False).  The outcome should be calibrated to produce a BPCER of 0.01.|
 |PADScore|number(double)|true|none|A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.|
-|PADProperties|[[PADProperty](#schemapadproperty)]|false|none|Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context.  (optional)|
+|PADProperties|[[PADProperty](#schemapadproperty)]|false|none|Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)|
 
 <h2 id="tocS_PADProperty">PADProperty</h2>
 <!-- backwards compatibility -->
