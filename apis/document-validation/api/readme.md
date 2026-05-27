@@ -311,14 +311,14 @@ Basic information describing the document validation algorithm.
 
 ```
 
-Object representation of a document. Consists of an image of the front and back of a document.
+Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |DocumentFront|string(byte)|true|none|Image of front of document; base64 encoded bytes.|
-|DocumentBack|string(byte)|true|none|Image of back of document; base64 encoded bytes.|
+|DocumentBack|string(byte)|true|none|Image of back of document; base64 encoded bytes.  May be an empty string if back document was not captured.|
 
 <h2 id="tocS_ValidityProperty">ValidityProperty</h2>
 <!-- backwards compatibility -->

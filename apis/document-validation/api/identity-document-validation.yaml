@@ -129,7 +129,7 @@ components:
           example: info@mdtf.org
 
     CapturedDocument:
-      description: Object representation of a document. Consists of an image of the front and back of a document.
+      description: Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure.
       type: object
       required:
         - DocumentFront
@@ -141,7 +141,7 @@ components:
           format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
         DocumentBack:
-          description: Image of back of document; base64 encoded bytes.
+          description: Image of back of document; base64 encoded bytes.  May be an empty string if back document was not captured.
           type: string
           format: byte
           example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=
