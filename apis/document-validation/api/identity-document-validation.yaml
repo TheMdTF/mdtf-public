@@ -54,8 +54,12 @@ paths:
         Receive base64 encoded PNG or JPEG images of the front and back of a document.
         Validation requires that the document is judged to be authentic.
         See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended
-        best practices. 
+        best practices.
         Image orientation is not guaranteed. Subsystem must distinguish and process accordingly. The expected request duration is less than 30 seconds.
+        Data will be passed to your system as a request including DocumentFront
+        and DocumentBack base64 encoded images. For passports, DocumentFront
+        will be an image of the data page and DocumentBack will be an empty
+        string.
       operationId: ValidateDocument
       requestBody:
         content:
