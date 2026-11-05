@@ -1,380 +1,346 @@
-<!-- Generator: Widdershins v4.0.1 -->
+# The Maryland Test Facility Active Presentation Attack Detection System Interface
 
-<h1 id="the-maryland-test-facility-active-presentation-attack-detection-system-interface">The Maryland Test Facility Active Presentation Attack Detection System Interface v2.0.1</h1>
-
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Version 2.0.1
 
 This document describes an application programming interface for a PAD system in which the PAD Subsystem is logically located within or tightly coupled with the Data Capture Subsystem.  This allows for what ISO/IEC 30107-1:2023 refers to as "through data capture subsystem" PAD methods (Table 2). It also allows for what the standard refers to as "challenge-response" actions (Subsection 5.2.1).  We collectively refer to these kinds of systems as "active" PAD or A-PAD systems.
 
-Base URLs:
+- License: [IDSL API License](https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md)
+- Contact: The MdTF <rivr@mdtf.org> https://mdtf.org
+- Server: https://pad-demo.mdtf.org/
 
-* <a href="https://pad-demo.mdtf.org/">https://pad-demo.mdtf.org/</a>
 
-    * **host** -  Default: mdtf.org
+## Path Table
 
-    * **port** -  Default: 8080
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | [/v1/capture-data-with-pad](#postv1capture-data-with-pad) | Create a biometric data capture with associated PAD information. |
 
-        * 8080
+## Reference Table
 
-Email: <a href="mailto:rivr@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
-License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
+| Name | Path | Description |
+| --- | --- | --- |
+| PADDataCapture | [#/components/schemas/PADDataCapture](#componentsschemaspaddatacapture) | Data transfer object for biometric data capture and presentation attack information. |
+| PADAnalysis | [#/components/schemas/PADAnalysis](#componentsschemaspadanalysis) | Data transfer object for presentation attack information. |
+| PADProperty | [#/components/schemas/PADProperty](#componentsschemaspadproperty) | Key value pair object. |
+| PADErrorResponse | [#/components/schemas/PADErrorResponse](#componentsschemaspaderrorresponse) | Presentation attack error response object. |
+| Error | [#/components/schemas/Error](#componentsschemaserror) |  |
+| pad_data_capture | [#/components/requestBodies/pad_data_capture](#componentsrequestbodiespad_data_capture) | PAD data collected as part of a biometric data capture process. |
+| 400 | [#/components/responses/400](#componentsresponses400) | The request is malformed. |
+| 404 | [#/components/responses/404](#componentsresponses404) | No ongoing transaction was found for the specified StationID. |
+| 410 | [#/components/responses/410](#componentsresponses410) | The test volunteer has exited the station and the transaction has ended. |
+| 429 | [#/components/responses/429](#componentsresponses429) | Too many requests for the ongoing transaction. |
+| 500 | [#/components/responses/500](#componentsresponses500) | This capture failed because of a server side issue. |
 
-<h1 id="the-maryland-test-facility-active-presentation-attack-detection-system-interface-data-submission">Data Submission</h1>
+## Path Details
 
-## Create a biometric data capture with associated PAD information.
+***
 
-> Code samples
+### [POST]/v1/capture-data-with-pad
 
-```shell
-# You can also use wget
-curl -X POST https://pad-demo.mdtf.org/v1/capture-data-with-pad \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+- Summary  
+  Create a biometric data capture with associated PAD information.
 
-```
+- Description  
+  Active PAD systems may submit data through this endpoint. This request cannot exceed 100 Megabytes in size.
 
-```javascript
-const inputBody = '{
-  "StationID": "Station_A",
-  "MobilePlatform": "iOS",
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==",
-  "PADAnalysis": {
-    "PADOutcome": true,
-    "PADScore": 0.8,
-    "PADProperties": [
-      {
-        "Property": "EyesMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "MouthMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "PupilsResponsive",
-        "Value": "true"
-      },
-      {
-        "Property": "NonconformantIlluminationDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "MoirePatternDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "ObsscurationDetected",
-        "Value": "true"
-      }
-    ]
-  }
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-};
+- Tags  
+  Data Submission
 
-fetch('https://pad-demo.mdtf.org/v1/capture-data-with-pad',
+#### RequestBody
+
+*Required*
+
+PAD data collected as part of a biometric data capture process.
+
+- application/json
+
+```typescript
+// Data transfer object for biometric data capture and presentation attack information.
 {
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://pad-demo.mdtf.org/v1/capture-data-with-pad", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /v1/capture-data-with-pad`
-
-Active PAD systems may submit data through this endpoint. This request cannot exceed 100 Megabytes in size.
-
-> Body parameter
-
-```json
-{
-  "StationID": "Station_A",
-  "MobilePlatform": "iOS",
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==",
-  "PADAnalysis": {
-    "PADOutcome": true,
-    "PADScore": 0.8,
-    "PADProperties": [
-      {
-        "Property": "EyesMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "MouthMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "PupilsResponsive",
-        "Value": "true"
-      },
-      {
-        "Property": "NonconformantIlluminationDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "MoirePatternDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "ObsscurationDetected",
-        "Value": "true"
-      }
-    ]
+  // ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
+  StationID: string
+  MobilePlatform: enum[iOS, Android]
+  // The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or a MP4.
+  BiometricSample: string
+  // Data transfer object for presentation attack information.
+  PADAnalysis: {
+    // Whether a presentation attack was determined to be detected (True) or not detected (False).
+    PADOutcome: boolean
+    // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+    PADScore: number //format: double
+    // Key value pair object.
+    PADProperties: {
+      // Name of the property.
+      Property?: string
+      // Value for the property.
+      Value?: string
+    }[]
   }
 }
 ```
 
-<h3 id="create-a-biometric-data-capture-with-associated-pad-information.-parameters">Parameters</h3>
+#### Responses
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[PADDataCapture](#schemapaddatacapture)|true|PAD data collected as part of a biometric data capture process.|
+- 200 Successfully submitted the biometric data capture and PAD information.
 
-> Example responses
+- 400 The request is malformed.
 
-> 400 Response
+`application/json`
 
-```json
+```typescript
 {
-  "Code": 0,
-  "Message": "string",
-  "ErrorString": "string"
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
 }
 ```
 
-<h3 id="create-a-biometric-data-capture-with-associated-pad-information.-responses">Responses</h3>
+- 404 No ongoing transaction was found for the specified StationID.
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successfully submitted the biometric data capture and PAD information.|None|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request is malformed.|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|No ongoing transaction was found for the specified StationID.|[Error](#schemaerror)|
-|410|[Gone](https://tools.ietf.org/html/rfc7231#section-6.5.9)|The test volunteer has exited the station and the transaction has ended.|[Error](#schemaerror)|
-|429|[Too Many Requests](https://tools.ietf.org/html/rfc6585#section-4)|Too many requests for the ongoing transaction.|[Error](#schemaerror)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|This capture failed because of a server side issue.|[Error](#schemaerror)|
+`application/json`
 
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-# Schemas
-
-<h2 id="tocS_PADDataCapture">PADDataCapture</h2>
-<!-- backwards compatibility -->
-<a id="schemapaddatacapture"></a>
-<a id="schema_PADDataCapture"></a>
-<a id="tocSpaddatacapture"></a>
-<a id="tocspaddatacapture"></a>
-
-```json
+```typescript
 {
-  "StationID": "Station_A",
-  "MobilePlatform": "iOS",
-  "BiometricSample": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==",
-  "PADAnalysis": {
-    "PADOutcome": true,
-    "PADScore": 0.8,
-    "PADProperties": [
-      {
-        "Property": "EyesMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "MouthMoving",
-        "Value": "true"
-      },
-      {
-        "Property": "PupilsResponsive",
-        "Value": "true"
-      },
-      {
-        "Property": "NonconformantIlluminationDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "MoirePatternDetected",
-        "Value": "true"
-      },
-      {
-        "Property": "ObsscurationDetected",
-        "Value": "true"
-      }
-    ]
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+- 410 The test volunteer has exited the station and the transaction has ended.
+
+`application/json`
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+- 429 Too many requests for the ongoing transaction.
+
+`application/json`
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+- 500 This capture failed because of a server side issue.
+
+`application/json`
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+## References
+
+### #/components/schemas/PADDataCapture
+
+```typescript
+// Data transfer object for biometric data capture and presentation attack information.
+{
+  // ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
+  StationID: string
+  MobilePlatform: enum[iOS, Android]
+  // The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or a MP4.
+  BiometricSample: string
+  // Data transfer object for presentation attack information.
+  PADAnalysis: {
+    // Whether a presentation attack was determined to be detected (True) or not detected (False).
+    PADOutcome: boolean
+    // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+    PADScore: number //format: double
+    // Key value pair object.
+    PADProperties: {
+      // Name of the property.
+      Property?: string
+      // Value for the property.
+      Value?: string
+    }[]
   }
 }
-
 ```
 
-Data transfer object for biometric data capture and presentation attack information.
+### #/components/schemas/PADAnalysis
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|StationID|string|true|none|ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.|
-|MobilePlatform|string|true|none|none|
-|BiometricSample|string|true|none|The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or a MP4.|
-|PADAnalysis|[PADAnalysis](#schemapadanalysis)|true|none|Data transfer object for presentation attack information.|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|MobilePlatform|iOS|
-|MobilePlatform|Android|
-
-<h2 id="tocS_PADAnalysis">PADAnalysis</h2>
-<!-- backwards compatibility -->
-<a id="schemapadanalysis"></a>
-<a id="schema_PADAnalysis"></a>
-<a id="tocSpadanalysis"></a>
-<a id="tocspadanalysis"></a>
-
-```json
+```typescript
+// Data transfer object for presentation attack information.
 {
-  "PADOutcome": true,
-  "PADScore": 0.8,
-  "PADProperties": [
-    {
-      "Property": "EyesMoving",
-      "Value": "true"
-    },
-    {
-      "Property": "MouthMoving",
-      "Value": "true"
-    },
-    {
-      "Property": "PupilsResponsive",
-      "Value": "true"
-    },
-    {
-      "Property": "NonconformantIlluminationDetected",
-      "Value": "true"
-    },
-    {
-      "Property": "MoirePatternDetected",
-      "Value": "true"
-    },
-    {
-      "Property": "ObsscurationDetected",
-      "Value": "true"
-    }
-  ]
+  // Whether a presentation attack was determined to be detected (True) or not detected (False).
+  PADOutcome: boolean
+  // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+  PADScore: number //format: double
+  // Key value pair object.
+  PADProperties: {
+    // Name of the property.
+    Property?: string
+    // Value for the property.
+    Value?: string
+  }[]
 }
-
 ```
 
-Data transfer object for presentation attack information.
+### #/components/schemas/PADProperty
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|PADOutcome|boolean|true|none|Whether a presentation attack was determined to be detected (True) or not detected (False).|
-|PADScore|number(double)|true|none|A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.|
-|PADProperties|[[PADProperty](#schemapadproperty)]|false|none|Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score. There are no strictly defined properties. The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)|
-
-<h2 id="tocS_PADProperty">PADProperty</h2>
-<!-- backwards compatibility -->
-<a id="schemapadproperty"></a>
-<a id="schema_PADProperty"></a>
-<a id="tocSpadproperty"></a>
-<a id="tocspadproperty"></a>
-
-```json
+```typescript
+// Key value pair object.
 {
-  "Property": "EyesMoving",
-  "Value": true
+  // Name of the property.
+  Property?: string
+  // Value for the property.
+  Value?: string
 }
-
 ```
 
-Key value pair object.
+### #/components/schemas/PADErrorResponse
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Property|string|false|none|Name of the property.|
-|Value|string|false|none|Value for the property.|
-
-<h2 id="tocS_PADErrorResponse">PADErrorResponse</h2>
-<!-- backwards compatibility -->
-<a id="schemapaderrorresponse"></a>
-<a id="schema_PADErrorResponse"></a>
-<a id="tocSpaderrorresponse"></a>
-<a id="tocspaderrorresponse"></a>
-
-```json
+```typescript
+// Presentation attack error response object.
 {
-  "error": "string"
+  // Descriptive error string.
+  error: string
 }
-
 ```
 
-Presentation attack error response object.
+### #/components/schemas/Error
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|error|string|true|none|Descriptive error string.|
-
-<h2 id="tocS_Error">Error</h2>
-<!-- backwards compatibility -->
-<a id="schemaerror"></a>
-<a id="schema_Error"></a>
-<a id="tocSerror"></a>
-<a id="tocserror"></a>
-
-```json
+```typescript
 {
-  "Code": 0,
-  "Message": "string",
-  "ErrorString": "string"
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
 }
-
 ```
 
-### Properties
+### #/components/requestBodies/pad_data_capture
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Code|integer|false|none|The error code.|
-|Message|string|false|none|A description of the returned code.|
-|ErrorString|string|false|none|A detailed description of the error that occurred.|
+- application/json
 
+```typescript
+// Data transfer object for biometric data capture and presentation attack information.
+{
+  // ID of the station who is submitting this image. IDs will be provided to vendors upon installation for the test event.
+  StationID: string
+  MobilePlatform: enum[iOS, Android]
+  // The captured biometric sample, encoded as a base64 string.  This can be an image, encoded as a PNG or JPEG or a short (<10s) video, encoded as a MOV or a MP4.
+  BiometricSample: string
+  // Data transfer object for presentation attack information.
+  PADAnalysis: {
+    // Whether a presentation attack was determined to be detected (True) or not detected (False).
+    PADOutcome: boolean
+    // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
+    PADScore: number //format: double
+    // Key value pair object.
+    PADProperties: {
+      // Name of the property.
+      Property?: string
+      // Value for the property.
+      Value?: string
+    }[]
+  }
+}
+```
+
+### #/components/responses/400
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+### #/components/responses/404
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+### #/components/responses/410
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+### #/components/responses/429
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```
+
+### #/components/responses/500
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code?: integer
+  // A description of the returned code.
+  Message?: string
+  // A detailed description of the error that occurred.
+  ErrorString?: string
+}
+```

@@ -1,435 +1,238 @@
-<!-- Generator: Widdershins v4.0.1 -->
+# The Maryland Test Facility Identity Document Validation Interface
 
-<h1 id="the-maryland-test-facility-identity-document-validation-interface">The Maryland Test Facility Identity Document Validation Interface v0.0.1</h1>
-
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Version 0.0.1
 
 This documents the API requirements for MdTF testing of identity document validation algorithms.  Identity Document validation testing at the MdTF is supported by the Department of Homeland Security Science and Technology Directorate (DHS S&T).  For more information please visit [https://mdtf.org](https://mdtf.org) and [https://www.dhs.gov/science-and-technology/BI-TC](https://www.dhs.gov/science-and-technology/BI-TC).
 
-Email: <a href="mailto:info@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
-License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
+- License: [IDSL API License](https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md)
+- Contact: The MdTF <info@mdtf.org> https://mdtf.org
 
-<h1 id="the-maryland-test-facility-identity-document-validation-interface-algorithm-information">Algorithm Information</h1>
 
-Return information about the identity document validation algorithm. Algorithm name and version will be used in validating your system
+## Path Table
 
-## Return information about the document validation algorithm.
+| Method | Path | Description |
+| --- | --- | --- |
+| GET | [/v1/info](#getv1info) | Return information about the document validation algorithm. |
+| POST | [/v1/validate](#postv1validate) | Validate an identity document based on images. |
 
-<a id="opIdInfo"></a>
+## Reference Table
 
-> Code samples
+| Name | Path | Description |
+| --- | --- | --- |
+| Info | [#/components/schemas/Info](#componentsschemasinfo) | Basic information describing the document validation algorithm. |
+| CapturedDocument | [#/components/schemas/CapturedDocument](#componentsschemascaptureddocument) | Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure. |
+| ValidityProperty | [#/components/schemas/ValidityProperty](#componentsschemasvalidityproperty) | Key value pair object. |
+| ValidationResponse | [#/components/schemas/ValidationResponse](#componentsschemasvalidationresponse) | Validation response object. |
+| ValidationErrorResponse | [#/components/schemas/ValidationErrorResponse](#componentsschemasvalidationerrorresponse) | Validation error response object. |
 
-```shell
-# You can also use wget
-curl -X GET /v1/info \
-  -H 'Accept: application/json'
+## Path Details
 
-```
+***
 
-```javascript
+### [GET]/v1/info
 
-const headers = {
-  'Accept':'application/json'
-};
+- Summary  
+  Return information about the document validation algorithm.
 
-fetch('/v1/info',
+- Operation id  
+  Info
+
+- Description  
+  This endpoint returns information about the validation algorithm.
+
+- Tags  
+  Algorithm Information
+
+#### Responses
+
+- 200 Successful operation
+
+`application/json`
+
+```typescript
+// Basic information describing the document validation algorithm.
 {
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/v1/info", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /v1/info`
-
-This endpoint returns information about the validation algorithm.
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "AlgorithmName": "Docvalidate",
-  "AlgorithmVersion": "1.0.0",
-  "CompanyName": "IDSL",
-  "Event": "RIVR_IDV",
-  "RecommendedCPUs": 4,
-  "RecommendedMem": 256,
-  "TechnicalContactEmail": "info@mdtf.org"
+  // Name of the algorithm.
+  AlgorithmName: string
+  // Algorithm version identifier.
+  AlgorithmVersion: string
+  // Name of the company that produced the algorithm.
+  CompanyName: string
+  // The name of the test event. Please use RIVR_IDV.
+  Event: enum[RIVR_IDV]
+  // The recommended allocation of CPUs for the deployed docker container.
+  RecommendedCPUs: integer //format: int64
+  // The recommended allocation of memory (MB) for the deployed docker container.
+  RecommendedMem: integer //format: int64
+  // The email address of an engineer or other technical resource to contact in the event of an error running your service.
+  TechnicalContactEmail: string
 }
 ```
 
-<h3 id="return-information-about-the-document-validation-algorithm.-responses">Responses</h3>
+- 500 Server error
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|[Info](#schemainfo)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Server error|[ValidationErrorResponse](#schemavalidationerrorresponse)|
+`application/json`
 
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-<h1 id="the-maryland-test-facility-identity-document-validation-interface-validate">Validate</h1>
-
-Return validation decision based on images of an identity document
-
-## Validate an identity document based on images.
-
-<a id="opIdValidateDocument"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X POST /v1/validate \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
-
-```
-
-```javascript
-const inputBody = '{
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-};
-
-fetch('/v1/validate',
+```typescript
+// Validation error response object.
 {
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/v1/validate", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /v1/validate`
-
-Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.  Image orientation is not guaranteed. Subsystem must distinguish and process accordingly. The expected request duration is less than 30 seconds.
-
-> Body parameter
-
-```json
-{
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+  // Descriptive error string.
+  error: string
 }
 ```
 
-<h3 id="validate-an-identity-document-based-on-images.-parameters">Parameters</h3>
+***
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CapturedDocument](#schemacaptureddocument)|true|none|
+### [POST]/v1/validate
 
-> Example responses
+- Summary  
+  Validate an identity document based on images.
 
-> 200 Response
+- Operation id  
+  ValidateDocument
 
-```json
+- Description  
+  Receive base64 encoded PNG or JPEG images of the front and back of a document. Validation requires that the document is judged to be authentic. See [NIST SP 800-63A](https://pages.nist.gov/800-63-3-Implementation-Resources/63A/ial2remote/) Section A.10.2: Identity Validation for recommended best practices.  Image orientation is not guaranteed. Subsystem must distinguish and process accordingly. The expected request duration is less than 30 seconds.
+
+- Tags  
+  Validate
+
+#### RequestBody
+
+*Required*
+
+- application/json
+
+```typescript
+// Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure.
 {
-  "ValidityOutcome": true,
-  "ValidityScore": 0.8,
-  "ValidityProperties": [
-    {
-      "Property": "InformationFormatCorrect",
-      "Value": true
-    },
-    {
-      "Property": "InformationCorrect",
-      "Value": true
-    },
-    {
-      "Property": "InformationComplete",
-      "Value": true
-    },
-    {
-      "Property": "CheckSumsCorrect",
-      "Value": true
-    },
-    {
-      "Property": "MRZCorrect",
-      "Value": true
-    },
-    {
-      "Property": "PhotoTampered",
-      "Value": true
-    },
-    {
-      "Property": "LivenessCheck",
-      "Value": "Passed"
-    },
-    {
-      "Property": "InformationCompleteness",
-      "Value": 0.9
-    },
-    {
-      "Property": "SecurityFeaturesTampered",
-      "Value": "None"
-    },
-    {
-      "Property": "DataFieldsTampered",
-      "Value": "Age changed"
-    }
-  ]
+  // Image of front of document; base64 encoded bytes.
+  DocumentFront: string //format: byte
+  // Image of back of document; base64 encoded bytes.  May be an empty string if back of document is not applicable or available.
+  DocumentBack: string //format: byte
 }
 ```
 
-<h3 id="validate-an-identity-document-based-on-images.-responses">Responses</h3>
+#### Responses
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful validation operation|[ValidationResponse](#schemavalidationresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Client error|[ValidationErrorResponse](#schemavalidationerrorresponse)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Server error|[ValidationErrorResponse](#schemavalidationerrorresponse)|
+- 200 Successful validation operation
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+`application/json`
 
-# Schemas
-
-<h2 id="tocS_Info">Info</h2>
-<!-- backwards compatibility -->
-<a id="schemainfo"></a>
-<a id="schema_Info"></a>
-<a id="tocSinfo"></a>
-<a id="tocsinfo"></a>
-
-```json
+```typescript
+// Validation response object.
 {
-  "AlgorithmName": "Docvalidate",
-  "AlgorithmVersion": "1.0.0",
-  "CompanyName": "IDSL",
-  "Event": "RIVR_IDV",
-  "RecommendedCPUs": 4,
-  "RecommendedMem": 256,
-  "TechnicalContactEmail": "info@mdtf.org"
+  // Whether the input document is determined to be valid (True) or invalid (False).
+  ValidityOutcome: boolean
+  // A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
+  ValidityScore?: number //format: double
+  // Key value pair object.
+  ValidityProperties: {
+    // Name of the property.
+    Property?: string
+    // Value for the property.
+    Value?: string
+  }[]
 }
-
 ```
 
-Basic information describing the document validation algorithm.
+- 400 Client error
 
-### Properties
+`application/json`
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|AlgorithmName|string|true|none|Name of the algorithm.|
-|AlgorithmVersion|string|true|none|Algorithm version identifier.|
-|CompanyName|string|true|none|Name of the company that produced the algorithm.|
-|Event|string|true|none|The name of the test event. Please use RIVR_IDV.|
-|RecommendedCPUs|integer(int64)|true|none|The recommended allocation of CPUs for the deployed docker container.|
-|RecommendedMem|integer(int64)|true|none|The recommended allocation of memory (MB) for the deployed docker container.|
-|TechnicalContactEmail|string|true|none|The email address of an engineer or other technical resource to contact in the event of an error running your service.|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|Event|RIVR_IDV|
-
-<h2 id="tocS_CapturedDocument">CapturedDocument</h2>
-<!-- backwards compatibility -->
-<a id="schemacaptureddocument"></a>
-<a id="schema_CapturedDocument"></a>
-<a id="tocScaptureddocument"></a>
-<a id="tocscaptureddocument"></a>
-
-```json
+```typescript
+// Validation error response object.
 {
-  "DocumentFront": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
-  "DocumentBack": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII="
+  // Descriptive error string.
+  error: string
 }
-
 ```
 
-Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure.
+- 500 Server error
 
-### Properties
+`application/json`
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|DocumentFront|string(byte)|true|none|Image of front of document; base64 encoded bytes.|
-|DocumentBack|string(byte)|true|none|Image of back of document; base64 encoded bytes.  May be an empty string if back of document is not applicable or available.|
-
-<h2 id="tocS_ValidityProperty">ValidityProperty</h2>
-<!-- backwards compatibility -->
-<a id="schemavalidityproperty"></a>
-<a id="schema_ValidityProperty"></a>
-<a id="tocSvalidityproperty"></a>
-<a id="tocsvalidityproperty"></a>
-
-```json
+```typescript
+// Validation error response object.
 {
-  "Property": "InformationFormatCorrect",
-  "Value": true
+  // Descriptive error string.
+  error: string
 }
-
 ```
 
-Key value pair object.
+## References
 
-### Properties
+### #/components/schemas/Info
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Property|string|false|none|Name of the property.|
-|Value|string|false|none|Value for the property.|
-
-<h2 id="tocS_ValidationResponse">ValidationResponse</h2>
-<!-- backwards compatibility -->
-<a id="schemavalidationresponse"></a>
-<a id="schema_ValidationResponse"></a>
-<a id="tocSvalidationresponse"></a>
-<a id="tocsvalidationresponse"></a>
-
-```json
+```typescript
+// Basic information describing the document validation algorithm.
 {
-  "ValidityOutcome": true,
-  "ValidityScore": 0.8,
-  "ValidityProperties": [
-    {
-      "Property": "InformationFormatCorrect",
-      "Value": true
-    },
-    {
-      "Property": "InformationCorrect",
-      "Value": true
-    },
-    {
-      "Property": "InformationComplete",
-      "Value": true
-    },
-    {
-      "Property": "CheckSumsCorrect",
-      "Value": true
-    },
-    {
-      "Property": "MRZCorrect",
-      "Value": true
-    },
-    {
-      "Property": "PhotoTampered",
-      "Value": true
-    },
-    {
-      "Property": "LivenessCheck",
-      "Value": "Passed"
-    },
-    {
-      "Property": "InformationCompleteness",
-      "Value": 0.9
-    },
-    {
-      "Property": "SecurityFeaturesTampered",
-      "Value": "None"
-    },
-    {
-      "Property": "DataFieldsTampered",
-      "Value": "Age changed"
-    }
-  ]
+  // Name of the algorithm.
+  AlgorithmName: string
+  // Algorithm version identifier.
+  AlgorithmVersion: string
+  // Name of the company that produced the algorithm.
+  CompanyName: string
+  // The name of the test event. Please use RIVR_IDV.
+  Event: enum[RIVR_IDV]
+  // The recommended allocation of CPUs for the deployed docker container.
+  RecommendedCPUs: integer //format: int64
+  // The recommended allocation of memory (MB) for the deployed docker container.
+  RecommendedMem: integer //format: int64
+  // The email address of an engineer or other technical resource to contact in the event of an error running your service.
+  TechnicalContactEmail: string
 }
-
 ```
 
-Validation response object.
+### #/components/schemas/CapturedDocument
 
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|ValidityOutcome|boolean|true|none|Whether the input document is determined to be valid (True) or invalid (False).|
-|ValidityScore|number(double)|false|none|A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).|
-|ValidityProperties|[[ValidityProperty](#schemavalidityproperty)]|false|none|Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information or image bytes from the documents in the properties. (optional)|
-
-<h2 id="tocS_ValidationErrorResponse">ValidationErrorResponse</h2>
-<!-- backwards compatibility -->
-<a id="schemavalidationerrorresponse"></a>
-<a id="schema_ValidationErrorResponse"></a>
-<a id="tocSvalidationerrorresponse"></a>
-<a id="tocsvalidationerrorresponse"></a>
-
-```json
+```typescript
+// Object representation of a document. Consists of an image of the front and back of a document.  Back document may be an empty string and this case should not in and of itself be conisdered a validation failure.
 {
-  "error": "string"
+  // Image of front of document; base64 encoded bytes.
+  DocumentFront: string //format: byte
+  // Image of back of document; base64 encoded bytes.  May be an empty string if back of document is not applicable or available.
+  DocumentBack: string //format: byte
 }
-
 ```
 
-Validation error response object.
+### #/components/schemas/ValidityProperty
 
-### Properties
+```typescript
+// Key value pair object.
+{
+  // Name of the property.
+  Property?: string
+  // Value for the property.
+  Value?: string
+}
+```
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|error|string|true|none|Descriptive error string.|
+### #/components/schemas/ValidationResponse
 
+```typescript
+// Validation response object.
+{
+  // Whether the input document is determined to be valid (True) or invalid (False).
+  ValidityOutcome: boolean
+  // A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
+  ValidityScore?: number //format: double
+  // Key value pair object.
+  ValidityProperties: {
+    // Name of the property.
+    Property?: string
+    // Value for the property.
+    Value?: string
+  }[]
+}
+```
+
+### #/components/schemas/ValidationErrorResponse
+
+```typescript
+// Validation error response object.
+{
+  // Descriptive error string.
+  error: string
+}
+```
