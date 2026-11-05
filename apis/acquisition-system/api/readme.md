@@ -1,175 +1,195 @@
-<!-- Generator: Widdershins v4.0.1 -->
+# The Maryland Test Facility Acquisition System Interface
 
-<h1 id="the-maryland-test-facility-acquisition-system-interface">The Maryland Test Facility Acquisition System Interface v2.1.0</h1>
-
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Version 2.1.0
 
 Application Programming Interface for sending acquisition records to the MdTF Backend.
 
-Base URLs:
+- License: [IDSL API License](https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md)
+- Contact: The MdTF <rally@mdtf.org> https://mdtf.org
+- Server: http://acquisition-demo.mdtf.org
 
-* <a href="http://acquisition-demo.mdtf.org">http://acquisition-demo.mdtf.org</a>
 
-Email: <a href="mailto:rally@mdtf.org">The MdTF</a> Web: <a href="https://mdtf.org">The MdTF</a> 
-License: <a href="https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md">IDSL API License</a>
+## Path Table
 
-<h1 id="the-maryland-test-facility-acquisition-system-interface-image-submission">Image Submission</h1>
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | [/v1/capture](#postv1capture) | Submit a captured image. |
 
-Endpoints for submitting images to an ongoing transaction.
+## Reference Table
 
-## Submit a captured image.
+| Name | Path | Description |
+| --- | --- | --- |
+| Capture | [#/components/schemas/Capture](#componentsschemascapture) |  |
+| Error | [#/components/schemas/Error](#componentsschemaserror) |  |
+| capture | [#/components/requestBodies/capture](#componentsrequestbodiescapture) | Face image collected as part of a transaction. |
+| 400 | [#/components/responses/400](#componentsresponses400) | The request is malformed. |
+| 404 | [#/components/responses/404](#componentsresponses404) | No ongoing transaction was found for the specified StationID. |
+| 500 | [#/components/responses/500](#componentsresponses500) | This capture failed because of a server side issue. |
 
-<a id="opIdCapture"></a>
+## Path Details
 
-> Code samples
+***
 
-```shell
-# You can also use wget
-curl -X POST http://acquisition-demo.mdtf.org/v1/capture \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+### [POST]/v1/capture
 
-```
+- Summary  
+  Submit a captured image.
 
-```javascript
-const inputBody = '{
-  "StationID": "Station_A",
-  "Data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-};
+- Operation id  
+  Capture
 
-fetch('http://acquisition-demo.mdtf.org/v1/capture',
+- Description  
+  Acquisition system providers may submit image data through this endpoint.
+
+- Tags  
+  Image Submission
+
+#### RequestBody
+
+*Required*
+
+Face image collected as part of a transaction.
+
+- application/json
+
+```typescript
 {
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://acquisition-demo.mdtf.org/v1/capture", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /v1/capture`
-
-Acquisition system providers may submit image data through this endpoint.
-
-> Body parameter
-
-```json
-{
-  "StationID": "Station_A",
-  "Data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  // The unique identifier for the station that the image was captured at.
+  StationID: string
+  // The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+  Data: string //format: byte
 }
 ```
 
-<h3 id="submit-a-captured-image.-parameters">Parameters</h3>
+#### Responses
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[Capture](#schemacapture)|true|Face image collected as part of a transaction.|
+- 200 Successfully associated the image capture with the ongoing transaction.
 
-> Example responses
+- 400 The request is malformed.
 
-> 400 Response
+`application/json`
 
-```json
+```typescript
 {
-  "Code": 0,
-  "Message": "string",
-  "ErrorString": "string"
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
 }
 ```
 
-<h3 id="submit-a-captured-image.-responses">Responses</h3>
+- 404 No ongoing transaction was found for the specified StationID.
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successfully associated the image capture with the ongoing transaction.|None|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|The request is malformed.|[Error](#schemaerror)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|No ongoing transaction was found for the specified StationID.|[Error](#schemaerror)|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|This capture failed because of a server side issue.|[Error](#schemaerror)|
+`application/json`
 
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-# Schemas
-
-<h2 id="tocS_Capture">Capture</h2>
-<!-- backwards compatibility -->
-<a id="schemacapture"></a>
-<a id="schema_Capture"></a>
-<a id="tocScapture"></a>
-<a id="tocscapture"></a>
-
-```json
+```typescript
 {
-  "StationID": "Station_A",
-  "Data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg=="
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
 }
-
 ```
 
-### Properties
+- 500 This capture failed because of a server side issue.
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|StationID|string|true|none|The unique identifier for the station that the image was captured at.|
-|Data|string(byte)|true|none|The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.|
+`application/json`
 
-<h2 id="tocS_Error">Error</h2>
-<!-- backwards compatibility -->
-<a id="schemaerror"></a>
-<a id="schema_Error"></a>
-<a id="tocSerror"></a>
-<a id="tocserror"></a>
-
-```json
+```typescript
 {
-  "Code": 0,
-  "Message": "string",
-  "ErrorString": "string"
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
 }
-
 ```
 
-### Properties
+## References
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|Code|integer|true|none|The error code.|
-|Message|string|true|none|A description of the returned code.|
-|ErrorString|string|true|none|A detailed description of the error that occurred.|
+### #/components/schemas/Capture
 
+```typescript
+{
+  // The unique identifier for the station that the image was captured at.
+  StationID: string
+  // The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+  Data: string //format: byte
+}
+```
+
+### #/components/schemas/Error
+
+```typescript
+{
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
+}
+```
+
+### #/components/requestBodies/capture
+
+- application/json
+
+```typescript
+{
+  // The unique identifier for the station that the image was captured at.
+  StationID: string
+  // The raw bytes of the image data. The supported formats are jpeg and png. This data should be marshaled in this object as a base64 encoded string.
+  Data: string //format: byte
+}
+```
+
+### #/components/responses/400
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
+}
+```
+
+### #/components/responses/404
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
+}
+```
+
+### #/components/responses/500
+
+- application/json
+
+```typescript
+{
+  // The error code.
+  Code: integer
+  // A description of the returned code.
+  Message: string
+  // A detailed description of the error that occurred.
+  ErrorString: string
+}
+```
