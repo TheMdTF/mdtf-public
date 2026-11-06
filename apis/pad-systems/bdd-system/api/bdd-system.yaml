@@ -30,12 +30,9 @@ paths:
         BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (<10s) video, encoded as a MOV or MP4.  Provided data will not exceed 100 MB in size.
       tags:
         - Data Analysis
+      operationId: AnalyzeData
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BiometricSampleRequest'
+        $ref: '#/components/requestBodies/biometric_sample'
       responses:
         200:
           $ref: '#/components/responses/bdd_analysis_response'

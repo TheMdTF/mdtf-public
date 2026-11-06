@@ -41,6 +41,9 @@ This document describes an application programming interface for a Biometric Dee
 - Summary  
   Analyze biometric capture data for a biometric deepfake.
 
+- Operation id  
+  AnalyzeData
+
 - Description  
   BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (<10s) video, encoded as a MOV or MP4.  Provided data will not exceed 100 MB in size.
 
@@ -50,6 +53,8 @@ This document describes an application programming interface for a Biometric Dee
 #### RequestBody
 
 *Required*
+
+A biometric sample to be analyzed for evidence of a biometric deepfake.
 
 - application/json
 
