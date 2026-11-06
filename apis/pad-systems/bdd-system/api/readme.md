@@ -61,7 +61,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string
+  BiometricSample?: string //format: byte
 }
 ```
 
@@ -194,7 +194,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 
 ```typescript
 // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
-string
+string //format: byte
 ```
 
 ### #/components/schemas/BiometricSampleRequest
@@ -202,7 +202,7 @@ string
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string
+  BiometricSample?: string //format: byte
 }
 ```
 
@@ -293,7 +293,7 @@ string
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string
+  BiometricSample?: string //format: byte
 }
 ```
 
