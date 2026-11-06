@@ -1,0 +1,366 @@
+---
+openapi: 3.0.3
+
+info:
+  title: The Maryland Test Facility Identification System Interface
+  description: Application Programming Interface for receiving identification system requests from the MdTF Backend. Identification systems maintain an enrolled gallery of biometric templates and perform 1:N searches against that gallery.
+  version: 1.0.0
+  contact:
+    name: The MdTF
+    url: https://mdtf.org
+    email: rally@mdtf.org
+  license:
+    name: IDSL API License
+    url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
+
+servers:
+  - url: http://localhost:8080/
+
+tags:
+  - name: Biometric Operations
+  - name: Algorithm Information
+
+components:
+
+  schemas:
+
+    Image:
+      type: object
+      description: |
+        Data transfer object for an image.
+      properties:
+        ImageData:
+          type: string
+          format: byte
+          description: The captured image data in PNG format, encoded as a base64 string.
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
+          x-nullable: false
+      required:
+        - ImageData
+
+    EnrollmentRequest:
+      type: object
+      description: |
+        A request to enroll a single biometric image into the gallery. A subject may
+        be enrolled with multiple images by submitting separate requests with the same
+        SubjectId and distinct ImageIds. The pair (SubjectId, ImageId) uniquely
+        identifies a single enrolled image within the gallery. Enrolling a (SubjectId,
+        ImageId) pair that already exists in the gallery MUST overwrite the existing
+        entry for that pair.
+      properties:
+        SubjectId:
+          type: string
+          description: A unique identifier for the subject being enrolled.
+          example: "subject-00042"
+          x-nullable: false
+        ImageId:
+          type: string
+          description: |
+            A unique identifier for this image within the subject's enrollment set.
+            The combination of SubjectId and ImageId uniquely identifies a single
+            enrolled image. Multiple images for the same subject are distinguished
+            by different ImageId values.
+          example: "image-001"
+          x-nullable: false
+        Image:
+          $ref: '#/components/schemas/Image'
+      required:
+        - SubjectId
+        - ImageId
+        - Image
+
+    Candidate:
+      type: object
+      description: |
+        A single candidate returned from a 1:N identification search. Each candidate
+        represents one enrolled subject and carries the similarity score produced
+        by the algorithm for that subject.
+      properties:
+        SubjectId:
+          type: string
+          description: The unique identifier of the enrolled subject.
+          example: "subject-00042"
+          x-nullable: false
+        Score:
+          type: number
+          format: float
+          description: |
+            A similarity score produced by the algorithm for this candidate. Higher values
+            indicate greater similarity to the probe. Candidates MUST be returned in
+            descending order of Score (highest score first).
+          example: 9321
+          x-nullable: false
+      required:
+        - SubjectId
+        - Score
+
+    IdentificationRequest:
+      type: object
+      description: |
+        A request to search the enrolled gallery for the subject that best matches
+        the provided probe image.
+      properties:
+        Image:
+          $ref: '#/components/schemas/Image'
+        MaxCandidates:
+          type: integer
+          description: |
+            The maximum number of candidates to return. The response list MUST contain
+            at most this many entries. If fewer enrolled subjects exist than MaxCandidates,
+            all enrolled subjects may be returned. Must be greater than or equal to 1.
+          example: 20
+          minimum: 1
+          x-nullable: false
+      required:
+        - Image
+        - MaxCandidates
+
+    IdentificationResult:
+      type: object
+      description: |
+        The result of a 1:N identification search against the enrolled gallery.
+        Candidates are ordered from most to least similar to the probe.
+      properties:
+        Candidates:
+          type: array
+          description: |
+            An ordered list of candidates from the gallery, sorted in descending order
+            by Score. The list will contain at most MaxCandidates entries.
+          items:
+            $ref: '#/components/schemas/Candidate'
+          x-nullable: false
+      required:
+        - Candidates
+
+    Info:
+      type: object
+      description: Basic information describing the algorithm.
+      properties:
+        AlgorithmName:
+          type: string
+          description: Name of algorithm.
+          example: AlwaysFirst
+        AlgorithmVersion:
+          type: string
+          description: Algorithm version identifier.
+          example: 1.0.1
+        AlgorithmModality:
+          type: string
+          enum:
+            - Face
+            - Finger
+            - Iris
+            - Palm
+          description: A string enum describing the type of biometric images the algorithm is meant to process.
+        CompanyName:
+          type: string
+          description: Name of the Company which produced the algorithm.
+          example: MdTF
+        TechnicalContactEmail:
+          type: string
+          description: |
+            The email address of an engineer or other technical resource to contact in the event of
+            an error running your service.
+          example: john@mdtf.org
+        RecommendedCPUs:
+          type: number
+          format: float
+          description: The recommended allocation of CPUs for the deployed docker container.
+          example: 0.5
+          maximum: 8
+        RecommendedMem:
+          type: integer
+          description: The recommended allocation of memory (MB) for the deployed docker container.
+          example: 512
+          maximum: 8192
+        Test:
+          description: A string enum describing which collection event the algorithm is being submitted for.
+          type: string
+          enum:
+            - MDTF_2025_IDENTIFICATION
+        Thresholds:
+          description: |
+            A map of preset False Positive Identification Rates (FPIR) to vendor-provided threshold values.
+            Score values returned in Candidate objects from calls to /v1/identify indicate a positive
+            identification determination by the algorithm if they are greater than the provided threshold
+            value at the respective FPIR.
+            Note that threshold values are floats stored as strings and cannot exceed a length of 10 characters.
+            There are 5 required thresholds.
+          maxProperties: 5
+          type: object
+          properties:
+            1:500:
+              type: string
+              maxLength: 10
+            1:1e3:
+              type: string
+              maxLength: 10
+            1:1e4:
+              type: string
+              maxLength: 10
+            1:1e5:
+              type: string
+              maxLength: 10
+            1:1e6:
+              type: string
+              maxLength: 10
+          required:
+            - 1:500
+            - 1:1e3
+            - 1:1e4
+            - 1:1e5
+            - 1:1e6
+          example:
+            1:500: '7543'
+            1:1e3: '8730'
+            1:1e4: '9321'
+            1:1e5: '9863'
+            1:1e6: '9972'
+      required:
+        - AlgorithmName
+        - AlgorithmVersion
+        - AlgorithmModality
+        - CompanyName
+        - TechnicalContactEmail
+        - RecommendedCPUs
+        - RecommendedMem
+        - Test
+        - Thresholds
+
+    RequestError:
+      type: string
+      description: |
+        Relevant and concise diagnostic information in the event of a client side error (e.g. malformed requests, or invalid
+        image encoding).
+      example: Unable to decode image data as a PNG.
+
+    ServerError:
+      type: string
+      description: |
+        Relevant and concise diagnostic information in the event of a server side error
+        (e.g. invalid license, or failure to generate a template).
+      example: The internal license has expired.
+
+  requestBodies:
+    enrollment_request:
+      description: |
+        A biometric image and a subject identifier to be enrolled into the gallery.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnrollmentRequest'
+
+    identification_request:
+      description: |
+        A probe biometric image and search parameters for a 1:N gallery search.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdentificationRequest'
+
+  responses:
+
+    infoResponse:
+      description: info response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Info'
+
+    enrollResponse:
+      description: Successful enrollment. The subject has been added to or updated in the gallery.
+
+    identifyResponse:
+      description: Successful identification search.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdentificationResult'
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestError'
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
+
+paths:
+
+  /v1/enroll:
+    post:
+      summary: Enroll a subject into the gallery.
+      description: |
+        This endpoint accepts a base64 encoded PNG image, a SubjectId, and an ImageId.
+        The algorithm must extract a biometric template from the image and store it in
+        an internal gallery, keyed by the pair (SubjectId, ImageId).
+
+        A subject may be enrolled with multiple images by submitting separate requests
+        with the same SubjectId and distinct ImageIds. If the (SubjectId, ImageId) pair
+        already exists in the gallery, the existing entry MUST be overwritten with the
+        newly provided image.
+
+        The gallery persists across calls to this endpoint and is searched by
+        subsequent calls to /v1/identify. The gallery is cleared only when the
+        service is restarted.
+      tags:
+        - Biometric Operations
+      operationId: EnrollSubject
+      requestBody:
+        $ref: '#/components/requestBodies/enrollment_request'
+      responses:
+        200:
+          $ref: '#/components/responses/enrollResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/identify:
+    post:
+      summary: Search the gallery for candidates matching the probe image.
+      description: |
+        This endpoint accepts a base64 encoded PNG probe image and a MaxCandidates
+        value. The algorithm must extract a biometric template from the probe image
+        and compare it against all subjects currently enrolled in the gallery.
+
+        The response is a list of Candidate objects sorted in descending order by
+        Score (most similar first). The list MUST contain at most MaxCandidates
+        entries.
+
+        If the gallery is empty, the response MUST be a 200 with an empty
+        Candidates list.
+      tags:
+        - Biometric Operations
+      operationId: IdentifySubject
+      requestBody:
+        $ref: '#/components/requestBodies/identification_request'
+      responses:
+        200:
+          $ref: '#/components/responses/identifyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/info:
+    get:
+      summary: Returns basic information for the algorithm.
+      description: |
+        This endpoint returns some basic information about the algorithm.
+      tags:
+        - Algorithm Information
+      operationId: GetInfo
+      responses:
+        200:
+          $ref: '#/components/responses/infoResponse'
+        500:
+          $ref: '#/components/responses/InternalServerError'
