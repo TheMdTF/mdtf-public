@@ -22,6 +22,8 @@ This directory catalogs all supported APIs for acquisition and analysis systems.
   This API is intended to support generic analysis workflows with image inputs.
 - **matching-system** [\[Analysis\]](#Definitions)  
   This is the default API for matching systems that are submitted for analysis. It supports images producing biometric templates and the comparison of those templates.
+- **identification-system** [\[Analysis\]](#Definitions)  
+  This API supports identification (1:N) systems that are submitted for analysis. These systems maintain an enrolled gallery of biometric templates and must support enrollment of subjects and identification of probe images against that gallery.
 - **pad-systems**
   - **active-pad-system** [\[Acquisition\]](#Definitions)  
     This API supports acquisition for RIVTD/RIVR Track 3 systems that arrive at our facilities. Systems must submit acquired data as well as presentation attack detection results and analysis parameters.
