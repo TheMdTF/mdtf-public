@@ -2,7 +2,7 @@
 
 > Version 1.0.0
 
-This document describes an application programming interface for a Biometric Deepfake Detection (BDD) system.  BDD systems analyze biometric data to detect evidence of deepfake manipulation, including AI-generated faces, video manipulation, and audio-video desynchronization.  This supports both image and video biometric sample inputs.
+This document describes an application programming interface for a Biometric Deepfake Detection (BDD) system.  BDD systems determine if a biometric sample contains AI-generated or manipulated biometric characteristics.  This supports both image and video biometric sample inputs.
 
 - License: [IDSL API License](https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md)
 - Contact: The MdTF <rivr@mdtf.org> https://mdtf.org

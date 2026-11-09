@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: The Maryland Test Facility Biometric Deepfake Detection System Interface
-  description: This document describes an application programming interface for a Biometric Deepfake Detection (BDD) system.  BDD systems analyze biometric data to detect evidence of deepfake manipulation, including AI-generated faces, video manipulation, and audio-video desynchronization.  This supports both image and video biometric sample inputs.
+  description: This document describes an application programming interface for a Biometric Deepfake Detection (BDD) system.  BDD systems determine if a biometric sample contains AI-generated or manipulated biometric characteristics.  This supports both image and video biometric sample inputs.
   version: 1.0.0
   contact:
     name: The MdTF
