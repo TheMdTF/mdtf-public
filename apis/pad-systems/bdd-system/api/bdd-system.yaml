@@ -10,15 +10,6 @@ info:
   license:
     name: IDSL API License
     url: https://raw.githubusercontent.com/TheMdTF/mdtf-public/master/LICENSE.md
-servers:
-  - url: https://bdd-demo.mdtf.org/
-    variables:
-      host:
-        default: mdtf.org
-      port:
-        enum:
-          - '8080'
-        default: '8080'
 tags:
   - name: Data Analysis
   - name: Algorithm Information
@@ -122,6 +113,16 @@ components:
     Info:
       type: object
       description: Basic information describing the BDD algorithm.
+      required:
+        - AlgorithmName
+        - AlgorithmVersion
+        - AlgorithmModality
+        - CompanyName
+        - TechnicalContactEmail
+        - RecommendedCPUs
+        - RecommendedMem
+        - Event
+        - RecommendedDetectionThresholds
       properties:
         AlgorithmName:
           type: string
@@ -156,6 +157,11 @@ components:
           description: The recommended allocation of memory (MB) for the deployed docker container.
           example: 1024
           maximum: 8192
+        Event:
+          description: The name of the test event. Please use RIVR_BDD.
+          type: string
+          enum:
+            - RIVR_BDD
         RecommendedDetectionThresholds:
           description: |
             A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
