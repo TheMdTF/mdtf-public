@@ -18,7 +18,7 @@ paths:
     post:
       summary: Analyze biometric capture data for a biometric deepfake.
       description: |
-        BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (<10s) video, encoded as a MOV or MP4.  Provided data will not exceed 100 MB in size.
+        BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (~10s) video, encoded as a MOV or MP4.  
       tags:
         - Data Analysis
       operationId: AnalyzeData
@@ -49,7 +49,7 @@ components:
     BiometricSample:
       type: string
       format: byte
-      description: The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
+      description: The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
       x-nullable: false
     BiometricSampleRequest:
@@ -160,7 +160,7 @@ components:
           example: 1024
           maximum: 8192
         Event:
-          description: The name of the test event. Please use RIVR_BDD.
+          description: The name of the test event.
           type: string
           enum:
             - RIVR_BDD
@@ -174,7 +174,7 @@ components:
           example: true
         RecommendedDetectionThresholds:
           description: |
-            A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
+            A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
             /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
             Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
             Note 2: There are 4 required thresholds.
