@@ -123,6 +123,8 @@ components:
         - RecommendedMem
         - Event
         - RecommendedDetectionThresholds
+        - RequiresGPU
+        - SupportsGPUAcceleration
       properties:
         AlgorithmName:
           type: string
@@ -162,6 +164,14 @@ components:
           type: string
           enum:
             - RIVR_BDD
+        RequiresGPU:
+          description: Whether the algorithm requires a GPU to run.
+          type: boolean
+          example: false
+        SupportsGPUAcceleration:
+          description: Whether the algorithm supports GPU acceleration.
+          type: boolean
+          example: true
         RecommendedDetectionThresholds:
           description: |
             A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
