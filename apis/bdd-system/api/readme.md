@@ -19,7 +19,7 @@ This document describes an application programming interface for a Biometric Dee
 
 | Name | Path | Description |
 | --- | --- | --- |
-| BiometricSample | [#/components/schemas/BiometricSample](#componentsschemasbiometricsample) | The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4. |
+| BiometricSample | [#/components/schemas/BiometricSample](#componentsschemasbiometricsample) | The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4. |
 | BiometricSampleRequest | [#/components/schemas/BiometricSampleRequest](#componentsschemasbiometricsamplerequest) |  |
 | BDDAnalysis | [#/components/schemas/BDDAnalysis](#componentsschemasbddanalysis) | Data transfer object for biometric deepfake detection results. |
 | BDDProperty | [#/components/schemas/BDDProperty](#componentsschemasbddproperty) | Key value pair object describing a detected biometric deepfake property. |
@@ -44,7 +44,7 @@ This document describes an application programming interface for a Biometric Dee
   AnalyzeData
 
 - Description  
-  BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (<10s) video, encoded as a MOV or MP4.  Provided data will not exceed 100 MB in size.
+  BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (~10s) video, encoded as a MOV or MP4.
 
 - Tags  
   Data Analysis
@@ -59,7 +59,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 
 ```typescript
 {
-  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
+  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
   BiometricSample?: string //format: byte
 }
 ```
@@ -158,9 +158,13 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
   RecommendedCPUs: number //format: float //maximum: 8
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
-  // The name of the test event. Please use RIVR_BDD.
+  // The name of the test event.
   Event: enum[RIVR_BDD]
-  // A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
+  // Whether the algorithm requires a GPU to run.
+  RequiresGPU: boolean
+  // Whether the algorithm supports GPU acceleration.
+  SupportsGPUAcceleration: boolean
+  // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
   // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
@@ -194,7 +198,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 ### #/components/schemas/BiometricSample
 
 ```typescript
-// The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
+// The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
 string //format: byte
 ```
 
@@ -202,7 +206,7 @@ string //format: byte
 
 ```typescript
 {
-  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
+  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
   BiometricSample?: string //format: byte
 }
 ```
@@ -260,9 +264,13 @@ string //format: byte
   RecommendedCPUs: number //format: float //maximum: 8
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
-  // The name of the test event. Please use RIVR_BDD.
+  // The name of the test event.
   Event: enum[RIVR_BDD]
-  // A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
+  // Whether the algorithm requires a GPU to run.
+  RequiresGPU: boolean
+  // Whether the algorithm supports GPU acceleration.
+  SupportsGPUAcceleration: boolean
+  // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
   // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
@@ -295,7 +303,7 @@ string //format: byte
 
 ```typescript
 {
-  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (<10s) video, encoded as a MOV or MP4.
+  // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
   BiometricSample?: string //format: byte
 }
 ```
@@ -374,9 +382,13 @@ string //format: byte
   RecommendedCPUs: number //format: float //maximum: 8
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
-  // The name of the test event. Please use RIVR_BDD.
+  // The name of the test event.
   Event: enum[RIVR_BDD]
-  // A map of specific Bona-fide Classification Error Rates (BPCERs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
+  // Whether the algorithm requires a GPU to run.
+  RequiresGPU: boolean
+  // Whether the algorithm supports GPU acceleration.
+  SupportsGPUAcceleration: boolean
+  // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
   // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
