@@ -1,0 +1,11 @@
+{
+  "name": "mdtf-public",
+  "private": true,
+  "scripts": {
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "openapi-to-md": "^1.4.0",
+    "patch-package": "^8.0.1"
+  }
+}

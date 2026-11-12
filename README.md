@@ -27,6 +27,8 @@ This directory catalogs all supported APIs for acquisition and analysis systems.
     This API supports acquisition for RIVTD/RIVR Track 3 systems that arrive at our facilities. Systems must submit acquired data as well as presentation attack detection results and analysis parameters.
   - **passive-pad-system** [\[Analysis\]](#Definitions)  
     This API supports RIVTD/RIVR Track 3 systems that are submitted for analysis. These systems must produce presentation attack detection results and analysis parameters when sent biometric data.
+- **bdd-demo** [\[Analysis\]](#Definitions)  
+  This API supports RIVR Deepfake Track systems that are submitted for analysis. These systems must produce biometric deepfake detection results and analysis parameters when sent biometric data, detecting AI-generated faces, video manipulation, and audio-video desynchronization.
 
 ## Datasets
 
@@ -34,7 +36,7 @@ Contains example datasets for providers to test their systems.
 
 ## Tools
 
-README Documentation from OpenAPI Specifications has been generated with [Widdershins](https://github.com/Mermade/widdershins). Installation instructions can be found on their GitHub page.
+README Documentation from OpenAPI Specifications has been generated with [openapi-to-md](https://www.npmjs.com/package/openapi-to-md). The tool is pinned locally in `package.json` with a one-line patch that fixes a bug where `description` fields on array-type properties were silently dropped. Run `make generate` from the repo root to regenerate all `readme.md` files.
 
 
 #### [LICENSE](./LICENSE.md)
