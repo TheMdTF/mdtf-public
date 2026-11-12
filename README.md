@@ -36,7 +36,7 @@ Contains example datasets for providers to test their systems.
 
 ## Tools
 
-README Documentation from OpenAPI Specifications has been generated with [openapi-to-md](https://www.npmjs.com/package/openapi-to-md). Installation instructions can be found on the npm page.
+README Documentation from OpenAPI Specifications has been generated with [openapi-to-md](https://www.npmjs.com/package/openapi-to-md). The tool is pinned locally in `package.json` with a one-line patch that fixes a bug where `description` fields on array-type properties were silently dropped. Run `make generate` from the repo root to regenerate all `readme.md` files.
 
 
 #### [LICENSE](./LICENSE.md)

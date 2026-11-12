@@ -73,6 +73,7 @@ This document describes an application programming interface for a PAD system in
   PADOutcome: boolean
   // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
   PADScore: number //format: double
+  // Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object.
   PADProperties: {
     // Name of the property.
@@ -209,6 +210,7 @@ string
   PADOutcome: boolean
   // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
   PADScore: number //format: double
+  // Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object.
   PADProperties: {
     // Name of the property.
@@ -330,6 +332,7 @@ string
   PADOutcome: boolean
   // A score corresponding to the level of confidence that a presentation attack was detected ranging between 0 and 1.
   PADScore: number //format: double
+  // Key value pairs describing presentation attack properties and their relationship to the presentation attack outcome/score.  There are no strictly defined properties.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object.
   PADProperties: {
     // Name of the property.

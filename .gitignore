@@ -2,6 +2,8 @@ lib/*
 .idea/*
 .vs
 .vscode/*
+node_modules/
+package-lock.json
 
 # Applications
 *.app

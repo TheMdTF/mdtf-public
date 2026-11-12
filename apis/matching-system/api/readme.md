@@ -161,6 +161,9 @@ A single template object and a list of templates that it will be compared to.
 `application/json`
 
 ```typescript
+// An array of comparison results. This list MUST contain the same number of elements AND be in
+// the same order as the provided list of templates.
+// 
 // A similarity score for a single (1:1) template comparison operation.
 // 
 {
@@ -467,6 +470,9 @@ string
 - application/json
 
 ```typescript
+// An array of comparison results. This list MUST contain the same number of elements AND be in
+// the same order as the provided list of templates.
+// 
 // A similarity score for a single (1:1) template comparison operation.
 // 
 {
