@@ -18,7 +18,7 @@ paths:
     post:
       summary: Analyze biometric capture data for a biometric deepfake.
       description: |
-        BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (~10s) video, encoded as a MOV or MP4.  
+        BDD systems receive data through this endpoint.  This endpoint accepts individual, base64-encoded PNG or JPEG image bytes or a short (~10s) video, encoded as a MOV or MP4.
       tags:
         - Data Analysis
       operationId: AnalyzeData
@@ -50,6 +50,7 @@ components:
       type: string
       format: byte
       description: The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
+      maxLength: 31457280
       example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAEElEQVR4nGJiYGAABAAA//8ADAADcZGLFwAAAABJRU5ErkJggg==
       x-nullable: false
     BiometricSampleRequest:
