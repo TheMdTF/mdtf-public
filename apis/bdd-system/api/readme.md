@@ -77,6 +77,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
   BDDOutcome: boolean
   // A score corresponding to the level of confidence that a biometric deepfake was detected, ranging between 0 and 1.
   BDDScore: number //format: double
+  // Key value pairs describing biometric deepfake properties and their relationship to the deepfake detection outcome/score.  Common properties include ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, and BackgroundInconsistency.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object describing a detected biometric deepfake property.
   BDDProperties: {
     // Name of the deepfake property.  Common properties include: ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, BackgroundInconsistency.
@@ -220,6 +221,7 @@ string //format: byte
   BDDOutcome: boolean
   // A score corresponding to the level of confidence that a biometric deepfake was detected, ranging between 0 and 1.
   BDDScore: number //format: double
+  // Key value pairs describing biometric deepfake properties and their relationship to the deepfake detection outcome/score.  Common properties include ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, and BackgroundInconsistency.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object describing a detected biometric deepfake property.
   BDDProperties: {
     // Name of the deepfake property.  Common properties include: ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, BackgroundInconsistency.
@@ -349,6 +351,7 @@ string //format: byte
   BDDOutcome: boolean
   // A score corresponding to the level of confidence that a biometric deepfake was detected, ranging between 0 and 1.
   BDDScore: number //format: double
+  // Key value pairs describing biometric deepfake properties and their relationship to the deepfake detection outcome/score.  Common properties include ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, and BackgroundInconsistency.  The inclusion of descriptive properties is encouraged to provide more context. Do not include image bytes in the properties. (optional)
   // Key value pair object describing a detected biometric deepfake property.
   BDDProperties: {
     // Name of the deepfake property.  Common properties include: ExcessiveSmoothing, AudioVideoMismatch, EyeGazeAnomaly, FacialAsymmetry, SkinTextureAnomaly, BlinkingPatternAnomaly, LipSyncMismatch, BackgroundInconsistency.

@@ -126,6 +126,7 @@ This documents the API requirements for MdTF testing of identity document valida
   ValidityOutcome: boolean
   // A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
   ValidityScore?: number //format: double
+  // Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information or image bytes from the documents in the properties. (optional)
   // Key value pair object.
   ValidityProperties: {
     // Name of the property.
@@ -217,6 +218,7 @@ This documents the API requirements for MdTF testing of identity document valida
   ValidityOutcome: boolean
   // A score corresponding to the level of confidence that the document is valid ranging between 0 and 1 (optional).
   ValidityScore?: number //format: double
+  // Key value pairs describing document properties and their relationship to the validity decision. There are no strictly defined  properties. The inclusion of descriptive properties is encouraged to provide more context. Do not return any personally identifiable information or image bytes from the documents in the properties. (optional)
   // Key value pair object.
   ValidityProperties: {
     // Name of the property.
