@@ -1,0 +1,13 @@
+diff --git a/node_modules/openapi-to-md/dist/renderer.js b/node_modules/openapi-to-md/dist/renderer.js
+index 1633377..6e69236 100644
+--- a/node_modules/openapi-to-md/dist/renderer.js
++++ b/node_modules/openapi-to-md/dist/renderer.js
+@@ -208,7 +208,7 @@ const outputObjectBody = (apiDocument, name, schemas, required, refs, level) =>
+         output += SP(nowLevel) + "}\n";
+     }
+     else if (apiObject.type === "array") {
+-        output += outputRefComment(schemas, nowLevel);
++        output += outputComment(schemas, apiObject, nowLevel);
+         const rendered = outputObject(apiDocument, name, apiObject.items, required, setRef, nowLevel).trimEnd();
+         const commentMatch = rendered.match(/ \/\/\S+:[^\n]*$/);
+         const body = commentMatch
