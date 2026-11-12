@@ -166,7 +166,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
   // Whether the algorithm supports GPU acceleration.
   SupportsGPUAcceleration: boolean
   // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
-  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
+  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective FRR.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
   // 
@@ -273,7 +273,7 @@ string //format: byte //maxLength: 41943040
   // Whether the algorithm supports GPU acceleration.
   SupportsGPUAcceleration: boolean
   // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
-  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
+  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective FRR.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
   // 
@@ -392,7 +392,7 @@ string //format: byte //maxLength: 41943040
   // Whether the algorithm supports GPU acceleration.
   SupportsGPUAcceleration: boolean
   // A map of specific False Reject Rates (FRRs) to vendor-provided recommended detection threshold values.  BDDScore values returned from calls to
-  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective BPCER.
+  // /v1/analyze-data-for-bdd indicate a biometric deepfake is detected if they are greater than the provided threshold value at the respective FRR.
   // Note 1: Threshold values are floats stored as strings and cannot exceed a length of 10 characters.
   // Note 2: There are 4 required thresholds.
   // 
