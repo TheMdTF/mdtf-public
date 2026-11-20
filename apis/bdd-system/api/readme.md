@@ -19,7 +19,7 @@ This document describes an application programming interface for a Biometric Dee
 
 | Name | Path | Description |
 | --- | --- | --- |
-| BiometricSample | [#/components/schemas/BiometricSample](#componentsschemasbiometricsample) | The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4. |
+| BiometricSampleData | [#/components/schemas/BiometricSampleData](#componentsschemasbiometricsampledata) | The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4. |
 | BiometricSampleRequest | [#/components/schemas/BiometricSampleRequest](#componentsschemasbiometricsamplerequest) |  |
 | BDDAnalysis | [#/components/schemas/BDDAnalysis](#componentsschemasbddanalysis) | Data transfer object for biometric deepfake detection results. |
 | BDDProperty | [#/components/schemas/BDDProperty](#componentsschemasbddproperty) | Key value pair object describing a detected biometric deepfake property. |
@@ -60,7 +60,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string //format: byte //maxLength: 41943040
+  BiometricSampleValue?: string //format: byte //maxLength: 41943040
 }
 ```
 
@@ -160,7 +160,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
@@ -196,7 +196,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
 
 ## References
 
-### #/components/schemas/BiometricSample
+### #/components/schemas/BiometricSampleData
 
 ```typescript
 // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
@@ -208,7 +208,7 @@ string //format: byte //maxLength: 41943040
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string //format: byte //maxLength: 41943040
+  BiometricSampleValue?: string //format: byte //maxLength: 41943040
 }
 ```
 
@@ -267,7 +267,7 @@ string //format: byte //maxLength: 41943040
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
@@ -306,7 +306,7 @@ string //format: byte //maxLength: 41943040
 ```typescript
 {
   // The biometric sample, encoded as a base64 string.  This can be an individual image, encoded as a PNG or JPEG, or a short (~10s) video, encoded as a MOV or MP4.
-  BiometricSample?: string //format: byte //maxLength: 41943040
+  BiometricSampleValue?: string //format: byte //maxLength: 41943040
 }
 ```
 
@@ -386,7 +386,7 @@ string //format: byte //maxLength: 41943040
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
