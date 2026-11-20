@@ -160,7 +160,7 @@ A biometric sample to be analyzed for evidence of a biometric deepfake.
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_BDD, RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
@@ -267,7 +267,7 @@ string //format: byte //maxLength: 41943040
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_BDD, RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
@@ -386,7 +386,7 @@ string //format: byte //maxLength: 41943040
   // The recommended allocation of memory (MB) for the deployed docker container.
   RecommendedMem: integer //maximum: 8192
   // The name of the test event.
-  Event: enum[RIVR_BDD]
+  Event: enum[RIVR_BDD, RIVR_X_BDD]
   // Whether the algorithm requires a GPU to run.
   RequiresGPU: boolean
   // Whether the algorithm supports GPU acceleration.
