@@ -164,7 +164,6 @@ components:
           description: The name of the test event.
           type: string
           enum:
-            - RIVR_BDD
             - RIVR_X_BDD
         RequiresGPU:
           description: Whether the algorithm requires a GPU to run.
